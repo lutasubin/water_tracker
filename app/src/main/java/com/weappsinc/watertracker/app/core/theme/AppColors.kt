@@ -14,4 +14,12 @@ object AppColors {
     val GenderSelectedContent = Color.White
     val GenderUnselectedContent = Color(0xFF8D9BB5)
     val GenderTitle = Color(0xFF25314D)
+
+    // Goal screen UI
+    val AdjustButton = Color(0xFF4B7EEB)
+
+    val WaterGoalTitle = Color.White
+    val WaterGoalDesc = Color(0xB3FFFFFF) // ~70% opacity
+    val WaterGoalValue = Color.White
+    val WaterGoalDivider = Color(0x33FFFFFF) // ~20% opacity
 }

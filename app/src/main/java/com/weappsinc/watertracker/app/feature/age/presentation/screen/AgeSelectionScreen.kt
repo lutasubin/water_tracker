@@ -20,13 +20,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
+import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.feature.age.presentation.viewmodel.AgeViewModel
 import com.weappsinc.watertracker.app.feature.age.presentation.viewmodel.AgeViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +35,8 @@ import kotlinx.coroutines.flow.collectLatest
 fun AgeSelectionScreen(
     modifier: Modifier = Modifier,
     factory: AgeViewModelFactory,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onNext: () -> Unit
 ) {
     val vm: AgeViewModel = viewModel(factory = factory)
     val selectedAge by vm.age.collectAsState()
@@ -67,14 +68,12 @@ fun AgeSelectionScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            Spacer(Modifier.height(AppDimens.AgeTopPadding))
             AppTopBar(onBack = onBack)
-            Spacer(Modifier.height(AppDimens.AgeTitleTopSpacing))
+            Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
             Text(
-                AppText.AGE_TITLE,
+                text = AppText.AGE_TITLE,
                 color = AppColors.GenderTitle,
-                fontWeight = FontWeight.Bold,
-                fontSize = AppDimens.AgeTitleSize
+                style = AppTypography.Title1
             )
             Spacer(Modifier.height(AppDimens.AgeTitleBottomSpacing))
         }
@@ -89,10 +88,9 @@ fun AgeSelectionScreen(
                         val age = ages[idx]
                         val color = if (age == selectedAge) AppColors.GenderPrimary else AppColors.GenderUnselectedContent
                         Text(
-                            age.toString(),
+                            text = age.toString(),
                             color = color,
-                            fontSize = AppDimens.AgeNumberSize,
-                            fontWeight = FontWeight.Bold,
+                            style = AppTypography.DisplayNumber,
                             modifier = Modifier.height(AppDimens.AgeItemHeight)
                         )
                     }
@@ -101,7 +99,7 @@ fun AgeSelectionScreen(
         }
         AppPrimaryButton(
             text = AppText.NEXT,
-            onClick = { vm.saveSelection() },
+            onClick = { vm.saveSelection(); onNext() },
             modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
         )
     }

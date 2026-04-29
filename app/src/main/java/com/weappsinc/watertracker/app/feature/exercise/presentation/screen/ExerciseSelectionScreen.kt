@@ -1,4 +1,4 @@
-package com.weappsinc.watertracker.app.feature.gender.presentation.screen
+package com.weappsinc.watertracker.app.feature.exercise.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,64 +23,60 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
-import com.weappsinc.watertracker.app.core.constants.AppText
-import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
+import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
-import com.weappsinc.watertracker.app.feature.gender.domain.model.GenderType
-import com.weappsinc.watertracker.app.feature.gender.presentation.viewmodel.GenderViewModel
-import com.weappsinc.watertracker.app.feature.gender.presentation.viewmodel.GenderViewModelFactory
+import com.weappsinc.watertracker.app.feature.exercise.domain.model.ExerciseLevel
+import com.weappsinc.watertracker.app.feature.exercise.presentation.viewmodel.ExerciseSelectionViewModel
+import com.weappsinc.watertracker.app.feature.exercise.presentation.viewmodel.ExerciseSelectionViewModelFactory
 
 @Composable
-fun GenderSelectionScreen(modifier: Modifier = Modifier, factory: GenderViewModelFactory, onNext: () -> Unit) {
-    val vm: GenderViewModel = viewModel(factory = factory)
-    val selectedGender by vm.selectedGender.collectAsState()
+fun ExerciseSelectionScreen(
+    modifier: Modifier = Modifier,
+    factory: ExerciseSelectionViewModelFactory,
+    onBack: () -> Unit,
+    onNext: () -> Unit
+) {
+    val vm: ExerciseSelectionViewModel = viewModel(factory = factory)
+    val selected by vm.selectedLevel.collectAsState()
     val context = LocalContext.current
     val imageLoader = remember { ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }.build() }
-
     Column(
         modifier = modifier.fillMaxSize().background(AppColors.GenderScreenBackground)
             .padding(horizontal = AppDimens.GenderScreenHorizontalPadding),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            AppTopBar(onBack = {}, showBack = true)
+            AppTopBar(onBack = onBack)
             Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
-            Text(
-                text = AppText.SELECT_GENDER_TITLE,
-                color = AppColors.GenderTitle,
-                style = AppTypography.Title1
-            )
-            Spacer(Modifier.height(AppDimens.GenderHeaderBottom))
-            GenderOptionRow(AppText.MALE, AssetPaths.MALE_ICON, selectedGender == GenderType.MALE, imageLoader) { vm.onSelectGender(GenderType.MALE) }
+            Text(text = AppText.EXERCISE_TITLE, color = AppColors.GenderTitle, style = AppTypography.Title1)
+            Spacer(Modifier.height(AppDimens.UnitToggleBottomSpacing))
+            ExerciseCard(AppText.EXERCISE_LOW, AssetPaths.EXERCISE_LOW_ICON, selected == ExerciseLevel.LOW, imageLoader) { vm.onSelectLevel(ExerciseLevel.LOW) }
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
-            GenderOptionRow(AppText.FEMALE, AssetPaths.FEMALE_ICON, selectedGender == GenderType.FEMALE, imageLoader) { vm.onSelectGender(GenderType.FEMALE) }
+            ExerciseCard(AppText.EXERCISE_MODERATE, AssetPaths.EXERCISE_MODERATE_ICON, selected == ExerciseLevel.MODERATE, imageLoader) { vm.onSelectLevel(ExerciseLevel.MODERATE) }
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
-            GenderOptionRow(AppText.OTHER, null, selectedGender == GenderType.OTHER, imageLoader) { vm.onSelectGender(GenderType.OTHER) }
+            ExerciseCard(AppText.EXERCISE_HIGH, AssetPaths.EXERCISE_HIGH_ICON, selected == ExerciseLevel.HIGH, imageLoader) { vm.onSelectLevel(ExerciseLevel.HIGH) }
         }
         AppPrimaryButton(
             text = AppText.NEXT,
-            onClick = {
-                vm.saveSelection()
-                onNext()
-            },
-            modifier = Modifier.padding(bottom = AppDimens.GenderBottomPadding)
+            onClick = { vm.saveSelection(); onNext() },
+            modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
         )
     }
 }
 
 @Composable
-private fun GenderOptionRow(title: String, iconPath: String?, selected: Boolean, imageLoader: ImageLoader, onClick: () -> Unit) {
+private fun ExerciseCard(title: String, iconPath: String, selected: Boolean, imageLoader: ImageLoader, onClick: () -> Unit) {
     val bg = if (selected) AppColors.GenderPrimary else AppColors.GenderUnselectedBackground
     val fg = if (selected) AppColors.GenderSelectedContent else AppColors.GenderUnselectedContent
     Button(
@@ -90,10 +86,13 @@ private fun GenderOptionRow(title: String, iconPath: String?, selected: Boolean,
         modifier = Modifier.fillMaxWidth().height(AppDimens.GenderOptionHeight)
     ) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            if (iconPath != null) {
-                AsyncImage(iconPath, title, imageLoader = imageLoader, colorFilter = ColorFilter.tint(fg), modifier = Modifier.size(AppDimens.GenderOptionIconSize))
-                Spacer(Modifier.size(8.dp))
-            }
+            AsyncImage(
+                model = iconPath,
+                contentDescription = title,
+                imageLoader = imageLoader,
+                modifier = Modifier.size(AppDimens.GenderOptionIconSize)
+            )
+            Spacer(Modifier.size(12.dp))
             Text(text = title, color = fg, style = AppTypography.BodyLarge)
             Spacer(Modifier.weight(1f))
             if (selected) Icon(Icons.Default.CheckCircle, "Selected", tint = AppColors.GenderSelectedContent)

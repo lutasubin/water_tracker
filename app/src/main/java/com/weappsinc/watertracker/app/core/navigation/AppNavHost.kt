@@ -6,12 +6,27 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.weappsinc.watertracker.app.feature.age.presentation.screen.AgeSelectionScreen
 import com.weappsinc.watertracker.app.feature.age.presentation.viewmodel.AgeViewModelFactory
+import com.weappsinc.watertracker.app.feature.exercise.presentation.screen.ExerciseSelectionScreen
+import com.weappsinc.watertracker.app.feature.exercise.presentation.viewmodel.ExerciseSelectionViewModelFactory
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.gender.presentation.screen.GenderSelectionScreen
 import com.weappsinc.watertracker.app.feature.gender.presentation.viewmodel.GenderViewModelFactory
 import com.weappsinc.watertracker.app.feature.splash.presentation.screen.SplashScreen
+import com.weappsinc.watertracker.app.feature.tall.presentation.screen.TallSelectionScreen
+import com.weappsinc.watertracker.app.feature.tall.presentation.viewmodel.TallViewModelFactory
+import com.weappsinc.watertracker.app.feature.weight.presentation.screen.WeightSelectionScreen
+import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.WeightViewModelFactory
 
 @Composable
-fun AppNavHost(genderFactory: GenderViewModelFactory, ageFactory: AgeViewModelFactory) {
+fun AppNavHost(
+    genderFactory: GenderViewModelFactory,
+    ageFactory: AgeViewModelFactory,
+    tallFactory: TallViewModelFactory,
+    weightFactory: WeightViewModelFactory,
+    exerciseFactory: ExerciseSelectionViewModelFactory,
+    waterGoalFactory: WaterGoalViewModelFactory
+) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoute.Splash.route) {
         composable(AppRoute.Splash.route) {
@@ -29,6 +44,34 @@ fun AppNavHost(genderFactory: GenderViewModelFactory, ageFactory: AgeViewModelFa
         composable(AppRoute.Age.route) {
             AgeSelectionScreen(
                 factory = ageFactory,
+                onBack = { navController.popBackStack() },
+                onNext = { navController.navigate(AppRoute.Tall.route) }
+            )
+        }
+        composable(AppRoute.Tall.route) {
+            TallSelectionScreen(
+                factory = tallFactory,
+                onBack = { navController.popBackStack() },
+                onNext = { navController.navigate(AppRoute.Weight.route) }
+            )
+        }
+        composable(AppRoute.Weight.route) {
+            WeightSelectionScreen(
+                factory = weightFactory,
+                onBack = { navController.popBackStack() },
+                onNext = { navController.navigate(AppRoute.Exercise.route) }
+            )
+        }
+        composable(AppRoute.Exercise.route) {
+            ExerciseSelectionScreen(
+                factory = exerciseFactory,
+                onBack = { navController.popBackStack() },
+                onNext = { navController.navigate(AppRoute.WaterGoal.route) }
+            )
+        }
+        composable(AppRoute.WaterGoal.route) {
+            WaterGoalScreen(
+                factory = waterGoalFactory,
                 onBack = { navController.popBackStack() }
             )
         }

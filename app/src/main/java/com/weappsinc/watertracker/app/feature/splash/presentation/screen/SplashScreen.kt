@@ -26,12 +26,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalContext
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
+import com.weappsinc.watertracker.app.core.theme.AppTypography
 import coil.compose.AsyncImage
 import coil.ImageLoader
 import coil.decode.SvgDecoder
@@ -97,8 +97,7 @@ fun SplashScreen(
             Text(
                 text = AppText.SPLASH_TITLE,
                 color = AppColors.SplashTitle,
-                fontSize = AppDimens.SplashTitleSize,
-                fontWeight = FontWeight.Bold
+                style = AppTypography.Title2
             )
         }
 
