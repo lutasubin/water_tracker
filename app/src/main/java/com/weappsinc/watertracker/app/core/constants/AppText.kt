@@ -20,6 +20,7 @@ object AppText {
     const val WATER_GOAL_TITLE = "Your daily goal is"
     const val WATER_GOAL_DESC = "This number is calculated based on your height, weight, and daily activity level."
     const val ADJUST = "Adjust"
+    const val SAVE = "SAVE"
     const val START = "START"
     const val UNIT_ML = "ml"
     const val UNIT_L = "L"

@@ -41,12 +41,17 @@ class WaterGoalViewModel(
         _unit.value = value
     }
 
-    fun onAdjust() {
-        _adjustMl.value += DEFAULT_ADJUST_ML
+    fun onIncreaseAdjust() {
+        _adjustMl.value += ADJUST_STEP_ML
+    }
+
+    fun onDecreaseAdjust() {
+        val nextAdjustMl = _adjustMl.value - ADJUST_STEP_ML
+        _adjustMl.value = nextAdjustMl.coerceAtLeast(-_baseGoalMl.value)
     }
 
     companion object {
-        private const val DEFAULT_ADJUST_ML = 250
+        private const val ADJUST_STEP_ML = 100
     }
 }
 

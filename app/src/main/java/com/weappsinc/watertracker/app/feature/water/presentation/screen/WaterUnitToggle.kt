@@ -1,5 +1,6 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -15,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -77,14 +77,18 @@ private fun UnitCell(
 ) {
     val bg = if (selected) selectedBg else unselectedBg
     val fg = if (selected) selectedText else unselectedText
-    Text(
-        text = text,
-        color = fg,
-        style = AppTypography.Button,
+    val textStyle = if (selected) AppTypography.Title3 else AppTypography.Button
+    val verticalPadding = if (selected) 12.dp else 10.dp
+    val horizontalPadding = if (selected) 30.dp else 26.dp
+    Box(
         modifier = Modifier
             .clip(RoundedCornerShape(22.dp))
+            .background(bg)
             .clickable(onClick = onClick)
-            .padding(horizontal = 26.dp, vertical = 10.dp)
-    )
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = text, color = fg, style = textStyle)
+    }
 }
 
