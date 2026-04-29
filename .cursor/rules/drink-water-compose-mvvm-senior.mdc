@@ -1,0 +1,70 @@
+---
+alwaysApply: true
+---
+# Drink Water - Senior Cursor Rules
+
+## Muc tieu du an
+- Android only, Kotlin, Jetpack Compose, Material 3.
+- Kien truc bat buoc: MVVM + Clean Architecture + feature-based.
+- San sang release Google Play (AAB).
+
+## Cau truc bat buoc
+- `app/core`: constants, utils, theme, navigation, di.
+- `app/feature/water|stats|settings`: tach `presentation`, `domain`, `data`.
+- Khong duoc tron layer.
+
+## Luong nghiep vu bat buoc
+- `UI -> ViewModel -> UseCase -> Repository -> DataSource`
+
+## Cam tuyet doi
+- Khong viet business logic trong Composable.
+- Khong goi API/database truc tiep tu UI.
+- Khong de ViewModel phu thuoc `Context`.
+- Khong bo qua ranh gioi MVVM/Clean Architecture.
+
+## Quy tac Compose
+- Dung Compose only, khong XML screen.
+- State hoist, UI uu tien stateless.
+- State den tu ViewModel (StateFlow uu tien).
+- Toan bo ui state phai immutable.
+
+## Quy tac DI + Data
+- DI dung Hilt, khong tao singleton thu cong.
+- Repository la single source of truth.
+- Luu tru du lieu cuc bo bat buoc dung SQLite (uu tien Room tren SQLite).
+- DataStore uu tien cho setting/light data.
+- Room chi dung khi can history/query phuc tap.
+
+## Quy tac SQLite cuc bo
+- Cac du lieu intake, lich su uong nuoc, va thong ke ngay phai luu vao SQLite.
+- Truy cap SQLite thong qua Room + DAO, khong truy van raw SQL trong UI.
+- Moi thao tac doc/ghi database phai di qua `Repository -> DataSource`.
+- Can co migration khi thay doi schema, tranh mat du lieu nguoi dung.
+
+## Quy tac code
+- Code phai sach, de doc, de test, va tuan thu day du nguyen ly SOLID.
+- Ten bien/ham ro nghia, SRP, tranh duplicate.
+- Comment chi khi logic phuc tap.
+- Comment code bat buoc bang tieng Viet.
+- Moi file khong duoc vuot qua 100 dong (uu tien tach nho theo trach nhiem).
+- Moi function nen nho gon, mot trach nhiem ro rang.
+
+## Quy tac MVVM + DI bat buoc
+- Bat buoc ap dung dung mo hinh MVVM cho toan bo feature.
+- UI layer chi render state va gui event, khong chua business logic.
+- ViewModel chi lam viec voi UseCase/Repository, khong truy cap datasource truc tiep.
+- Dependency Injection bat buoc dung Hilt, khong khoi tao thu cong trong code nghiep vu.
+
+## Quy tac ngon ngu
+- Assistant tra loi bang tieng Viet.
+- Giai thich tai lieu tieng Anh bang tieng Viet.
+
+## Quy tac UI onboarding hien tai
+- Asset path phai dung qua constant trong `app/core/constants`.
+- Mau/chu/kich thuoc dua vao token `app/core/theme`.
+- Khong hardcode string/mau/dimens trong screen.
+
+## Quy tac release
+- Build debug/release phai xanh truoc khi chot.
+- Khong de debug log rac trong ban release.
+- Uu tien thay doi nho, an toan, de test.
