@@ -40,6 +40,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
+    onBootstrap: suspend () -> Unit = {},
     onSplashFinished: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -61,6 +62,7 @@ fun SplashScreen(
         label = "splash_progress_value"
     )
     LaunchedEffect(Unit) {
+        onBootstrap()
         delay(2000)
         onSplashFinished()
     }

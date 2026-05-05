@@ -44,21 +44,23 @@ import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
+import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
+import com.weappsinc.watertracker.app.feature.water.domain.util.WaterAmountFormat
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModel
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
-import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterUnit
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterUnitToggle
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 @androidx.compose.material3.ExperimentalMaterial3Api
 @Composable
 fun WaterGoalScreen(
     modifier: Modifier = Modifier,
     factory: WaterGoalViewModelFactory,
-    onBack: () -> Unit
+    viewModelKey: String,
+    onBack: () -> Unit,
+    onStartComplete: () -> Unit
 ) {
-    val vm: WaterGoalViewModel = viewModel(factory = factory)
+    val vm: WaterGoalViewModel = viewModel(key = viewModelKey, factory = factory)
     val baseGoalMl by vm.baseGoalMl.collectAsState()
     val adjustMl by vm.adjustMl.collectAsState()
     val unit by vm.unit.collectAsState()
@@ -68,7 +70,7 @@ fun WaterGoalScreen(
 
     val totalGoalMl = baseGoalMl + adjustMl
 
-    val displayValue = formatWaterAmount(totalGoalMl, unit)
+    val displayValue = WaterAmountFormat.format(totalGoalMl, unit)
     val unitLabel = if (unit == WaterUnit.ML) AppText.UNIT_ML else AppText.UNIT_L
 
     Box(
@@ -155,7 +157,7 @@ fun WaterGoalScreen(
 
             AppPrimaryButton(
                 text = AppText.START,
-                onClick = {},
+                onClick = { vm.onStart(onStartComplete) },
                 modifier = Modifier.padding(bottom = AppDimens.WaterGoalStartButtonBottomPadding),
                 containerColor = AppColors.GenderSelectedContent,
                 textColor = AppColors.GenderPrimary
@@ -250,13 +252,6 @@ private fun AdjustCircleButton(symbol: String, onClick: () -> Unit) {
         contentAlignment = Alignment.Center
     ) {
         Text(text = symbol, color = AppColors.GenderPrimary, style = AppTypography.Title3)
-    }
-}
-
-private fun formatWaterAmount(valueMl: Int, unit: WaterUnit): String {
-    return when (unit) {
-        WaterUnit.ML -> "${valueMl}"
-        WaterUnit.L -> "${(valueMl / 1000f * 10f).roundToInt() / 10f}"
     }
 }
 

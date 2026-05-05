@@ -54,4 +54,35 @@ object AppDimens {
 
     val WaterGoalDividerWidth = 240.dp
     val WaterGoalUnitToggleHeight = 52.dp
+
+    val HomeHorizontalPadding = 20.dp
+    val HomeBottomNavHeight = 64.dp
+    val HomeSectionSpacing = 16.dp
+    /** Khoảng dọc giữa các khối màn Water Tracker — thoáng hơn [HomeSectionSpacing]. */
+    val WaterTrackerBlockSpacing = 24.dp
+    /** Dưới thanh tiến độ tới nhãn “Tiến độ hôm nay” / %. */
+    val WaterTrackerProgressToLabelSpacing = 10.dp
+    /** Khoảng tối thiểu giữa tiêu đề Water Tracker và pill streak. */
+    val HomeHeaderTitleStreakGap = 16.dp
+    val HomeCardCorner = 20.dp
+    val HomeCardInnerPadding = 16.dp
+    val HomeCardShadowElevation = 6.dp
+    val HomeStreakPillShadowElevation = 4.dp
+    /** Tách nền navigation khỏi nội dung (Material tonal). */
+    val HomeBottomBarTonalElevation = 6.dp
+    val HomeStatCardIconSize = 28.dp
+    val HomeStatCardMinHeight = 102.dp
+    val HomeStatEditButtonSize = 30.dp
+    val HomeStatEditButtonCorner = 8.dp
+    val HomeStatEditIconSize = 18.dp
+    val HomeStatValueSpacing = 10.dp
+    val HomeDrinkIconSize = 22.dp
+    val HomeDrinkContentGap = 8.dp
+    val HomeProgressHeight = 12.dp
+    val HomeDrinkButtonHeight = 56.dp
+    /** Đường kính vòng tuần (một lớp, mảnh). */
+    val HomeWeekRingSize = 36.dp
+    /** Nét vòng báo cáo tuần — hơi dày để dễ nhìn. */
+    val HomeWeekRingStrokeWidth = 3.dp
+    val HomeNavIconSize = 24.dp
 }

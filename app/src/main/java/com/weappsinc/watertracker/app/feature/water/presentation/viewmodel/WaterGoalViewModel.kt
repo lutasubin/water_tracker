@@ -3,19 +3,27 @@ package com.weappsinc.watertracker.app.feature.water.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedUnitUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveWaterGoalMlUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.SaveOnboardingWaterGoalUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.SharingStarted
-
-enum class WaterUnit { ML, L }
 
 class WaterGoalViewModel(
-    private val observeWaterGoalMl: ObserveWaterGoalMlUseCase
+    private val observeWaterGoalMl: ObserveWaterGoalMlUseCase,
+    private val saveOnboardingWaterGoal: SaveOnboardingWaterGoalUseCase,
+    private val editMode: Boolean,
+    private val observeSavedGoalMl: ObserveSavedGoalMlUseCase,
+    private val observeSavedUnit: ObserveSavedUnitUseCase
 ) : ViewModel() {
+    private var editAdjustSeeded = false
+
     private val _baseGoalMl = MutableStateFlow(0)
     val baseGoalMl = _baseGoalMl.asStateFlow()
 
@@ -34,6 +42,29 @@ class WaterGoalViewModel(
     init {
         viewModelScope.launch {
             observeWaterGoalMl().collect { _baseGoalMl.value = it }
+        }
+        if (editMode) {
+            viewModelScope.launch {
+                observeSavedUnit().collect { u -> u?.let { _unit.value = it } }
+            }
+            viewModelScope.launch {
+                combine(observeSavedGoalMl(), baseGoalMl) { saved, base -> saved to base }
+                    .collect { (saved, base) ->
+                        // Chỉ đồng bộ adjust một lần khi mở màn sửa; sau đó user chỉnh +/- tự do.
+                        if (!editAdjustSeeded && saved != null && base > 0) {
+                            _adjustMl.value = (saved - base).coerceAtLeast(-base)
+                            editAdjustSeeded = true
+                        }
+                    }
+            }
+        }
+    }
+
+    fun onStart(onSaved: () -> Unit) {
+        viewModelScope.launch {
+            val total = _baseGoalMl.value + _adjustMl.value
+            saveOnboardingWaterGoal(total, _unit.value)
+            onSaved()
         }
     }
 
@@ -56,10 +87,20 @@ class WaterGoalViewModel(
 }
 
 class WaterGoalViewModelFactory(
-    private val observeWaterGoalMl: ObserveWaterGoalMlUseCase
+    private val observeWaterGoalMl: ObserveWaterGoalMlUseCase,
+    private val saveOnboardingWaterGoal: SaveOnboardingWaterGoalUseCase,
+    private val editMode: Boolean,
+    private val observeSavedGoalMl: ObserveSavedGoalMlUseCase,
+    private val observeSavedUnit: ObserveSavedUnitUseCase
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WaterGoalViewModel(observeWaterGoalMl) as T
+        WaterGoalViewModel(
+            observeWaterGoalMl = observeWaterGoalMl,
+            saveOnboardingWaterGoal = saveOnboardingWaterGoal,
+            editMode = editMode,
+            observeSavedGoalMl = observeSavedGoalMl,
+            observeSavedUnit = observeSavedUnit
+        ) as T
 }
 

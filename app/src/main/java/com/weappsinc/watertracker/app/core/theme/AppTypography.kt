@@ -25,6 +25,12 @@ object AppTypography {
         lineHeight = 40.sp,
         fontWeight = FontWeight.Bold
     )
+    /** Mục tiêu ml / giờ nhắc trên thẻ — gọn, không phình chiều cao card. */
+    val StatCardValue = TextStyle(
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        fontWeight = FontWeight.Bold
+    )
     val BodyLarge = TextStyle(
         fontSize = 16.sp,
         lineHeight = 24.sp,
@@ -39,6 +45,13 @@ object AppTypography {
         fontSize = 14.sp,
         lineHeight = 20.sp,
         fontWeight = FontWeight.Bold
+    )
+    /** Nút DRINK: in hoa, đậm, rõ trên nền primary. */
+    val DrinkCta = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 22.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 0.8.sp
     )
 
     val WaterGoalValue = TextStyle(

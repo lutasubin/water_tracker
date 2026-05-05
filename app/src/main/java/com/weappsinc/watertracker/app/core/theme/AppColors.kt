@@ -22,4 +22,20 @@ object AppColors {
     val WaterGoalDesc = Color(0xB3FFFFFF) // ~70% opacity
     val WaterGoalValue = Color.White
     val WaterGoalDivider = Color(0x33FFFFFF) // ~20% opacity
+
+    val HomeBackground = Color(0xFFF5F8FF)
+    val HomePrimary = Color(0xFF1D5DDA)
+    val HomeTitle = Color(0xFF1A2B4A)
+    val HomeSecondaryText = Color(0xFF5B7CCE)
+    val HomeMuted = Color(0xFF8D9BB5)
+    val HomeCard = Color(0xFFFFFFFF)
+    val HomeProgressTrack = Color(0xFFE0E7F5)
+    val HomeStreakPillBg = Color(0xFFFFFFFF)
+    /** Chữ trong pill streak (xám đậm, không dùng primary). */
+    val HomeStreakPillText = Color(0xFF4A5568)
+    /** Phần trăm tiến độ bên phải — xanh primary theo design. */
+    val HomeProgressPercentText = HomePrimary
+    val HomeNavInactive = Color(0xFF8D9BB5)
+    /** Nền ô bút sửa trên thẻ Mục tiêu (xanh nhạt). */
+    val HomeStatEditButtonBg = Color(0xFFE8EEFC)
 }

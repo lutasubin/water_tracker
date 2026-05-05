@@ -24,4 +24,24 @@ object AppText {
     const val START = "START"
     const val UNIT_ML = "ml"
     const val UNIT_L = "L"
+
+    const val HOME_TAB_WATER = "Water"
+    const val HOME_TAB_BMI = "BMI"
+    const val HOME_TAB_ME = "Me"
+    const val TAB_TODO_PLACEHOLDER = "TODO"
+
+    const val TRACKER_TITLE = "Water Tracker"
+    const val STREAK_SUFFIX = "Day - Streak"
+    const val TODAY_PROGRESS_LABEL = "Tiến độ hôm nay"
+    const val GOAL_CARD_LABEL = "Mục tiêu"
+    const val REMINDER_CARD_LABEL = "Nhắc nhở sắp tới"
+    /** Giờ nhắc: để trống — chỉ UI, domain nhắc lịch làm sau. */
+    const val REMINDER_PLACEHOLDER = ""
+    /** Mẫu UI theo design (chưa gắn scheduler). */
+    const val REMINDER_UI_SAMPLE_TIME = "09:45 AM"
+    const val REPORT_TITLE = "Báo cáo"
+    const val REPORT_DETAILS = "Chi tiết"
+    const val DRINK = "DRINK"
+
+    val WEEKDAY_LABELS_VN = listOf("T2", "T3", "T4", "T5", "T6", "T7", "CN")
 }

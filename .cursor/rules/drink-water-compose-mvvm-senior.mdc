@@ -21,6 +21,8 @@ alwaysApply: true
 - Khong goi API/database truc tiep tu UI.
 - Khong de ViewModel phu thuoc `Context`.
 - Khong bo qua ranh gioi MVVM/Clean Architecture.
+- khong tu code khi chua ro yeu cau(mo ho).
+- Cai gi chua biet co the search hoi lai toi. 
 
 ## Quy tac Compose
 - Dung Compose only, khong XML screen.
@@ -68,3 +70,30 @@ alwaysApply: true
 - Build debug/release phai xanh truoc khi chot.
 - Khong de debug log rac trong ban release.
 - Uu tien thay doi nho, an toan, de test.
+
+## Error Handling
+- Tat ca data tra ve phai wrap trong Result (Success/Error)
+- UI phai co state: Loading / Success / Error
+- Khong throw exception truc tiep len UI
+- Loi phai duoc xu ly tai ViewModel
+
+## UI State
+- Moi screen chi co 1 UiState duy nhat
+- State phai immutable
+- Khong dung nhieu StateFlow le
+
+## Testing
+- UseCase bat buoc co unit test
+- ViewModel phai test StateFlow
+- Repository co the dung fake data de test
+
+## Monetization
+- Logic quang cao phai tach rieng (khong viet truc tiep trong UI)
+- Khong lam gian doan trai nghiem nguoi dung
+- Ads chi hien thi o thoi diem hop ly (sau action, khong spam)
+
+## Navigation
+- Navigation chi duoc goi tu UI layer
+- Khong navigate trong ViewModel
+- Route duoc dinh nghia trong core/navigation
+- Uu tien don gian, ship nhanh, khong over-engineering

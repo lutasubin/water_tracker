@@ -10,4 +10,12 @@ object AssetPaths {
     const val EXERCISE_LOW_ICON = "$ASSET_BASE/svg/icon1.svg"
     const val EXERCISE_MODERATE_ICON = "$ASSET_BASE/svg/icon2.svg"
     const val EXERCISE_HIGH_ICON = "$ASSET_BASE/svg/icon3.svg"
+
+    const val GOAL_ICON = "$ASSET_BASE/svg/goal_icon.svg"
+    const val NOTIE_ICON = "$ASSET_BASE/svg/notie_icon.svg"
+    const val REPORT_ICON = "$ASSET_BASE/svg/report_icon.svg"
+    const val STREAK_ICON = "$ASSET_BASE/svg/streak_icon.svg"
+    const val HOME_WATER_ICON = "$ASSET_BASE/svg/home_water_icon.svg"
+    const val HOME_BMI_ICON = "$ASSET_BASE/svg/home_bmi_icon.svg"
+    const val HOME_INFOR_ICON = "$ASSET_BASE/svg/home_infor_icon.svg"
 }

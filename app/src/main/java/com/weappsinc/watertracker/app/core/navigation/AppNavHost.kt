@@ -1,5 +1,6 @@
 package com.weappsinc.watertracker.app.core.navigation
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,16 +9,20 @@ import com.weappsinc.watertracker.app.feature.age.presentation.screen.AgeSelecti
 import com.weappsinc.watertracker.app.feature.age.presentation.viewmodel.AgeViewModelFactory
 import com.weappsinc.watertracker.app.feature.exercise.presentation.screen.ExerciseSelectionScreen
 import com.weappsinc.watertracker.app.feature.exercise.presentation.viewmodel.ExerciseSelectionViewModelFactory
-import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
-import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.gender.presentation.screen.GenderSelectionScreen
 import com.weappsinc.watertracker.app.feature.gender.presentation.viewmodel.GenderViewModelFactory
 import com.weappsinc.watertracker.app.feature.splash.presentation.screen.SplashScreen
 import com.weappsinc.watertracker.app.feature.tall.presentation.screen.TallSelectionScreen
 import com.weappsinc.watertracker.app.feature.tall.presentation.viewmodel.TallViewModelFactory
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstInstallDayUseCase
+import com.weappsinc.watertracker.app.feature.water.presentation.home.HomeScreen
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.weight.presentation.screen.WeightSelectionScreen
 import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.WeightViewModelFactory
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavHost(
     genderFactory: GenderViewModelFactory,
@@ -25,16 +30,22 @@ fun AppNavHost(
     tallFactory: TallViewModelFactory,
     weightFactory: WeightViewModelFactory,
     exerciseFactory: ExerciseSelectionViewModelFactory,
-    waterGoalFactory: WaterGoalViewModelFactory
+    waterGoalFactoryOnboarding: WaterGoalViewModelFactory,
+    waterGoalFactoryEdit: WaterGoalViewModelFactory,
+    waterTrackerFactory: WaterTrackerViewModelFactory,
+    ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoute.Splash.route) {
         composable(AppRoute.Splash.route) {
-            SplashScreen {
-                navController.navigate(AppRoute.Gender.route) {
-                    popUpTo(AppRoute.Splash.route) { inclusive = true }
+            SplashScreen(
+                onBootstrap = { ensureFirstInstallDayUseCase() },
+                onSplashFinished = {
+                    navController.navigate(AppRoute.Gender.route) {
+                        popUpTo(AppRoute.Splash.route) { inclusive = true }
+                    }
                 }
-            }
+            )
         }
         composable(AppRoute.Gender.route) {
             GenderSelectionScreen(factory = genderFactory) {
@@ -71,8 +82,28 @@ fun AppNavHost(
         }
         composable(AppRoute.WaterGoal.route) {
             WaterGoalScreen(
-                factory = waterGoalFactory,
-                onBack = { navController.popBackStack() }
+                factory = waterGoalFactoryOnboarding,
+                viewModelKey = "water_goal_onboarding",
+                onBack = { navController.popBackStack() },
+                onStartComplete = {
+                    navController.navigate(AppRoute.Home.route) {
+                        popUpTo(AppRoute.WaterGoal.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable(AppRoute.Home.route) {
+            HomeScreen(
+                waterTrackerFactory = waterTrackerFactory,
+                onEditWaterGoal = { navController.navigate(AppRoute.WaterGoalEdit.route) }
+            )
+        }
+        composable(AppRoute.WaterGoalEdit.route) {
+            WaterGoalScreen(
+                factory = waterGoalFactoryEdit,
+                viewModelKey = "water_goal_edit",
+                onBack = { navController.popBackStack() },
+                onStartComplete = { navController.popBackStack() }
             )
         }
     }
