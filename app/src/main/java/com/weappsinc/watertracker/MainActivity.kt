@@ -129,7 +129,8 @@ class MainActivity : ComponentActivity() {
                     waterGoalFactoryOnboarding = waterGoalFactoryOnboarding,
                     waterGoalFactoryEdit = waterGoalFactoryEdit,
                     waterTrackerFactory = waterTrackerFactory,
-                    ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase
+                    ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
+                    observeSavedGoalMlUseCase = observeSavedGoalMl
                 )
             }
         }

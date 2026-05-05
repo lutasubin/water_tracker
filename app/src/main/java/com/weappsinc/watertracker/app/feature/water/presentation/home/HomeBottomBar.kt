@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import com.weappsinc.watertracker.app.core.constants.AppText
@@ -43,7 +45,7 @@ fun HomeBottomBar(
                     .fillMaxWidth()
                     .height(AppDimens.HomeBottomNavHeight)
                     .padding(horizontal = AppDimens.HomeHorizontalPadding),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.spacedBy(AppDimens.HomeSectionSpacing),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 NavItem(
@@ -51,21 +53,24 @@ fun HomeBottomBar(
                     iconPath = AssetPaths.HOME_WATER_ICON,
                     selected = selected == HomeTab.Water,
                     imageLoader = imageLoader,
-                    onClick = { onSelect(HomeTab.Water) }
+                    onClick = { onSelect(HomeTab.Water) },
+                    modifier = Modifier.weight(1f)
                 )
                 NavItem(
                     label = AppText.HOME_TAB_BMI,
                     iconPath = AssetPaths.HOME_BMI_ICON,
                     selected = selected == HomeTab.Bmi,
                     imageLoader = imageLoader,
-                    onClick = { onSelect(HomeTab.Bmi) }
+                    onClick = { onSelect(HomeTab.Bmi) },
+                    modifier = Modifier.weight(1f)
                 )
                 NavItem(
                     label = AppText.HOME_TAB_ME,
                     iconPath = AssetPaths.HOME_INFOR_ICON,
                     selected = selected == HomeTab.Me,
                     imageLoader = imageLoader,
-                    onClick = { onSelect(HomeTab.Me) }
+                    onClick = { onSelect(HomeTab.Me) },
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
@@ -78,12 +83,17 @@ private fun NavItem(
     iconPath: String,
     selected: Boolean,
     imageLoader: ImageLoader,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val tint = if (selected) AppColors.HomePrimary else AppColors.HomeNavInactive
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable(onClick = onClick)
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
+            .fillMaxHeight()
+            .clickable(onClick = onClick)
+            .padding(vertical = 6.dp)
     ) {
         AsyncImage(
             model = iconPath,

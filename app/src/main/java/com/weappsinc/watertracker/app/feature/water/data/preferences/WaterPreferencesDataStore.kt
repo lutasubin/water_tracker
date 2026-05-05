@@ -21,6 +21,7 @@ private object Keys {
     val FIRST_INSTALL_EPOCH_DAY = longPreferencesKey("first_install_epoch_day")
     val SAVED_GOAL_ML = intPreferencesKey("saved_goal_ml")
     val WATER_UNIT = stringPreferencesKey("water_unit")
+    val GOAL_DONE_DIALOG_SHOWN_EPOCH_DAY = longPreferencesKey("goal_done_dialog_shown_epoch_day")
 }
 
 class WaterPreferencesRepositoryImpl(
@@ -58,4 +59,13 @@ class WaterPreferencesRepositoryImpl(
                 runCatching { WaterUnit.valueOf(name) }.getOrNull()
             }
         }
+
+    override fun observeGoalDoneDialogShownEpochDay(): Flow<Long?> =
+        ds.data.map { it[Keys.GOAL_DONE_DIALOG_SHOWN_EPOCH_DAY] }
+
+    override suspend fun saveGoalDoneDialogShownEpochDay(epochDay: Long) {
+        ds.edit { prefs ->
+            prefs[Keys.GOAL_DONE_DIALOG_SHOWN_EPOCH_DAY] = epochDay
+        }
+    }
 }

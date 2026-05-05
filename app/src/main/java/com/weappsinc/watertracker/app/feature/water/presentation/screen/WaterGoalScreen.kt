@@ -69,8 +69,9 @@ fun WaterGoalScreen(
     val scope = rememberCoroutineScope()
 
     val totalGoalMl = baseGoalMl + adjustMl
+    val displayedGoalMl = rememberDisplayGoalMl(totalGoalMl)
 
-    val displayValue = WaterAmountFormat.format(totalGoalMl, unit)
+    val displayValue = WaterAmountFormat.format(displayedGoalMl, unit)
     val unitLabel = if (unit == WaterUnit.ML) AppText.UNIT_ML else AppText.UNIT_L
 
     Box(

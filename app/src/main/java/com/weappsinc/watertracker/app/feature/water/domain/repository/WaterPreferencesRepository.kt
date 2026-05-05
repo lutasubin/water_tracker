@@ -10,4 +10,6 @@ interface WaterPreferencesRepository {
     suspend fun saveGoalMlAndUnit(goalMl: Int, unit: WaterUnit)
     fun observeSavedGoalMl(): Flow<Int?>
     fun observeSavedUnit(): Flow<WaterUnit?>
+    fun observeGoalDoneDialogShownEpochDay(): Flow<Long?>
+    suspend fun saveGoalDoneDialogShownEpochDay(epochDay: Long)
 }

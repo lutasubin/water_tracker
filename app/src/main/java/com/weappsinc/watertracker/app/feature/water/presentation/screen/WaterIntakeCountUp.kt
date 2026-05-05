@@ -49,3 +49,38 @@ fun rememberDisplayIntakeMl(todayIntakeMl: Int): Int {
     }
     return displayedIntakeMl
 }
+
+/**
+ * Số ml hiển thị cho màn Goal: khi [targetGoalMl] đổi thì chạy từng số tăng/giảm trong
+ * ~[WaterConstants.INTAKE_COUNT_UP_MS]; lần đầu đồng bộ ngay để tránh nhảy từ 0.
+ */
+@Composable
+fun rememberDisplayGoalMl(targetGoalMl: Int): Int {
+    var displayedGoalMl by remember { mutableIntStateOf(0) }
+    var skipCountUp by remember { mutableStateOf(true) }
+    LaunchedEffect(targetGoalMl) {
+        val target = targetGoalMl
+        if (skipCountUp) {
+            displayedGoalMl = target
+            skipCountUp = false
+            return@LaunchedEffect
+        }
+        if (target == displayedGoalMl) return@LaunchedEffect
+        val start = displayedGoalMl
+        val durationMs = WaterConstants.INTAKE_COUNT_UP_MS.toLong()
+        val startTime = withFrameMillis { it }
+        while (true) {
+            val now = withFrameMillis { it }
+            val elapsed = now - startTime
+            if (elapsed >= durationMs) {
+                displayedGoalMl = target
+                break
+            }
+            val fraction = (elapsed.toFloat() / durationMs).coerceIn(0f, 1f)
+            val eased = FastOutSlowInEasing.transform(fraction)
+            val animated = start + (target - start) * eased
+            displayedGoalMl = animated.roundToInt()
+        }
+    }
+    return displayedGoalMl
+}

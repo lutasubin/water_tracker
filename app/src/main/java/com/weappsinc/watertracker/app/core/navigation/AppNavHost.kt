@@ -2,6 +2,8 @@ package com.weappsinc.watertracker.app.core.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -15,6 +17,7 @@ import com.weappsinc.watertracker.app.feature.splash.presentation.screen.SplashS
 import com.weappsinc.watertracker.app.feature.tall.presentation.screen.TallSelectionScreen
 import com.weappsinc.watertracker.app.feature.tall.presentation.viewmodel.TallViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstInstallDayUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.presentation.home.HomeScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
@@ -33,15 +36,19 @@ fun AppNavHost(
     waterGoalFactoryOnboarding: WaterGoalViewModelFactory,
     waterGoalFactoryEdit: WaterGoalViewModelFactory,
     waterTrackerFactory: WaterTrackerViewModelFactory,
-    ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase
+    ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase,
+    observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase
 ) {
     val navController = rememberNavController()
+    val savedGoalMl by observeSavedGoalMlUseCase().collectAsState(initial = null)
     NavHost(navController = navController, startDestination = AppRoute.Splash.route) {
         composable(AppRoute.Splash.route) {
             SplashScreen(
                 onBootstrap = { ensureFirstInstallDayUseCase() },
                 onSplashFinished = {
-                    navController.navigate(AppRoute.Gender.route) {
+                    val targetRoute =
+                        if ((savedGoalMl ?: 0) > 0) AppRoute.Home.route else AppRoute.Gender.route
+                    navController.navigate(targetRoute) {
                         popUpTo(AppRoute.Splash.route) { inclusive = true }
                     }
                 }

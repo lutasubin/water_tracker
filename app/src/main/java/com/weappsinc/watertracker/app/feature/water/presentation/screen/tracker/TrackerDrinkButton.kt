@@ -3,7 +3,6 @@ package com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -33,7 +32,7 @@ fun TrackerDrinkButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth()
+            .width(AppDimens.HomeDrinkButtonWidth)
             .height(AppDimens.HomeDrinkButtonHeight),
         shape = pill,
         colors = ButtonDefaults.buttonColors(
@@ -45,7 +44,8 @@ fun TrackerDrinkButton(
             pressedElevation = 0.dp,
             focusedElevation = 0.dp,
             hoveredElevation = 0.dp
-        )
+        ),
+        contentPadding = ButtonDefaults.ContentPadding
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

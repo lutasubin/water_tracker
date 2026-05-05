@@ -78,6 +78,7 @@ object AppDimens {
     val HomeStatValueSpacing = 10.dp
     val HomeDrinkIconSize = 22.dp
     val HomeDrinkContentGap = 8.dp
+    val HomeDrinkButtonWidth = 206.dp
     val HomeProgressHeight = 12.dp
     val HomeDrinkButtonHeight = 56.dp
     /** Đường kính vòng tuần (một lớp, mảnh). */

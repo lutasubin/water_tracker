@@ -23,7 +23,7 @@ object AppText {
     const val SAVE = "SAVE"
     const val START = "START"
     const val UNIT_ML = "ml"
-    const val UNIT_L = "L"
+    const val UNIT_L = "l"
 
     const val HOME_TAB_WATER = "Water"
     const val HOME_TAB_BMI = "BMI"
@@ -33,6 +33,7 @@ object AppText {
     const val TRACKER_TITLE = "Water Tracker"
     const val STREAK_SUFFIX = "Day - Streak"
     const val TODAY_PROGRESS_LABEL = "Tiến độ hôm nay"
+    const val TODAY_GOAL_DONE_LABEL = "Hoàn thành mục tiêu hôm nay 🎉"
     const val GOAL_CARD_LABEL = "Mục tiêu"
     const val REMINDER_CARD_LABEL = "Nhắc nhở sắp tới"
     /** Giờ nhắc: để trống — chỉ UI, domain nhắc lịch làm sau. */
@@ -42,6 +43,9 @@ object AppText {
     const val REPORT_TITLE = "Báo cáo"
     const val REPORT_DETAILS = "Chi tiết"
     const val DRINK = "DRINK"
+    const val DRINK_AMOUNT_TITLE = "Amount of water"
+    const val GOAL_DONE_DIALOG_TITLE = "Chúc mừng bạn đã hoàn thành\nmục tiêu"
+    const val CLOSE = "Đóng"
 
     val WEEKDAY_LABELS_VN = listOf("T2", "T3", "T4", "T5", "T6", "T7", "CN")
 }

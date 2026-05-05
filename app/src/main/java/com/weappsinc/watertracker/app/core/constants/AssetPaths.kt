@@ -18,4 +18,8 @@ object AssetPaths {
     const val HOME_WATER_ICON = "$ASSET_BASE/svg/home_water_icon.svg"
     const val HOME_BMI_ICON = "$ASSET_BASE/svg/home_bmi_icon.svg"
     const val HOME_INFOR_ICON = "$ASSET_BASE/svg/home_infor_icon.svg"
+    const val CELEBRATION_ICON = "$ASSET_BASE/svg/🎉.svg"
+    const val DRINK_150_ICON = "$ASSET_BASE/svg/150_icon.svg"
+    const val DRINK_200_ICON = "$ASSET_BASE/svg/200_icon.svg"
+    const val DRINK_500_ICON = "$ASSET_BASE/svg/500_icon.svg"
 }

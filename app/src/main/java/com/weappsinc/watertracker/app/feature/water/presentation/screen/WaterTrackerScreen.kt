@@ -9,23 +9,32 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
 import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.app.core.constants.WaterConstants
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
 import com.weappsinc.watertracker.app.feature.water.domain.util.WaterAmountFormat
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.DrinkAmountBottomSheet
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.TrackerDrinkButton
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.GoalCompletedDialog
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterGoalReminderCards
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterProgressSection
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterTrackerHeader
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WeeklyReportSection
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModel
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
+import java.time.LocalDate
 
 /**
  * Màn Water tab — map từng khối với design:
@@ -45,6 +54,9 @@ fun WaterTrackerScreen(
     val vm: WaterTrackerViewModel = viewModel(factory = factory)
     val state by vm.uiState.collectAsState()
     val displayedIntakeMl = rememberDisplayIntakeMl(state.todayIntakeMl)
+    var showGoalDoneDialog by remember { mutableStateOf(false) }
+    var showDrinkSheet by remember { mutableStateOf(false) }
+    var selectedDrinkMl by remember { mutableStateOf(WaterConstants.PRESET_DRINK_200) }
 
     val goalMl = state.goalMl
     val displayFraction =
@@ -54,6 +66,15 @@ fun WaterTrackerScreen(
     val goalDisplayCompact = when (state.unit) {
         WaterUnit.ML -> "${WaterAmountFormat.format(state.goalMl, state.unit)}${AppText.UNIT_ML}"
         WaterUnit.L -> "${WaterAmountFormat.format(state.goalMl, state.unit)} ${AppText.UNIT_L}"
+    }
+    val isGoalCompleted = state.goalMl > 0 && displayedIntakeMl >= state.goalMl
+
+    LaunchedEffect(isGoalCompleted) {
+        val todayEpoch = LocalDate.now().toEpochDay()
+        if (vm.shouldShowGoalDoneDialog(todayEpoch = todayEpoch, isGoalCompleted = isGoalCompleted)) {
+            showGoalDoneDialog = true
+            vm.markGoalDoneDialogShown(todayEpoch)
+        }
     }
 
     Column(
@@ -69,7 +90,8 @@ fun WaterTrackerScreen(
             intakeMlToday = displayedIntakeMl,
             displayUnit = state.unit,
             progressFraction = displayFraction,
-            progressPercent = displayPercent
+            progressPercent = displayPercent,
+            isGoalCompleted = isGoalCompleted
         )
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
         WaterGoalReminderCards(
@@ -80,7 +102,36 @@ fun WaterTrackerScreen(
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
         WeeklyReportSection(weekRings = state.weekRings, imageLoader = imageLoader)
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-        TrackerDrinkButton(onClick = { vm.onDrink() })
+        TrackerDrinkButton(
+            onClick = { showDrinkSheet = true },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
+    }
+    if (showDrinkSheet) {
+        DrinkAmountBottomSheet(
+            amountMl = selectedDrinkMl,
+            imageLoader = imageLoader,
+            onDismiss = { showDrinkSheet = false },
+            onDecrease = {
+                selectedDrinkMl = (selectedDrinkMl - WaterConstants.DRINK_STEP_ML)
+                    .coerceAtLeast(WaterConstants.MIN_DRINK_ML)
+            },
+            onIncrease = {
+                selectedDrinkMl = (selectedDrinkMl + WaterConstants.DRINK_STEP_ML)
+                    .coerceAtMost(WaterConstants.MAX_DRINK_ML)
+            },
+            onSelectPreset = { selectedDrinkMl = it },
+            onDrink = {
+                vm.onDrink(selectedDrinkMl)
+                showDrinkSheet = false
+            }
+        )
+    }
+    if (showGoalDoneDialog) {
+        GoalCompletedDialog(
+            goalDisplayCompact = goalDisplayCompact,
+            onDismiss = { showGoalDoneDialog = false }
+        )
     }
 }

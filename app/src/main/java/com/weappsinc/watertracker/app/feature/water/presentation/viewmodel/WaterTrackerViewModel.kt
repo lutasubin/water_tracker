@@ -12,6 +12,7 @@ import com.weappsinc.watertracker.app.feature.water.presentation.state.WaterTrac
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -28,6 +29,15 @@ class WaterTrackerViewModel(
     private val addWaterIntake: AddWaterIntakeUseCase,
     private val zone: ZoneId = ZoneId.systemDefault()
 ) : ViewModel() {
+    private var goalDoneDialogShownEpoch: Long = Long.MIN_VALUE
+
+    init {
+        viewModelScope.launch {
+            prefs.observeGoalDoneDialogShownEpochDay().collect { storedEpoch ->
+                goalDoneDialogShownEpoch = storedEpoch ?: Long.MIN_VALUE
+            }
+        }
+    }
 
     val uiState = combine(
         prefs.observeFirstInstallEpochDay(),
@@ -51,9 +61,27 @@ class WaterTrackerViewModel(
         )
 
     fun onDrink() {
+        onDrink(WaterConstants.DEFAULT_DRINK_ML)
+    }
+
+    fun onDrink(amountMl: Int) {
         viewModelScope.launch {
             val today = LocalDate.now(zone).toEpochDay()
-            addWaterIntake(today, WaterConstants.DEFAULT_DRINK_ML)
+            addWaterIntake(today, amountMl.coerceAtLeast(0))
+        }
+    }
+
+    /** Chỉ cho popup chúc mừng hiển thị 1 lần mỗi ngày. */
+    fun shouldShowGoalDoneDialog(todayEpoch: Long, isGoalCompleted: Boolean): Boolean {
+        if (!isGoalCompleted) return false
+        return goalDoneDialogShownEpoch != todayEpoch
+    }
+
+    /** Đánh dấu popup đã hiển thị trong ngày hiện tại. */
+    fun markGoalDoneDialogShown(todayEpoch: Long) {
+        goalDoneDialogShownEpoch = todayEpoch
+        viewModelScope.launch {
+            prefs.saveGoalDoneDialogShownEpochDay(todayEpoch)
         }
     }
 }

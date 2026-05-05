@@ -29,6 +29,7 @@ fun WaterProgressSection(
     displayUnit: WaterUnit,
     progressFraction: Float,
     progressPercent: Int,
+    isGoalCompleted: Boolean,
     modifier: Modifier = Modifier
 ) {
     val unitSuffix = if (displayUnit == WaterUnit.ML) AppText.UNIT_ML else AppText.UNIT_L
@@ -65,19 +66,19 @@ fun WaterProgressSection(
             drawStopIndicator = {}
         )
         Spacer(Modifier.height(AppDimens.WaterTrackerProgressToLabelSpacing))
-        RowBetweenLabels(progressPercent)
+        RowBetweenLabels(progressPercent = progressPercent, isGoalCompleted = isGoalCompleted)
     }
 }
 
 @Composable
-private fun RowBetweenLabels(progressPercent: Int) {
+private fun RowBetweenLabels(progressPercent: Int, isGoalCompleted: Boolean) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = AppText.TODAY_PROGRESS_LABEL,
+            text = if (isGoalCompleted) AppText.TODAY_GOAL_DONE_LABEL else AppText.TODAY_PROGRESS_LABEL,
             color = AppColors.HomeTitle,
             style = AppTypography.BodyMedium
         )
