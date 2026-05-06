@@ -39,4 +39,17 @@ object WeighDimens {
     val WeighDetailHeroEditCorner = 10.dp
     val WeighDetailHeroEditIconSize = 20.dp
     val WeighDetailHeroProgressHeight = 12.dp
+
+    /** Thẻ biểu đồ xu hướng cân — bo góc ~24dp theo mock. */
+    val WeighTrendCardCorner = 24.dp
+    val WeighTrendChartCanvasHeight = 200.dp
+    val WeighTrendChartPadH = 4.dp
+    val WeighTrendChartPadBottom = 6.dp
+    val WeighTrendChartPlotTop = 10.dp
+    val WeighTrendLineStroke = 2.5.dp
+    val WeighTrendPointOuter = 5.5.dp
+    val WeighTrendPointInner = 3.5.dp
+    val WeighTrendValueLabelGap = 6.dp
+    val WeighTrendBadgeHPad = 12.dp
+    val WeighTrendBadgeVPad = 6.dp
 }

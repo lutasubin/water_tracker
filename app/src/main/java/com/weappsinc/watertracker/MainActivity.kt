@@ -35,6 +35,7 @@ import com.weappsinc.watertracker.app.feature.water.data.repository.WaterIntakeR
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.AddWaterIntakeUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.BuildDayChartBucketsFromLogsUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstInstallDayUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveFirstInstallEpochDayUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedUnitUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveWaterGoalMlUseCase
@@ -115,6 +116,7 @@ class MainActivity : ComponentActivity() {
         val observeSavedGoalMl = ObserveSavedGoalMlUseCase(waterPrefs)
         val observeSavedUnit = ObserveSavedUnitUseCase(waterPrefs)
         val ensureFirstInstallDayUseCase = EnsureFirstInstallDayUseCase(waterPrefs)
+        val observeFirstInstallEpochDay = ObserveFirstInstallEpochDayUseCase(waterPrefs)
 
         val waterGoalFactoryOnboarding = WaterGoalViewModelFactory(
             observeWaterGoalMl = observeWaterGoalMl,
@@ -185,6 +187,7 @@ class MainActivity : ComponentActivity() {
         val weighHistoryFactory = WeighHistoryViewModelFactory(
             observeMassUnit = ObserveWeighMassUnitUseCase(weighPrefs),
             observeLast7 = observeWeighLogsLast7Days,
+            observeFirstInstallEpochDay = observeFirstInstallEpochDay,
             buildChart = BuildWeighHistorySevenDayChartUseCase()
         )
 

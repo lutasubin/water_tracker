@@ -3,14 +3,15 @@ package com.weappsinc.watertracker.app.feature.weigh.domain.usecase
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighHistoryChartPoint
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighLogEntry
 
-/** Gom log trong cửa sổ 7 ngày → một điểm/kg mỗi ngày (lặp giá trị gần nhất nếu thiếu ngày). */
+/** Gom log trong cửa sổ biểu đồ → một điểm/kg mỗi ngày (lặp giá trị gần nhất nếu thiếu ngày). */
 class BuildWeighHistorySevenDayChartUseCase {
 
     operator fun invoke(
         logsInWindow: List<WeighLogEntry>,
+        windowStartEpochDay: Long,
         todayEpochDay: Long
     ): List<WeighHistoryChartPoint> {
-        val start = todayEpochDay - SIX_DAYS
+        val start = windowStartEpochDay
         val byDay = logsInWindow
             .filter { it.epochDay in start..todayEpochDay }
             .groupBy { it.epochDay }
@@ -27,7 +28,4 @@ class BuildWeighHistorySevenDayChartUseCase {
         return out
     }
 
-    companion object {
-        private const val SIX_DAYS = 6L
-    }
 }

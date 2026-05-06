@@ -25,12 +25,10 @@ object WeighHistoryUiMapper {
     fun map(
         logsDesc: List<WeighLogEntry>,
         chartPoints: List<WeighHistoryChartPoint>,
-        todayEpochDay: Long,
         unit: MassUnit
     ): WeighHistoryUiState {
-        val start = todayEpochDay - 6L
-        val xLabels = (start..todayEpochDay).map { d ->
-            LocalDate.ofEpochDay(d).format(dayLabelFmt)
+        val xLabels = chartPoints.map { p ->
+            LocalDate.ofEpochDay(p.epochDay).format(dayLabelFmt)
         }
         val rows = logsDesc.mapIndexed { i, e ->
             val older = logsDesc.getOrNull(i + 1)

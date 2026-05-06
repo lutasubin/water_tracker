@@ -74,7 +74,8 @@ object AppColors {
     /** Accent lịch sử cân / liên kết (#504AE0). */
     val WeighHistoryAccent = Color(0xFF504AE0)
     val WeighHistoryBadgeBg = Color(0xFFEAE9FC)
-    val WeighHistoryChartAreaAlpha = Color(0x40504AE0)
+    /** Đỉnh gradient vùng dưới đường biểu đồ xu hướng cân (tím nhạt). */
+    val WeighHistoryChartFillTop = Color(0x33504AE0)
     val WeighHistoryDeltaIncreaseBg = Color(0xFFFDEBEC)
     val WeighHistoryDeltaDecreaseBg = Color(0xFFE8FBF2)
 

@@ -2,6 +2,7 @@ package com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveFirstInstallEpochDayUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.BuildWeighHistorySevenDayChartUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLogsLast7DaysUseCase
@@ -9,7 +10,6 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighM
 import com.weappsinc.watertracker.app.feature.weigh.presentation.mapper.WeighHistoryUiMapper
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.time.LocalDate
 import java.time.ZoneId
@@ -17,16 +17,22 @@ import java.time.ZoneId
 class WeighHistoryViewModel(
     private val observeMassUnit: ObserveWeighMassUnitUseCase,
     private val observeLast7: ObserveWeighLogsLast7DaysUseCase,
+    private val observeFirstInstallEpochDay: ObserveFirstInstallEpochDayUseCase,
     private val buildChart: BuildWeighHistorySevenDayChartUseCase
 ) : ViewModel() {
 
-    val uiState = combine(observeMassUnit(), observeLast7()) { unit, logs ->
+    val uiState = combine(
+        observeMassUnit(),
+        observeLast7(),
+        observeFirstInstallEpochDay()
+    ) { unit, logs, firstInstallEpoch ->
         val today = LocalDate.now(ZoneId.systemDefault()).toEpochDay()
-        val chart = buildChart(logs, today)
+        val last7Start = today - SEVEN_DAY_SPAN
+        val windowStart = maxOf(firstInstallEpoch ?: last7Start, last7Start)
+        val chart = buildChart(logs, windowStart, today)
         WeighHistoryUiMapper.map(
             logsDesc = logs,
             chartPoints = chart,
-            todayEpochDay = today,
             unit = unit
         )
     }.stateIn(
@@ -35,8 +41,11 @@ class WeighHistoryViewModel(
         WeighHistoryUiMapper.map(
             logsDesc = emptyList(),
             chartPoints = emptyList(),
-            todayEpochDay = LocalDate.now(ZoneId.systemDefault()).toEpochDay(),
             unit = MassUnit.KG
         )
     )
+
+    companion object {
+        private const val SEVEN_DAY_SPAN = 6L
+    }
 }
