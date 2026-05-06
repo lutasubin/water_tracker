@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Drink_water_kotlin" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- AppCompatActivity bắt buộc dùng theme kế thừa Theme.AppCompat (hoặc Material Components). -->
+    <style name="Theme.Drink_water_kotlin" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>

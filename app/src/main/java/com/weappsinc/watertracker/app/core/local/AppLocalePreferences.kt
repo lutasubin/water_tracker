@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.weappsinc.watertracker.MainActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -22,7 +21,7 @@ object AppLocalePreferences {
             prefs[localeTagKey] ?: DEFAULT_LOCALE_TAG
         }
 
-    suspend fun readTag(context: MainActivity): String =
+    suspend fun readTag(context: Context): String =
         observeTag(context).first()
 
     suspend fun saveTag(context: Context, tag: String) {

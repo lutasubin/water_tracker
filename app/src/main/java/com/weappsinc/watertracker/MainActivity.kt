@@ -1,18 +1,15 @@
 package com.weappsinc.watertracker
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.ui.Modifier
-import androidx.core.os.LocaleListCompat
-import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
 import com.weappsinc.watertracker.app.core.local.GenderSQLiteHelper
 import com.weappsinc.watertracker.app.core.navigation.AppNavHost
 import com.weappsinc.watertracker.app.feature.age.data.repository.AgeRepositoryImpl
@@ -72,15 +69,9 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogU
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
-import kotlinx.coroutines.runBlocking
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Áp locale đã lưu trước composition (một lần, đọc DataStore nhanh).
-        runBlocking {
-            val tag = AppLocalePreferences.readTag(this@MainActivity)
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
-        }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val reportDayBucketLabels =
@@ -209,7 +200,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         setContent {
-            // Vùng an toàn: tránh đè status bar, tai thỏ, thanh điều hướng (gesture/3 nút).
             Box(
                 Modifier
                     .fillMaxSize()
