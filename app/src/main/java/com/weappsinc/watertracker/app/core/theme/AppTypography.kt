@@ -37,6 +37,8 @@ object AppTypography {
         fontWeight = FontWeight.Bold,
         fontFamily = AppFontFamily
     )
+    /** Tiêu đề App bar màn Report (gần M3 titleLarge, đậm dễ đọc). */
+    val ReportTopBarTitle = Title2
     val Title3 = TextStyle(
         fontSize = 20.sp,
         lineHeight = 28.sp,

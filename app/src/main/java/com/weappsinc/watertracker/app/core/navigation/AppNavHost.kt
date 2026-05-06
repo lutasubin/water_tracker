@@ -20,6 +20,8 @@ import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstIn
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.presentation.home.HomeScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
+import com.weappsinc.watertracker.app.feature.water.presentation.report.ReportScreen
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.weight.presentation.screen.WeightSelectionScreen
@@ -36,6 +38,7 @@ fun AppNavHost(
     waterGoalFactoryOnboarding: WaterGoalViewModelFactory,
     waterGoalFactoryEdit: WaterGoalViewModelFactory,
     waterTrackerFactory: WaterTrackerViewModelFactory,
+    reportViewModelFactory: ReportViewModelFactory,
     ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase,
     observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase
 ) {
@@ -102,7 +105,14 @@ fun AppNavHost(
         composable(AppRoute.Home.route) {
             HomeScreen(
                 waterTrackerFactory = waterTrackerFactory,
-                onEditWaterGoal = { navController.navigate(AppRoute.WaterGoalEdit.route) }
+                onEditWaterGoal = { navController.navigate(AppRoute.WaterGoalEdit.route) },
+                onOpenReport = { navController.navigate(AppRoute.Report.route) }
+            )
+        }
+        composable(AppRoute.Report.route) {
+            ReportScreen(
+                factory = reportViewModelFactory,
+                onBack = { navController.popBackStack() }
             )
         }
         composable(AppRoute.WaterGoalEdit.route) {

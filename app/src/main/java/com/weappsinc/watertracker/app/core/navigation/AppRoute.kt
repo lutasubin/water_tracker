@@ -10,4 +10,5 @@ sealed class AppRoute(val route: String) {
     data object WaterGoal : AppRoute("water_goal")
     data object WaterGoalEdit : AppRoute("water_goal_edit")
     data object Home : AppRoute("home")
+    data object Report : AppRoute("report")
 }

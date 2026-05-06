@@ -1,5 +1,6 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,6 +34,7 @@ import com.weappsinc.watertracker.app.feature.water.presentation.state.WeekDayRi
 fun WeeklyReportSection(
     weekRings: List<WeekDayRingUi>,
     imageLoader: ImageLoader,
+    onOpenReport: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -65,7 +67,8 @@ fun WeeklyReportSection(
                 Text(
                     text = AppText.REPORT_DETAILS,
                     color = AppColors.HomePrimary,
-                    style = AppTypography.BodyMedium
+                    style = AppTypography.BodyMedium,
+                    modifier = Modifier.clickable(onClick = onOpenReport)
                 )
             }
             Spacer(Modifier.height(16.dp))

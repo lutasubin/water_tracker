@@ -22,6 +22,7 @@ import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.Water
 fun HomeScreen(
     waterTrackerFactory: WaterTrackerViewModelFactory,
     onEditWaterGoal: () -> Unit,
+    onOpenReport: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var tab by rememberSaveable { mutableStateOf(HomeTab.Water) }
@@ -41,6 +42,7 @@ fun HomeScreen(
                 factory = waterTrackerFactory,
                 imageLoader = imageLoader,
                 onEditGoal = onEditWaterGoal,
+                onOpenReport = onOpenReport,
                 modifier = Modifier.weight(1f)
             )
             HomeTab.Bmi -> PlaceholderTabScreen(

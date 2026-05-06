@@ -38,4 +38,8 @@ object AppColors {
     val HomeNavInactive = Color(0xFF8D9BB5)
     /** Nền ô bút sửa trên thẻ Mục tiêu (xanh nhạt). */
     val HomeStatEditButtonBg = Color(0xFFE8EEFC)
+    /** Nền nút pager dưới biểu đồ Month (xanh nhạt). */
+    val ReportPagerButtonBackground = Color(0xFFEBF2FF)
+    /** Vạch nền (track) thanh cuộn pager — xanh rất nhạt. */
+    val ReportPagerTrack = Color(0xFFDDE8FA)
 }

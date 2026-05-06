@@ -33,11 +33,13 @@ import com.weappsinc.watertracker.app.feature.water.data.preferences.WaterPrefer
 import com.weappsinc.watertracker.app.feature.water.data.repository.WaterGoalRepositoryImpl
 import com.weappsinc.watertracker.app.feature.water.data.repository.WaterIntakeRepositoryImpl
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.AddWaterIntakeUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.BuildDayChartBucketsFromLogsUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstInstallDayUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedUnitUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveWaterGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.SaveOnboardingWaterGoalUseCase
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.weight.data.repository.WeightRepositoryImpl
@@ -112,6 +114,12 @@ class MainActivity : ComponentActivity() {
             intake = intakeRepository,
             addWaterIntake = addWaterIntakeUseCase
         )
+        val buildDayBuckets = BuildDayChartBucketsFromLogsUseCase()
+        val reportViewModelFactory = ReportViewModelFactory(
+            prefs = waterPrefs,
+            intake = intakeRepository,
+            buildDayBuckets = buildDayBuckets
+        )
 
         setContent {
             // Vùng an toàn: tránh đè status bar, tai thỏ, thanh điều hướng (gesture/3 nút).
@@ -129,6 +137,7 @@ class MainActivity : ComponentActivity() {
                     waterGoalFactoryOnboarding = waterGoalFactoryOnboarding,
                     waterGoalFactoryEdit = waterGoalFactoryEdit,
                     waterTrackerFactory = waterTrackerFactory,
+                    reportViewModelFactory = reportViewModelFactory,
                     ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
                     observeSavedGoalMlUseCase = observeSavedGoalMl
                 )

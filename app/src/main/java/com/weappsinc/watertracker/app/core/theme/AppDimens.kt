@@ -86,4 +86,21 @@ object AppDimens {
     /** Nét vòng báo cáo tuần — hơi dày để dễ nhìn. */
     val HomeWeekRingStrokeWidth = 3.dp
     val HomeNavIconSize = 24.dp
+    val ReportHorizontalPadding = 20.dp
+    val ReportSectionSpacing = 16.dp
+    val ReportChartMinHeight = 200.dp
+    /** Chiều cao vùng vẽ biểu đồ (trục + lưới + cột + nhãn X). */
+    val ReportChartCanvasHeight = 252.dp
+    /** Chỗ đặt nhãn trục Y (ml dạng 0, 1k, …). */
+    val ReportChartYAxisWidth = 42.dp
+    val ReportMonthFooterHeight = 44.dp
+    val ReportMonthFooterCircleSize = 40.dp
+    /** Vùng chứa track + thumb (thumb dày chồng lên track mảnh). */
+    val ReportMonthScrollTrackHeight = 16.dp
+    val ReportMonthScrollTrackLineHeight = 3.dp
+    val ReportMonthScrollThumbHeight = 10.dp
+    val ReportMonthScrollThumbMinWidth = 28.dp
+    val ReportBarWidthDayWeek = 24.dp
+    val ReportBarWidthMonth = 32.dp
+    val ReportPeriodTabHeight = 40.dp
 }

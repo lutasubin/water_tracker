@@ -49,6 +49,7 @@ fun WaterTrackerScreen(
     factory: WaterTrackerViewModelFactory,
     imageLoader: ImageLoader,
     onEditGoal: () -> Unit,
+    onOpenReport: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val vm: WaterTrackerViewModel = viewModel(factory = factory)
@@ -100,7 +101,11 @@ fun WaterTrackerScreen(
             onEditGoal = onEditGoal
         )
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-        WeeklyReportSection(weekRings = state.weekRings, imageLoader = imageLoader)
+        WeeklyReportSection(
+            weekRings = state.weekRings,
+            imageLoader = imageLoader,
+            onOpenReport = onOpenReport
+        )
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
         TrackerDrinkButton(
             onClick = { showDrinkSheet = true },

@@ -22,7 +22,30 @@ interface WaterIntakeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(entity: DailyWaterTotalEntity)
 
-    /** Cộng thêm ml cho một ngày (epoch day). Trả về tổng ml sau khi cộng (tránh KSP lỗi chữ ký Unit). */
+    @Insert
+    suspend fun insertLog(entity: WaterIntakeLogEntity): Long
+
+    @Query(
+        "SELECT * FROM water_intake_log WHERE epoch_day = :epochDay ORDER BY timestamp_ms DESC"
+    )
+    fun observeLogsForDay(epochDay: Long): Flow<List<WaterIntakeLogEntity>>
+
+    @Transaction
+    suspend fun addWaterIntakeWithLog(epochDay: Long, timestampMs: Long, amountMl: Int): Int {
+        insertLog(
+            WaterIntakeLogEntity(
+                epochDay = epochDay,
+                timestampMs = timestampMs,
+                amountMl = amountMl
+            )
+        )
+        val current = getTotalMl(epochDay) ?: 0
+        val next = current + amountMl
+        upsert(DailyWaterTotalEntity(epochDay, next))
+        return next
+    }
+
+    /** Cộng thêm ml (legacy / migration thuần tổng). */
     @Transaction
     suspend fun addMl(epochDay: Long, deltaMl: Int): Int {
         val current = getTotalMl(epochDay) ?: 0

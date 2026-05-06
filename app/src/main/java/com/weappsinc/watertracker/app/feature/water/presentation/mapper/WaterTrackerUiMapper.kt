@@ -28,7 +28,7 @@ object WaterTrackerUiMapper {
         val percent = (fraction * 100f).toInt().coerceIn(0, 100)
 
         val lookup: (Long) -> Int = { d -> intakeByEpochDay[d] ?: 0 }
-        val streak = WaterStreakCalculator.compute(
+        val streak = WaterStreakCalculator.computeForDisplay(
             todayEpochDay = todayEpoch,
             firstInstallEpochDay = installEpoch,
             goalMl = goal,
