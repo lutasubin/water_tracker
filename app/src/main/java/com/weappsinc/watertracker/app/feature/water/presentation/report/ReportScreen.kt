@@ -12,9 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.weappsinc.watertracker.app.core.components.AppTopBar
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -32,7 +33,7 @@ fun ReportScreen(
     val state by vm.uiState.collectAsState()
     Column(modifier.fillMaxSize().background(AppColors.HomeBackground)) {
         AppTopBar(
-            title = AppText.REPORT_TITLE_SCREEN,
+            title = stringResource(R.string.report_screen_title),
             onBack = onBack,
             containerColor = AppColors.HomeBackground,
             contentColor = AppColors.HomeTitle,

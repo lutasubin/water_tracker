@@ -31,7 +31,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -64,14 +65,14 @@ internal fun WeighTodayCardHeaderRow(onHistoryClick: () -> Unit, modifier: Modif
             }
             Spacer(Modifier.size(8.dp))
             Text(
-                AppText.WEIGH_GOAL_DETAIL_TODAY,
+                stringResource(R.string.weigh_goal_detail_today),
                 style = AppTypography.Title3,
                 color = AppColors.HomeTitle,
                 fontWeight = FontWeight.Bold
             )
         }
         Text(
-            text = AppText.WEIGH_GOAL_DETAIL_HISTORY,
+            text = stringResource(R.string.weigh_goal_detail_history),
             style = AppTypography.BodyMedium.copy(fontWeight = FontWeight.Bold),
             color = AppColors.WeighHistoryAccent,
             modifier = Modifier.clickable(onClick = onHistoryClick).padding(4.dp)
@@ -148,7 +149,7 @@ internal fun WeighTodayRecordPillButton(onClick: () -> Unit, modifier: Modifier 
         colors = ButtonDefaults.buttonColors(containerColor = AppColors.WeighHistoryAccent)
     ) {
         Text(
-            text = AppText.WEIGH_GOAL_DETAIL_RECORD,
+            text = stringResource(R.string.weigh_goal_detail_record),
             color = Color.White,
             style = AppTypography.BodyLarge.copy(fontWeight = FontWeight.Bold)
         )
@@ -182,7 +183,7 @@ internal fun WeighTodaySavedBanner(timeText: String) {
         Spacer(Modifier.size(10.dp))
         Column {
             Text(
-                text = AppText.WEIGH_GOAL_DETAIL_SAVED,
+                text = stringResource(R.string.weigh_goal_detail_saved),
                 style = AppTypography.BodyLarge,
                 fontWeight = FontWeight.Bold,
                 color = AppColors.WeighSavedBannerText

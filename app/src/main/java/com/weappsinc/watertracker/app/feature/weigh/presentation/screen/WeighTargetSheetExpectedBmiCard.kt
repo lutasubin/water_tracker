@@ -15,8 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.components.bmiCategoryLabel
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.BmiCategory
@@ -41,11 +43,6 @@ fun WeighTargetSheetExpectedBmiCard(heightCm: Int, targetDraftKg: Float) {
         BmiCategory.Normal -> AppColors.BmiBadgeNormalText
         BmiCategory.Overweight -> AppColors.BmiBadgeOverText
     }
-    val badgeText = when (category) {
-        BmiCategory.Underweight -> AppText.BMI_UNDERWEIGHT
-        BmiCategory.Normal -> AppText.BMI_NORMAL
-        BmiCategory.Overweight -> AppText.BMI_OVERWEIGHT
-    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,14 +52,14 @@ fun WeighTargetSheetExpectedBmiCard(heightCm: Int, targetDraftKg: Float) {
     ) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = AppText.EXPECTED_BMI_LABEL,
+                text = stringResource(R.string.expected_bmi_label),
                 modifier = Modifier.weight(1f),
                 style = AppTypography.BodyMedium,
                 color = AppColors.HomeMuted
             )
             Surface(color = AppColors.HomeCard, shape = RoundedCornerShape(50)) {
                 Text(
-                    text = badgeText,
+                    text = bmiCategoryLabel(category),
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                     style = AppTypography.BodyMedium,
                     color = badgeFg
@@ -74,7 +71,7 @@ fun WeighTargetSheetExpectedBmiCard(heightCm: Int, targetDraftKg: Float) {
             val bmiTxt = if (heightCm > 0) String.format(Locale.US, "%.1f", bmi) else "--"
             Text(text = bmiTxt, style = AppTypography.StatCardValue, color = AppColors.HomeTitle)
             Text(
-                text = " ${AppText.WEIGH_BMI_UNIT_LABEL}",
+                text = " ${stringResource(R.string.weigh_bmi_unit_label)}",
                 style = AppTypography.BodyMedium,
                 color = AppColors.HomeMuted
             )

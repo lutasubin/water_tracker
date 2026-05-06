@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_screen_title">Ngôn ngữ</string>
+    <string name="cd_nav_back">Quay lại</string>
+    <string name="cd_language_apply">Áp dụng ngôn ngữ</string>
+    <string name="me_personal_data_title">Dữ liệu cá nhân</string>
+    <string name="me_general_section">Chung</string>
+    <string name="me_menu_language">Ngôn ngữ</string>
+    <string name="me_menu_rate_us">Đánh giá</string>
+    <string name="me_menu_share">Chia sẻ</string>
+    <string name="me_menu_privacy">Chính sách riêng tư</string>
+    <string name="weigh_height_label">Chiều cao</string>
+    <string name="weigh_weight_label">Cân nặng</string>
+    <string name="weigh_bmi_section_title">CHỈ SỐ BMI CƠ THỂ</string>
+    <string name="target_weight_section_title">Cân nặng mục tiêu</string>
+    <string name="target_weight_empty">Chưa có mục tiêu nào!</string>
+    <string name="create_target">Tạo mục tiêu</string>
+    <string name="target_sheet_header_title">CÂN NẶNG MỤC TIÊU</string>
+    <string name="expected_bmi_label">BMI DỰ KIẾN</string>
+    <string name="start_journey">BẮT ĐẦU HÀNH TRÌNH</string>
+    <string name="weigh_goal_card_title">MỤC TIÊU</string>
+    <string name="weigh_gap_label">CÁCH BIỆT</string>
+    <string name="weigh_journey_progress_label">TIẾN ĐỘ HÀNH TRÌNH</string>
+    <string name="weigh_goal_detail_start_day">Ngày bắt đầu</string>
+    <string name="weigh_goal_detail_progress">Tiến triển</string>
+    <string name="weigh_goal_detail_today">HÔM NAY</string>
+    <string name="weigh_goal_detail_history">LỊCH SỬ GHI NHẬN</string>
+    <string name="weigh_goal_detail_record">Ghi nhận</string>
+    <string name="weigh_goal_detail_saved">Đã lưu cân nặng hôm nay</string>
+    <string name="weigh_goal_detail_record_error">Không lưu được. Thử lại.</string>
+    <string name="weigh_history_title">Lịch sử ghi nhận</string>
+    <string name="weigh_history_trend_title">XU HƯỚNG CÂN NẶNG</string>
+    <string name="weigh_history_last_7_days">7 ngày gần nhất</string>
+    <string name="weigh_history_empty">Chưa có dữ liệu trong 7 ngày gần nhất.</string>
+    <string name="today_progress_label">Tiến độ hôm nay</string>
+    <string name="today_goal_done_label">Hoàn thành mục tiêu hôm nay 🎉</string>
+    <string name="water_goal_card_label">Mục tiêu</string>
+    <string name="reminder_card_label">Nhắc nhở sắp tới</string>
+    <string name="report_inline_title">Báo cáo</string>
+    <string name="report_details">Chi tiết</string>
+    <string name="report_screen_title">Báo cáo</string>
+    <string name="goal_done_dialog_title">Chúc mừng bạn đã hoàn thành\nmục tiêu</string>
+    <string name="close">Đóng</string>
+    <string name="bmi_underweight">Gầy</string>
+    <string name="bmi_normal">Bình thường</string>
+    <string name="bmi_overweight">Thừa cân</string>
+    <plurals name="me_streak_days">
+        <item quantity="one">%d ngày</item>
+        <item quantity="other">%d ngày</item>
+    </plurals>
+    <plurals name="water_streak_pill">
+        <item quantity="one">%d ngày - Chuỗi</item>
+        <item quantity="other">%d ngày - Chuỗi</item>
+    </plurals>
+</resources>

@@ -20,8 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
 import com.weappsinc.watertracker.app.core.theme.AppColors
@@ -71,7 +72,7 @@ fun AgeSelectionScreen(
             AppTopBar(onBack = onBack)
             Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
             Text(
-                text = AppText.AGE_TITLE,
+                text = stringResource(R.string.age_title),
                 color = AppColors.GenderTitle,
                 style = AppTypography.Title1
             )
@@ -98,7 +99,7 @@ fun AgeSelectionScreen(
             }
         }
         AppPrimaryButton(
-            text = AppText.NEXT,
+            text = stringResource(R.string.next),
             onClick = { vm.saveSelection(); onNext() },
             modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
         )

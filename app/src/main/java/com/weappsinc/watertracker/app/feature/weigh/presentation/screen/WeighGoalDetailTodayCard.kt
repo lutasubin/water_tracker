@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -26,7 +28,7 @@ fun WeighGoalDetailTodayCard(
     massUnitLabel: String,
     showWeighRecordCta: Boolean,
     savedBannerTime: String?,
-    recordError: String?,
+    recordError: Boolean,
     onStepKg: (Float) -> Unit,
     onRecord: () -> Unit,
     onHistoryClick: () -> Unit,
@@ -49,9 +51,9 @@ fun WeighGoalDetailTodayCard(
         Spacer(Modifier.height(16.dp))
         if (showWeighRecordCta) {
             WeighTodayRecordPillButton(onClick = onRecord)
-            if (recordError != null) {
+            if (recordError) {
                 Text(
-                    text = recordError,
+                    text = stringResource(R.string.weigh_goal_detail_record_error),
                     modifier = Modifier.padding(top = 8.dp),
                     style = AppTypography.BodyMedium,
                     color = AppColors.WeighProgressDeltaUnfavorable

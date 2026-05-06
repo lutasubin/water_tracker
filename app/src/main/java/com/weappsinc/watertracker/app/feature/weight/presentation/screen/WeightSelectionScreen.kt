@@ -23,11 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -81,7 +82,7 @@ fun WeightSelectionScreen(
         Column {
             AppTopBar(onBack = onBack)
             Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
-            Text(text = AppText.WEIGHT_TITLE, color = AppColors.GenderTitle, style = AppTypography.Title1)
+            Text(text = stringResource(R.string.weight_title), color = AppColors.GenderTitle, style = AppTypography.Title1)
             Spacer(Modifier.height(AppDimens.UnitToggleBottomSpacing))
         }
         Box(Modifier.fillMaxWidth().weight(1f), contentAlignment = Alignment.Center) {
@@ -119,7 +120,7 @@ fun WeightSelectionScreen(
             }
         }
         AppPrimaryButton(
-            text = AppText.NEXT,
+            text = stringResource(R.string.next),
             onClick = { vm.saveSelection(); onNext() },
             modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
         )

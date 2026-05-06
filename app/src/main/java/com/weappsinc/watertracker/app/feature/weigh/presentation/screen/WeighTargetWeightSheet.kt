@@ -38,9 +38,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -65,7 +66,7 @@ fun WeighTargetWeightSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var draftKg by remember { mutableFloatStateOf(initialKg.coerceIn(MIN_TARGET_KG, MAX_TARGET_KG)) }
     LaunchedEffect(initialKg) { draftKg = initialKg.coerceIn(MIN_TARGET_KG, MAX_TARGET_KG) }
-    val unitLabel = if (massUnit == MassUnit.KG) AppText.UNIT_MASS_KG else AppText.UNIT_MASS_LB
+    val unitLabel = if (massUnit == MassUnit.KG) stringResource(R.string.unit_mass_kg) else stringResource(R.string.unit_mass_lb)
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -81,13 +82,13 @@ fun WeighTargetWeightSheet(
                     contentScale = ContentScale.Fit
                 )
                 Text(
-                    AppText.TARGET_SHEET_HEADER_TITLE,
+                    stringResource(R.string.target_sheet_header_title),
                     Modifier.weight(1f).padding(horizontal = 10.dp),
                     style = AppTypography.Title3,
                     color = AppColors.HomeTitle
                 )
                 IconButton(onClick = onDismiss) {
-                    Icon(Icons.Filled.Close, AppText.CLOSE, tint = AppColors.HomeMuted)
+                    Icon(Icons.Filled.Close, stringResource(R.string.close), tint = AppColors.HomeMuted)
                 }
             }
             Spacer(Modifier.height(WeighDimens.SheetInnerSpacing))
@@ -121,7 +122,7 @@ fun WeighTargetWeightSheet(
                 shape = RoundedCornerShape(WeighDimens.SheetCtaHeight / 2),
                 colors = ButtonDefaults.buttonColors(containerColor = AppColors.WeighJourneyCta)
             ) {
-                Text(AppText.START_JOURNEY, style = AppTypography.Button, color = AppColors.GenderSelectedContent)
+                Text(stringResource(R.string.start_journey), style = AppTypography.Button, color = AppColors.GenderSelectedContent)
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowForward,
                     null,

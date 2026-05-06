@@ -18,9 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -51,7 +52,7 @@ fun ReminderStatCard(
                 contentScale = ContentScale.Fit
             )
             Text(
-                text = AppText.REMINDER_CARD_LABEL,
+                text = stringResource(R.string.reminder_card_label),
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
                 color = AppColors.HomeMuted,
@@ -62,7 +63,7 @@ fun ReminderStatCard(
         Spacer(Modifier.height(AppDimens.HomeStatValueSpacing))
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Text(
-                text = AppText.REMINDER_UI_SAMPLE_TIME,
+                text = stringResource(R.string.reminder_sample_time),
                 color = AppColors.HomeTitle,
                 style = AppTypography.StatCardValue,
                 textAlign = TextAlign.Center

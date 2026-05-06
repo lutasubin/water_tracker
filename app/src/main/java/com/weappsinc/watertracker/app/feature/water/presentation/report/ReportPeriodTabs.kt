@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -31,13 +32,13 @@ fun ReportPeriodTabs(
             .padding(horizontal = AppDimens.ReportHorizontalPadding),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        PeriodChip(AppText.REPORT_TAB_DAY, selected == ReportPeriod.Day, Modifier.weight(1f)) {
+        PeriodChip(stringResource(R.string.report_tab_day), selected == ReportPeriod.Day, Modifier.weight(1f)) {
             onSelect(ReportPeriod.Day)
         }
-        PeriodChip(AppText.REPORT_TAB_WEEK, selected == ReportPeriod.Week, Modifier.weight(1f)) {
+        PeriodChip(stringResource(R.string.report_tab_week), selected == ReportPeriod.Week, Modifier.weight(1f)) {
             onSelect(ReportPeriod.Week)
         }
-        PeriodChip(AppText.REPORT_TAB_MONTH, selected == ReportPeriod.Month, Modifier.weight(1f)) {
+        PeriodChip(stringResource(R.string.report_tab_month), selected == ReportPeriod.Month, Modifier.weight(1f)) {
             onSelect(ReportPeriod.Month)
         }
     }

@@ -14,7 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -30,7 +31,7 @@ fun ReportRecordsList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = AppText.REPORT_RECORD_HEADER,
+            text = stringResource(R.string.report_record_header),
             color = AppColors.HomeTitle,
             style = AppTypography.Title3
         )
@@ -55,7 +56,7 @@ fun ReportRecordsList(
                             fontWeight = FontWeight.Bold,
                             style = AppTypography.BodyLarge
                         )
-                        Text(" ${AppText.UNIT_ML}", color = AppColors.HomeSecondaryText, style = AppTypography.BodyMedium)
+                        Text(" ${stringResource(R.string.unit_ml)}", color = AppColors.HomeSecondaryText, style = AppTypography.BodyMedium)
                     }
                 }
             }

@@ -27,8 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -74,7 +75,7 @@ fun SplashScreen(
     ) {
         AsyncImage(
             model = AssetPaths.SPLASH_BACKGROUND,
-            contentDescription = AppText.SPLASH_BACKGROUND_DESC,
+            contentDescription = stringResource(R.string.splash_background_desc),
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
@@ -88,7 +89,7 @@ fun SplashScreen(
         ) {
             AsyncImage(
                 model = AssetPaths.SPLASH_ICON,
-                contentDescription = AppText.SPLASH_ICON_DESC,
+                contentDescription = stringResource(R.string.splash_icon_desc),
                 imageLoader = imageLoader,
                 modifier = Modifier
                     .fillMaxWidth(AppDimens.SplashIconWidthFraction)
@@ -97,7 +98,7 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(AppDimens.SplashTitleTopSpacing))
 
             Text(
-                text = AppText.SPLASH_TITLE,
+                text = stringResource(R.string.splash_title),
                 color = AppColors.SplashTitle,
                 style = AppTypography.Title2
             )

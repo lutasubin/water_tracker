@@ -6,8 +6,7 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighHistoryCha
 data class WeighHistoryRowUi(
     val timeLabel: String,
     val weightValueText: String,
-    val unitLabel: String,
-    val deltaBadgeText: String?,
+    val deltaSignedText: String?,
     val deltaIsIncrease: Boolean
 )
 

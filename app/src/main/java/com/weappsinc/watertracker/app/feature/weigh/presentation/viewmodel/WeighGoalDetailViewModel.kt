@@ -2,7 +2,6 @@ package com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.feature.tall.domain.usecase.ObserveTallUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ClassifyBmiUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ComputeWeightProgressDeltaUseCase
@@ -47,7 +46,7 @@ class WeighGoalDetailViewModel(
 
     private val draftOverride = MutableStateFlow<Float?>(null)
     private val savedAtMs = MutableStateFlow<Long?>(null)
-    private val recordError = MutableStateFlow<String?>(null)
+    private val recordError = MutableStateFlow(false)
     private val isRecording = MutableStateFlow(false)
 
     private val profileInputs = combine(
@@ -104,7 +103,7 @@ class WeighGoalDetailViewModel(
         SharingStarted.WhileSubscribed(5_000),
         WeighGoalDetailUiStateMapper.map(
             0, 0, MassUnit.KG, null, null,
-            emptyList(), null, null, null, null, false,
+            emptyList(), null, null, null, false, false,
             computeDelta, classifyBmi::invoke, mapBmiFraction::invoke
         )
     )
@@ -114,7 +113,7 @@ class WeighGoalDetailViewModel(
     }
 
     fun onDraftStep(stepKg: Float) {
-        recordError.value = null
+        recordError.value = false
         val cur = draftOverride.value ?: uiState.value.displayDraftKg
         draftOverride.value =
             MassDisplay.snapTargetKg(cur + stepKg).coerceIn(30f, 250f)
@@ -124,14 +123,14 @@ class WeighGoalDetailViewModel(
     fun onRecordWeight(kg: Float) {
         viewModelScope.launch {
             isRecording.value = true
-            recordError.value = null
+            recordError.value = false
             try {
                 saveWeighLog(kg).getOrThrow()
                 saveWeightProfile(MassDisplay.snapTargetKg(kg).roundToInt())
                 savedAtMs.value = System.currentTimeMillis()
                 draftOverride.value = null
             } catch (_: Exception) {
-                recordError.value = AppText.WEIGH_GOAL_DETAIL_RECORD_ERROR
+                recordError.value = true
             } finally {
                 isRecording.value = false
             }
@@ -146,7 +145,7 @@ class WeighGoalDetailViewModel(
     }
 
     fun clearRecordError() {
-        recordError.value = null
+        recordError.value = false
     }
 
     private data class WeighGoalDetailProfileInputs(

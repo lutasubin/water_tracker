@@ -23,8 +23,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -55,12 +56,12 @@ fun WeighHistoryScreen(
             IconButton(onClick = onBack) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = AppText.CLOSE,
+                    contentDescription = stringResource(R.string.cd_back),
                     tint = AppColors.HomeTitle
                 )
             }
             Text(
-                text = AppText.WEIGH_HISTORY_TITLE,
+                text = stringResource(R.string.weigh_history_title),
                 modifier = Modifier.weight(1f),
                 style = AppTypography.Title2,
                 color = AppColors.HomeTitle,
@@ -83,7 +84,7 @@ fun WeighHistoryScreen(
                 )
             }
             items(state.listRows) { row ->
-                WeighHistoryLogRow(row, Modifier.padding(top = 12.dp))
+                WeighHistoryLogRow(row, state.massUnit, Modifier.padding(top = 12.dp))
             }
         }
     }

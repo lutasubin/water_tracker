@@ -2,7 +2,6 @@ package com.weappsinc.watertracker.app.feature.weigh.presentation.state
 
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.BmiCategory
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
-import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighLogEntry
 
 data class WeighTrackerUiState(
     val heightCm: Int,
@@ -19,5 +18,5 @@ data class WeighTrackerUiState(
     val targetValueText: String?,
     val gapValueText: String,
     val journeyProgressFraction: Float,
-    val journeyProgressPercent: Int
+    val journeyProgressPercent: Int,
 )

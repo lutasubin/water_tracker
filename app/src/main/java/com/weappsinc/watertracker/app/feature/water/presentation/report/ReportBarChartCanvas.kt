@@ -16,6 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.feature.water.presentation.state.ReportBarUi
@@ -46,6 +48,7 @@ fun ReportBarChartCanvas(
     val tooltipStyle = remember {
         TextStyle(color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Medium)
     }
+    val unitMlSuffix = stringResource(R.string.unit_ml)
     val totalH = AppDimens.ReportChartCanvasHeight
     val bottomPad = 44.dp
     val topPad = 8.dp
@@ -95,7 +98,8 @@ fun ReportBarChartCanvas(
                 endPadPx = endPadPx,
                 bottomPadPx = bottomPadPx,
                 topPadPx = topPadPx,
-                plotTopExtraPx = plotTopExtraPx
+                plotTopExtraPx = plotTopExtraPx,
+                unitMlSuffix = unitMlSuffix,
             )
         }
     }

@@ -103,4 +103,12 @@ object AppDimens {
     val ReportBarWidthDayWeek = 24.dp
     val ReportBarWidthMonth = 32.dp
     val ReportPeriodTabHeight = 40.dp
+
+    /** Tab Me — thẻ Personal Data / hàng menu General. */
+    val MeProfileStatIconSize = 36.dp
+    val MeProfileSectionTitleSpacing = 20.dp
+    val MeProfileGeneralTopSpacing = 8.dp
+    val MeProfileMenuRowHeight = 52.dp
+    /** Khoảng dọc giữa các thẻ menu General (tab Me). */
+    val MeProfileMenuCardSpacing = 12.dp
 }

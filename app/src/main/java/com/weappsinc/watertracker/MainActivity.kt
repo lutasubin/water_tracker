@@ -1,15 +1,18 @@
 package com.weappsinc.watertracker
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.ui.Modifier
+import androidx.core.os.LocaleListCompat
+import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
 import com.weappsinc.watertracker.app.core.local.GenderSQLiteHelper
 import com.weappsinc.watertracker.app.core.navigation.AppNavHost
 import com.weappsinc.watertracker.app.feature.age.data.repository.AgeRepositoryImpl
@@ -40,6 +43,7 @@ import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedG
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedUnitUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveWaterGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.SaveOnboardingWaterGoalUseCase
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
@@ -68,11 +72,19 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogU
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
+import kotlinx.coroutines.runBlocking
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Áp locale đã lưu trước composition (một lần, đọc DataStore nhanh).
+        runBlocking {
+            val tag = AppLocalePreferences.readTag(this@MainActivity)
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
+        }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val reportDayBucketLabels =
+            resources.getStringArray(R.array.report_day_bucket_labels).toList()
         val helper = GenderSQLiteHelper(applicationContext)
         val genderRepository = GenderRepositoryImpl(helper)
         val ageRepository = AgeRepositoryImpl(helper)
@@ -141,11 +153,16 @@ class MainActivity : ComponentActivity() {
             intake = intakeRepository,
             addWaterIntake = addWaterIntakeUseCase
         )
+        val meProfileFactory = MeProfileViewModelFactory(
+            prefs = waterPrefs,
+            intake = intakeRepository,
+        )
         val buildDayBuckets = BuildDayChartBucketsFromLogsUseCase()
         val reportViewModelFactory = ReportViewModelFactory(
             prefs = waterPrefs,
             intake = intakeRepository,
-            buildDayBuckets = buildDayBuckets
+            buildDayBuckets = buildDayBuckets,
+            reportDayBucketLabels = reportDayBucketLabels,
         )
 
         val weighPrefs = WeighPreferencesRepositoryImpl(applicationContext)
@@ -208,6 +225,7 @@ class MainActivity : ComponentActivity() {
                     waterGoalFactoryEdit = waterGoalFactoryEdit,
                     waterTrackerFactory = waterTrackerFactory,
                     weighTrackerFactory = weighTrackerFactory,
+                    meProfileFactory = meProfileFactory,
                     weighGoalDetailFactory = weighGoalDetailFactory,
                     weighHistoryFactory = weighHistoryFactory,
                     reportViewModelFactory = reportViewModelFactory,

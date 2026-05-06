@@ -6,6 +6,14 @@ enum class ReportPeriod {
     Month
 }
 
+/** Khóa tóm tắt báo cáo — chuỗi hiển thị resolve ở UI qua stringResource. */
+enum class ReportSummaryLabel {
+    Today,
+    Goal,
+    AvgPerDay,
+    Total,
+}
+
 data class ReportBarUi(
     val label: String,
     val valueMl: Int,
@@ -31,10 +39,10 @@ data class ReportUiState(
     val period: ReportPeriod,
     val anchorDateLabel: String,
     val goalMl: Int,
-    val summaryLeftLabel: String,
+    val summaryLeftLabel: ReportSummaryLabel,
     val summaryLeftValueMl: Int,
     val summaryLeftHighlightPrimary: Boolean,
-    val summaryRightLabel: String,
+    val summaryRightLabel: ReportSummaryLabel,
     val summaryRightValueMl: Int,
     val chartBars: List<ReportBarUi>,
     val chartMaxMl: Int,

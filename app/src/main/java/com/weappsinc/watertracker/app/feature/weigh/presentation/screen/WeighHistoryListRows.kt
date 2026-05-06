@@ -23,13 +23,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.weappsinc.watertracker.app.core.components.massUnitShortLabel
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
+import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.presentation.state.WeighHistoryRowUi
 
 @Composable
-fun WeighHistoryLogRow(row: WeighHistoryRowUi, modifier: Modifier = Modifier) {
+fun WeighHistoryLogRow(
+    row: WeighHistoryRowUi,
+    massUnit: MassUnit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -68,7 +74,7 @@ fun WeighHistoryLogRow(row: WeighHistoryRowUi, modifier: Modifier = Modifier) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = " ${row.unitLabel}",
+                        text = " ${massUnitShortLabel(massUnit)}",
                         style = AppTypography.BodyMedium,
                         color = AppColors.HomeMuted,
                         modifier = Modifier.padding(start = 4.dp, bottom = 2.dp)
@@ -76,8 +82,9 @@ fun WeighHistoryLogRow(row: WeighHistoryRowUi, modifier: Modifier = Modifier) {
                 }
             }
         }
-        if (row.deltaBadgeText != null) {
+        if (row.deltaSignedText != null) {
             val up = row.deltaIsIncrease
+            val unitShort = massUnitShortLabel(massUnit)
             Row(
                 modifier = Modifier
                     .clip(RoundedCornerShape(18.dp))
@@ -92,7 +99,7 @@ fun WeighHistoryLogRow(row: WeighHistoryRowUi, modifier: Modifier = Modifier) {
                     modifier = Modifier.size(18.dp)
                 )
                 Text(
-                    text = row.deltaBadgeText,
+                    text = "${row.deltaSignedText} $unitShort",
                     style = AppTypography.BodyMedium,
                     color = if (up) AppColors.BmiScaleHigh else AppColors.BmiScaleNormal,
                     modifier = Modifier.padding(start = 4.dp)

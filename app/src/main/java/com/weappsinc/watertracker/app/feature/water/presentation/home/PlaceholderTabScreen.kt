@@ -7,7 +7,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 
@@ -23,7 +24,7 @@ fun PlaceholderTabScreen(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "${AppText.TAB_TODO_PLACEHOLDER}: $title",
+            text = "${stringResource(R.string.tab_todo_placeholder)}: $title",
             color = AppColors.HomeMuted,
             style = AppTypography.BodyLarge
         )

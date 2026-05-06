@@ -17,17 +17,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.feature.water.presentation.state.WeekDayRingUi
+import java.time.format.TextStyle
+import java.util.Locale
 
 /** Card báo cáo tuần: một vòng xám + cung xanh; nhãn ngày chọn màu primary. */
 @Composable
@@ -59,13 +62,13 @@ fun WeeklyReportSection(
                     )
                     Spacer(Modifier.size(8.dp))
                     Text(
-                        text = AppText.REPORT_TITLE,
+                        text = stringResource(R.string.report_inline_title),
                         color = AppColors.HomeTitle,
                         style = AppTypography.Title3
                     )
                 }
                 Text(
-                    text = AppText.REPORT_DETAILS,
+                    text = stringResource(R.string.report_details),
                     color = AppColors.HomePrimary,
                     style = AppTypography.BodyMedium,
                     modifier = Modifier.clickable(onClick = onOpenReport)
@@ -104,7 +107,7 @@ private fun WeekDayRingCell(day: WeekDayRingUi, modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            text = day.label,
+            text = day.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
             color = labelColor,
             style = AppTypography.BodyMedium,
             fontWeight = labelWeight,

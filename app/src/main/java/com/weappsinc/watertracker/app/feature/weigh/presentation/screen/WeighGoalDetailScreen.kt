@@ -25,12 +25,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.AppUnitToggle
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.app.core.components.massUnitShortLabel
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.WeighDimens
@@ -53,6 +55,7 @@ fun WeighGoalDetailScreen(
     val imageLoader = remember {
         ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }.build()
     }
+    val massLabel = massUnitShortLabel(state.displayMassUnit)
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -67,14 +70,14 @@ fun WeighGoalDetailScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AppUnitToggle(
-                leftText = AppText.UNIT_MASS_KG,
-                rightText = AppText.UNIT_MASS_LB,
+                leftText = stringResource(R.string.unit_mass_kg),
+                rightText = stringResource(R.string.unit_mass_lb),
                 isLeftSelected = state.displayMassUnit == MassUnit.KG,
                 onLeftClick = { vm.onMassUnitSelected(MassUnit.KG) },
                 onRightClick = { vm.onMassUnitSelected(MassUnit.LB) }
             )
             IconButton(onClick = onClose) {
-                Icon(Icons.Filled.Close, contentDescription = AppText.CLOSE, tint = AppColors.HomeTitle)
+                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.close), tint = AppColors.HomeTitle)
             }
         }
         Column(
@@ -86,7 +89,7 @@ fun WeighGoalDetailScreen(
             Spacer(Modifier.padding(top = 16.dp))
             WeighGoalDetailHeroCard(
                 targetValueText = state.targetValueText,
-                massUnitLabel = state.massUnitLabel,
+                massUnitLabel = massLabel,
                 gapValueText = state.gapValueText,
                 journeyProgressFraction = state.journeyProgressFraction,
                 journeyProgressPercent = state.journeyProgressPercent,
@@ -96,7 +99,7 @@ fun WeighGoalDetailScreen(
             Spacer(Modifier.padding(top = 16.dp))
             WeighGoalDetailStatsRow(
                 startWeightText = state.startWeightText,
-                massUnitLabel = state.massUnitLabel,
+                massUnitLabel = massLabel,
                 progressDeltaValueText = state.progressDeltaValueText,
                 progressDeltaFavorable = state.progressDeltaFavorable,
                 progressDeltaNeutral = state.progressDeltaNeutral
@@ -105,7 +108,7 @@ fun WeighGoalDetailScreen(
             WeighGoalDetailTodayCard(
                 displayDraftKg = state.displayDraftKg,
                 massUnit = state.displayMassUnit,
-                massUnitLabel = state.massUnitLabel,
+                massUnitLabel = massLabel,
                 showWeighRecordCta = state.showWeighRecordCta,
                 savedBannerTime = state.savedBannerTime,
                 recordError = state.recordError,

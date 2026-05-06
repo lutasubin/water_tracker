@@ -13,6 +13,7 @@ sealed class AppRoute(val route: String) {
     data object WaterGoalEdit : AppRoute("water_goal_edit")
     data object Home : AppRoute("home")
     data object Report : AppRoute("report")
+    data object Language : AppRoute("language")
     data object WeighGoalDetail : AppRoute("weigh_goal_detail")
     data object WeighHistory : AppRoute("weigh_history")
 }

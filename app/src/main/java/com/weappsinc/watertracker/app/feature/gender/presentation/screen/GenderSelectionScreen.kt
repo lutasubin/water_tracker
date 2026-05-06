@@ -25,12 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
@@ -57,19 +58,19 @@ fun GenderSelectionScreen(modifier: Modifier = Modifier, factory: GenderViewMode
             AppTopBar(onBack = {}, showBack = true)
             Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
             Text(
-                text = AppText.SELECT_GENDER_TITLE,
+                text = stringResource(R.string.select_gender_title),
                 color = AppColors.GenderTitle,
                 style = AppTypography.Title1
             )
             Spacer(Modifier.height(AppDimens.GenderHeaderBottom))
-            GenderOptionRow(AppText.MALE, AssetPaths.MALE_ICON, selectedGender == GenderType.MALE, imageLoader) { vm.onSelectGender(GenderType.MALE) }
+            GenderOptionRow(stringResource(R.string.male), AssetPaths.MALE_ICON, selectedGender == GenderType.MALE, imageLoader) { vm.onSelectGender(GenderType.MALE) }
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
-            GenderOptionRow(AppText.FEMALE, AssetPaths.FEMALE_ICON, selectedGender == GenderType.FEMALE, imageLoader) { vm.onSelectGender(GenderType.FEMALE) }
+            GenderOptionRow(stringResource(R.string.female), AssetPaths.FEMALE_ICON, selectedGender == GenderType.FEMALE, imageLoader) { vm.onSelectGender(GenderType.FEMALE) }
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
-            GenderOptionRow(AppText.OTHER, null, selectedGender == GenderType.OTHER, imageLoader) { vm.onSelectGender(GenderType.OTHER) }
+            GenderOptionRow(stringResource(R.string.other_gender), null, selectedGender == GenderType.OTHER, imageLoader) { vm.onSelectGender(GenderType.OTHER) }
         }
         AppPrimaryButton(
-            text = AppText.NEXT,
+            text = stringResource(R.string.next),
             onClick = {
                 vm.saveSelection()
                 onNext()

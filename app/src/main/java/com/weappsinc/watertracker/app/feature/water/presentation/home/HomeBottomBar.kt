@@ -17,10 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -49,7 +50,7 @@ fun HomeBottomBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 NavItem(
-                    label = AppText.HOME_TAB_WATER,
+                    label = stringResource(R.string.home_tab_water),
                     iconPath = AssetPaths.HOME_WATER_ICON,
                     selected = selected == HomeTab.Water,
                     imageLoader = imageLoader,
@@ -57,7 +58,7 @@ fun HomeBottomBar(
                     modifier = Modifier.weight(1f)
                 )
                 NavItem(
-                    label = AppText.HOME_TAB_WEIGH,
+                    label = stringResource(R.string.home_tab_weigh),
                     iconPath = AssetPaths.HOME_BMI_ICON,
                     selected = selected == HomeTab.Bmi,
                     imageLoader = imageLoader,
@@ -65,7 +66,7 @@ fun HomeBottomBar(
                     modifier = Modifier.weight(1f)
                 )
                 NavItem(
-                    label = AppText.HOME_TAB_ME,
+                    label = stringResource(R.string.home_tab_me),
                     iconPath = AssetPaths.HOME_INFOR_ICON,
                     selected = selected == HomeTab.Me,
                     imageLoader = imageLoader,

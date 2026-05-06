@@ -24,14 +24,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -59,16 +60,16 @@ fun ExerciseSelectionScreen(
         Column {
             AppTopBar(onBack = onBack)
             Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
-            Text(text = AppText.EXERCISE_TITLE, color = AppColors.GenderTitle, style = AppTypography.Title1)
+            Text(text = stringResource(R.string.exercise_title), color = AppColors.GenderTitle, style = AppTypography.Title1)
             Spacer(Modifier.height(AppDimens.UnitToggleBottomSpacing))
-            ExerciseCard(AppText.EXERCISE_LOW, AssetPaths.EXERCISE_LOW_ICON, selected == ExerciseLevel.LOW, imageLoader) { vm.onSelectLevel(ExerciseLevel.LOW) }
+            ExerciseCard(stringResource(R.string.exercise_low), AssetPaths.EXERCISE_LOW_ICON, selected == ExerciseLevel.LOW, imageLoader) { vm.onSelectLevel(ExerciseLevel.LOW) }
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
-            ExerciseCard(AppText.EXERCISE_MODERATE, AssetPaths.EXERCISE_MODERATE_ICON, selected == ExerciseLevel.MODERATE, imageLoader) { vm.onSelectLevel(ExerciseLevel.MODERATE) }
+            ExerciseCard(stringResource(R.string.exercise_moderate), AssetPaths.EXERCISE_MODERATE_ICON, selected == ExerciseLevel.MODERATE, imageLoader) { vm.onSelectLevel(ExerciseLevel.MODERATE) }
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
-            ExerciseCard(AppText.EXERCISE_HIGH, AssetPaths.EXERCISE_HIGH_ICON, selected == ExerciseLevel.HIGH, imageLoader) { vm.onSelectLevel(ExerciseLevel.HIGH) }
+            ExerciseCard(stringResource(R.string.exercise_high), AssetPaths.EXERCISE_HIGH_ICON, selected == ExerciseLevel.HIGH, imageLoader) { vm.onSelectLevel(ExerciseLevel.HIGH) }
         }
         AppPrimaryButton(
-            text = AppText.NEXT,
+            text = stringResource(R.string.next),
             onClick = { vm.saveSelection(); onNext() },
             modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
         )

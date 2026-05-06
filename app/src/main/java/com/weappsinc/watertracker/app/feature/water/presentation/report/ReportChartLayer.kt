@@ -10,7 +10,6 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.state.ReportBarUi
 import kotlin.math.max
@@ -30,7 +29,8 @@ internal fun DrawScope.drawReportChartContent(
     endPadPx: Float,
     bottomPadPx: Float,
     topPadPx: Float,
-    plotTopExtraPx: Float
+    plotTopExtraPx: Float,
+    unitMlSuffix: String,
 ) {
     val n = bars.size.coerceAtLeast(1)
     val plotLeft = yAxisPx
@@ -79,7 +79,7 @@ internal fun DrawScope.drawReportChartContent(
         val cx = plotLeft + (selectedIndex + 0.5f) * slotW
         val h = (bar.valueMl.toFloat() / yTop) * plotH
         val topB = plotBottom - h
-        val tip = "${bar.valueMl}${AppText.UNIT_ML}"
+        val tip = "${bar.valueMl}$unitMlSuffix"
         val tl = textMeasurer.measure(AnnotatedString(tip), tooltipStyle)
         val pad = 8.dp.toPx()
         val rw = tl.size.width + pad * 2

@@ -7,7 +7,6 @@ data class WeighGoalDetailUiState(
     val heightCm: Int,
     val targetWeightKg: Float?,
     val displayMassUnit: MassUnit,
-    val massUnitLabel: String,
     val displayDraftKg: Float,
     val targetValueText: String,
     val gapValueText: String,
@@ -25,6 +24,8 @@ data class WeighGoalDetailUiState(
     /** false = đã khớp lần ghi hôm nay → chỉ pill “Đã lưu”, ẩn nút Ghi nhận. */
     val showWeighRecordCta: Boolean,
     val savedBannerTime: String?,
-    val recordError: String?,
+    /** Mốc thời gian lần ghi nhận thành công gần nhất (epoch ms); null nếu chưa có. */
+    val lastRecordSuccessMs: Long?,
+    val recordError: Boolean,
     val isRecording: Boolean
 )

@@ -15,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.components.bmiCategoryLabel
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -37,11 +39,6 @@ fun WeighBmiCard(
         BmiCategory.Normal -> AppColors.BmiBadgeNormalBg to AppColors.BmiBadgeNormalText
         BmiCategory.Overweight -> AppColors.BmiBadgeOverBg to AppColors.BmiBadgeOverText
     }
-    val badgeLabel = when (category) {
-        BmiCategory.Underweight -> AppText.BMI_UNDERWEIGHT
-        BmiCategory.Normal -> AppText.BMI_NORMAL
-        BmiCategory.Overweight -> AppText.BMI_OVERWEIGHT
-    }
     val badgeShape = RoundedCornerShape(50)
     Column(
         modifier = modifier
@@ -55,14 +52,14 @@ fun WeighBmiCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = AppText.WEIGH_BMI_SECTION_TITLE,
+                text = stringResource(R.string.weigh_bmi_section_title),
                 modifier = Modifier.weight(1f),
                 color = AppColors.HomeMuted,
                 style = AppTypography.BodyMedium
             )
             Surface(color = badgeBg, shape = badgeShape) {
                 Text(
-                    text = badgeLabel,
+                    text = bmiCategoryLabel(category),
                     modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp),
                     color = badgeFg,
                     style = AppTypography.BodyMedium
@@ -77,7 +74,7 @@ fun WeighBmiCard(
                 style = AppTypography.StatCardValue
             )
             Text(
-                text = " ${AppText.WEIGH_BMI_UNIT_LABEL}",
+                text = " ${stringResource(R.string.weigh_bmi_unit_label)}",
                 color = AppColors.HomeMuted,
                 style = AppTypography.BodyMedium
             )

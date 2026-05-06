@@ -1,6 +1,5 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.mapper
 
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
 import com.weappsinc.watertracker.app.feature.water.domain.util.WaterStreakCalculator
 import com.weappsinc.watertracker.app.feature.water.presentation.state.WaterTrackerUiState
@@ -9,6 +8,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.temporal.TemporalAdjusters
+import java.util.Locale
 
 object WaterTrackerUiMapper {
     fun buildState(
@@ -16,7 +16,8 @@ object WaterTrackerUiMapper {
         firstInstallEpochDay: Long?,
         goalMl: Int?,
         unit: WaterUnit?,
-        intakeByEpochDay: Map<Long, Int>
+        intakeByEpochDay: Map<Long, Int>,
+        locale: Locale,
     ): WaterTrackerUiState {
         val today = LocalDate.now(zone)
         val todayEpoch = today.toEpochDay()
@@ -42,7 +43,7 @@ object WaterTrackerUiMapper {
             val intake = lookup(ep)
             val prog = if (goal > 0) (intake.toFloat() / goal).coerceIn(0f, 1f) else 0f
             WeekDayRingUi(
-                label = AppText.WEEKDAY_LABELS_VN[offset.toInt()],
+                dayOfWeek = date.dayOfWeek,
                 epochDay = ep,
                 progress = prog,
                 isToday = ep == todayEpoch,

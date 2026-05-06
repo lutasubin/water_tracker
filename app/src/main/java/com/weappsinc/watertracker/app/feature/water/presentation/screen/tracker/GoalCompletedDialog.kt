@@ -22,10 +22,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 
 /** Popup chúc mừng khi user đạt mục tiêu uống nước trong ngày. */
 @Composable
@@ -75,7 +76,7 @@ fun GoalCompletedDialog(
                     modifier = Modifier.height(42.dp)
                 ) {
                     Text(
-                        text = AppText.CLOSE,
+                        text = stringResource(R.string.close),
                         style = AppTypography.BodyLarge,
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )

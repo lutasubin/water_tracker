@@ -10,7 +10,8 @@ import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 
 /** Hai thẻ Ngày bắt đầu và Tiến triển (icon + nhãn + số + đơn vị theo mock chi tiết). */
@@ -43,7 +44,7 @@ fun WeighGoalDetailStatsRow(
         WeighGoalDetailStatCard(
             icon = Icons.Outlined.Flag,
             iconTint = AppColors.WeighHistoryAccent,
-            label = AppText.WEIGH_GOAL_DETAIL_START_DAY,
+            label = stringResource(R.string.weigh_goal_detail_start_day),
             valueText = startWeightText,
             valueColor = AppColors.HomeTitle,
             massUnitLabel = massUnitLabel,
@@ -52,7 +53,7 @@ fun WeighGoalDetailStatsRow(
         WeighGoalDetailStatCard(
             icon = deltaIcon,
             iconTint = deltaIconTint,
-            label = AppText.WEIGH_GOAL_DETAIL_PROGRESS,
+            label = stringResource(R.string.weigh_goal_detail_progress),
             valueText = progressDeltaValueText,
             valueColor = deltaColor,
             massUnitLabel = massUnitLabel,

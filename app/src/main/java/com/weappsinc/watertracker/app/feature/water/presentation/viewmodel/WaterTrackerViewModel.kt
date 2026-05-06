@@ -51,13 +51,13 @@ class WaterTrackerViewModel(
             val first = install ?: today.toEpochDay()
             val low = minOf(monday, first)
             intake.observeTotalsBetween(low, sunday).map { map ->
-                WaterTrackerUiMapper.buildState(zone, install, goal, unit, map)
+                WaterTrackerUiMapper.buildState(zone, install, goal, unit, map, java.util.Locale.getDefault())
             }
         }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5_000),
-            WaterTrackerUiMapper.buildState(zone, null, null, null, emptyMap())
+            WaterTrackerUiMapper.buildState(zone, null, null, null, emptyMap(), java.util.Locale.getDefault())
         )
 
     fun onDrink() {

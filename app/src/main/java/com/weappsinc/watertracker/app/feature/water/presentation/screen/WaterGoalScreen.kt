@@ -35,11 +35,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -72,7 +73,7 @@ fun WaterGoalScreen(
     val displayedGoalMl = rememberDisplayGoalMl(totalGoalMl)
 
     val displayValue = WaterAmountFormat.format(displayedGoalMl, unit)
-    val unitLabel = if (unit == WaterUnit.ML) AppText.UNIT_ML else AppText.UNIT_L
+    val unitLabel = if (unit == WaterUnit.ML) stringResource(R.string.unit_ml) else stringResource(R.string.unit_l)
 
     Box(
         modifier = modifier
@@ -100,13 +101,13 @@ fun WaterGoalScreen(
             )
             Spacer(Modifier.height(AppDimens.WaterGoalTitleSpacing))
             Text(
-                text = AppText.WATER_GOAL_TITLE,
+                text = stringResource(R.string.water_goal_title),
                 color = AppColors.WaterGoalTitle,
                 style = AppTypography.Title2
             )
             Spacer(Modifier.height(AppDimens.WaterGoalDescTopSpacing))
             Text(
-                text = AppText.WATER_GOAL_DESC,
+                text = stringResource(R.string.water_goal_desc),
                 color = AppColors.WaterGoalDesc,
                 style = AppTypography.BodyMedium,
                 textAlign = TextAlign.Center
@@ -114,8 +115,8 @@ fun WaterGoalScreen(
 
             Spacer(Modifier.height(AppDimens.WaterGoalUnitToggleSpacing))
             WaterUnitToggle(
-                leftText = AppText.UNIT_ML,
-                rightText = AppText.UNIT_L,
+                leftText = stringResource(R.string.unit_ml),
+                rightText = stringResource(R.string.unit_l),
                 selectedLeft = unit == WaterUnit.ML,
                 onLeftClick = { vm.onSelectUnit(WaterUnit.ML) },
                 onRightClick = { vm.onSelectUnit(WaterUnit.L) }
@@ -150,14 +151,14 @@ fun WaterGoalScreen(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                     Text(text = "+", color = AppColors.GenderSelectedContent, style = AppTypography.Title2)
                     Spacer(Modifier.size(AppDimens.WaterGoalAdjustPlusSpacing))
-                    Text(text = AppText.ADJUST, color = AppColors.GenderSelectedContent, style = AppTypography.BodyLarge)
+                    Text(text = stringResource(R.string.adjust), color = AppColors.GenderSelectedContent, style = AppTypography.BodyLarge)
                 }
             }
 
             Spacer(Modifier.weight(1f))
 
             AppPrimaryButton(
-                text = AppText.START,
+                text = stringResource(R.string.start),
                 onClick = { vm.onStart(onStartComplete) },
                 modifier = Modifier.padding(bottom = AppDimens.WaterGoalStartButtonBottomPadding),
                 containerColor = AppColors.GenderSelectedContent,
@@ -184,7 +185,7 @@ fun WaterGoalScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = AppText.WATER_GOAL_TITLE,
+                            text = stringResource(R.string.water_goal_title),
                             color = AppColors.GenderTitle,
                             style = AppTypography.Title3
                         )
@@ -226,7 +227,7 @@ fun WaterGoalScreen(
                     }
                     Spacer(Modifier.height(36.dp))
                     AppPrimaryButton(
-                        text = AppText.SAVE,
+                        text = stringResource(R.string.save),
                         onClick = {
                             scope.launch {
                                 sheetState.hide()

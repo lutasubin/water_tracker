@@ -17,9 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -45,7 +46,7 @@ fun WeighTargetSection(
             .padding(horizontal = WeighDimens.ScreenHorizontalPadding)
     ) {
         Text(
-            text = AppText.TARGET_WEIGHT_SECTION_TITLE,
+            text = stringResource(R.string.target_weight_section_title),
             color = AppColors.HomeTitle,
             style = AppTypography.Title2
         )
@@ -71,14 +72,14 @@ fun WeighTargetSection(
             ) {
                 AsyncImage(
                     model = AssetPaths.NO_GOAL_ICON,
-                    contentDescription = AppText.TARGET_WEIGHT_EMPTY,
+                    contentDescription = stringResource(R.string.target_weight_empty),
                     imageLoader = imageLoader,
                     modifier = Modifier.size(WeighDimens.TargetEmptyIconSize),
                     contentScale = ContentScale.Fit
                 )
                 Spacer(Modifier.height(WeighDimens.TargetCtaTopSpacing))
                 Text(
-                    text = AppText.TARGET_WEIGHT_EMPTY,
+                    text = stringResource(R.string.target_weight_empty),
                     color = AppColors.HomeMuted,
                     style = AppTypography.BodyMedium,
                     textAlign = TextAlign.Center
@@ -88,7 +89,7 @@ fun WeighTargetSection(
                     onClick = onOpenTargetSheet,
                     colors = ButtonDefaults.buttonColors(containerColor = AppColors.HomePrimary)
                 ) {
-                    Text(AppText.CREATE_TARGET, color = AppColors.GenderSelectedContent)
+                    Text(stringResource(R.string.create_target), color = AppColors.GenderSelectedContent)
                 }
             }
         }

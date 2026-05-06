@@ -15,7 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -32,7 +33,7 @@ fun WaterProgressSection(
     isGoalCompleted: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val unitSuffix = if (displayUnit == WaterUnit.ML) AppText.UNIT_ML else AppText.UNIT_L
+    val unitSuffix = if (displayUnit == WaterUnit.ML) stringResource(R.string.unit_ml) else stringResource(R.string.unit_l)
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -78,7 +79,7 @@ private fun RowBetweenLabels(progressPercent: Int, isGoalCompleted: Boolean) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = if (isGoalCompleted) AppText.TODAY_GOAL_DONE_LABEL else AppText.TODAY_PROGRESS_LABEL,
+            text = if (isGoalCompleted) stringResource(R.string.today_goal_done_label) else stringResource(R.string.today_progress_label),
             color = AppColors.HomeTitle,
             style = AppTypography.BodyMedium
         )

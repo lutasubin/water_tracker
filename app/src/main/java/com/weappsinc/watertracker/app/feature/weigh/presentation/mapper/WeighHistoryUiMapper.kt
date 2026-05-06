@@ -1,6 +1,5 @@
 package com.weappsinc.watertracker.app.feature.weigh.presentation.mapper
 
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighHistoryChartPoint
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighLogEntry
@@ -35,17 +34,13 @@ object WeighHistoryUiMapper {
             val deltaKg = older?.let { (e.weightKg - it.weightKg).toFloat() }
             val badge = when {
                 deltaKg == null || abs(deltaKg) < DELTA_EPS -> null
-                else -> {
-                    val s = MassDisplay.formatSignedKgDelta(deltaKg, unit)
-                    "$s ${unit.toLabel()}"
-                }
+                else -> MassDisplay.formatSignedKgDelta(deltaKg, unit)
             }
             val inc = deltaKg != null && deltaKg > DELTA_EPS
             WeighHistoryRowUi(
                 timeLabel = timeFmt.format(Instant.ofEpochMilli(e.recordedAtMs)),
                 weightValueText = MassDisplay.formatTargetKg(e.weightKg.toFloat(), unit),
-                unitLabel = unit.toLabel(),
-                deltaBadgeText = badge,
+                deltaSignedText = badge,
                 deltaIsIncrease = inc
             )
         }
@@ -56,10 +51,5 @@ object WeighHistoryUiMapper {
             listRows = rows,
             hasChartData = chartPoints.isNotEmpty()
         )
-    }
-
-    private fun MassUnit.toLabel(): String = when (this) {
-        MassUnit.KG -> AppText.UNIT_MASS_KG
-        MassUnit.LB -> AppText.UNIT_MASS_LB
     }
 }

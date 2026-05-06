@@ -26,9 +26,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.constants.WaterConstants
 import com.weappsinc.watertracker.app.core.theme.AppColors
@@ -55,8 +56,8 @@ fun DrinkAmountBottomSheet(
     ModalBottomSheet(onDismissRequest = onDismiss, containerColor = AppColors.HomeCard) {
         Column(modifier = Modifier.fillMaxWidth().padding(20.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(text = AppText.DRINK_AMOUNT_TITLE, color = AppColors.HomeTitle, style = AppTypography.Title2)
-                Icon(Icons.Outlined.Close, contentDescription = AppText.CLOSE, tint = AppColors.HomeTitle, modifier = Modifier.clickable(onClick = onDismiss))
+                Text(text = stringResource(R.string.drink_amount_title), color = AppColors.HomeTitle, style = AppTypography.Title2)
+                Icon(Icons.Outlined.Close, contentDescription = stringResource(R.string.close), tint = AppColors.HomeTitle, modifier = Modifier.clickable(onClick = onDismiss))
             }
             Spacer(Modifier.height(20.dp))
             Row(
@@ -68,7 +69,7 @@ fun DrinkAmountBottomSheet(
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(text = amountMl.toString(), color = AppColors.HomeTitle, style = AppTypography.WaterGoalValue)
                     Spacer(Modifier.size(6.dp))
-                    Text(text = AppText.UNIT_ML, color = AppColors.HomeTitle, style = AppTypography.Title3)
+                    Text(text = stringResource(R.string.unit_ml), color = AppColors.HomeTitle, style = AppTypography.Title3)
                 }
                 AdjustButton(symbol = "+", onClick = onIncrease)
             }
@@ -96,7 +97,7 @@ fun DrinkAmountBottomSheet(
                             )
                             Spacer(Modifier.height(8.dp))
                             Text(
-                                text = "${preset.amountMl} ${AppText.UNIT_ML}",
+                                text = "${preset.amountMl} ${stringResource(R.string.unit_ml)}",
                                 color = if (selected) AppColors.HomePrimary else AppColors.HomeMuted,
                                 style = AppTypography.BodyLarge,
                                 fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium

@@ -17,11 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
-import com.weappsinc.watertracker.app.core.constants.AppText
+import com.weappsinc.watertracker.app.core.components.massUnitShortLabel
 import com.weappsinc.watertracker.app.core.theme.AppColors
-import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.WeighDimens
+import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModel
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
 
@@ -74,11 +74,7 @@ fun WeighTrackerScreen(
             WeighTargetSection(
                 hasTarget = state.targetWeightKg != null && state.targetWeightKg!! > 0f,
                 targetValueText = state.targetValueText,
-                massUnitLabel = if (state.displayMassUnit == MassUnit.KG) {
-                    AppText.UNIT_MASS_KG
-                } else {
-                    AppText.UNIT_MASS_LB
-                },
+                massUnitLabel = massUnitShortLabel(state.displayMassUnit),
                 gapValueText = state.gapValueText,
                 journeyProgressFraction = state.journeyProgressFraction,
                 journeyProgressPercent = state.journeyProgressPercent,

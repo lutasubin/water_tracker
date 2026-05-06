@@ -24,9 +24,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -42,13 +43,13 @@ internal fun WeighGoalDetailHeroTopRow(
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         AsyncImage(
             model = AssetPaths.GOAL_ICON,
-            contentDescription = AppText.WEIGH_GOAL_CARD_TITLE,
+            contentDescription = stringResource(R.string.weigh_goal_card_title),
             imageLoader = imageLoader,
             modifier = Modifier.size(WeighDimens.SheetHeaderIconSize),
             contentScale = ContentScale.Fit
         )
         Text(
-            text = AppText.WEIGH_GOAL_CARD_TITLE,
+            text = stringResource(R.string.weigh_goal_card_title),
             modifier = Modifier.padding(start = 10.dp),
             style = AppTypography.Title3,
             color = onHero,
@@ -65,7 +66,7 @@ internal fun WeighGoalDetailHeroTopRow(
         ) {
             Icon(
                 imageVector = Icons.Outlined.Edit,
-                contentDescription = AppText.ADJUST,
+                contentDescription = stringResource(R.string.adjust),
                 tint = AppColors.WeighDetailHeroEditIcon,
                 modifier = Modifier.size(WeighDimens.WeighDetailHeroEditIconSize)
             )
@@ -97,7 +98,7 @@ internal fun WeighGoalDetailHeroStatsRow(
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(
-                text = AppText.WEIGH_GAP_LABEL,
+                text = stringResource(R.string.weigh_gap_label),
                 style = AppTypography.WeighDetailHeroLabel,
                 color = onHero
             )

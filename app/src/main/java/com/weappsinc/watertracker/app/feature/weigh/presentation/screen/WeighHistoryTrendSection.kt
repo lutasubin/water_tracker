@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -42,12 +43,12 @@ fun WeighHistoryTrendSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = AppText.WEIGH_HISTORY_TREND_TITLE,
+                text = stringResource(R.string.weigh_history_trend_title),
                 style = AppTypography.WeighHistoryTrendTitle,
                 color = AppColors.HomeTitle
             )
             Text(
-                text = AppText.WEIGH_HISTORY_LAST_7_DAYS,
+                text = stringResource(R.string.weigh_history_last_7_days),
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
                     .background(AppColors.WeighHistoryBadgeBg)
@@ -62,7 +63,7 @@ fun WeighHistoryTrendSection(
         Spacer(Modifier.height(14.dp))
         if (chartPoints.isEmpty()) {
             Text(
-                text = AppText.WEIGH_HISTORY_EMPTY,
+                text = stringResource(R.string.weigh_history_empty),
                 style = AppTypography.BodyMedium,
                 color = AppColors.HomeMuted
             )

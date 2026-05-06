@@ -1,9 +1,10 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.state
 
 import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
+import java.time.DayOfWeek
 
 data class WeekDayRingUi(
-    val label: String,
+    val dayOfWeek: DayOfWeek,
     val epochDay: Long,
     val progress: Float,
     val isToday: Boolean,

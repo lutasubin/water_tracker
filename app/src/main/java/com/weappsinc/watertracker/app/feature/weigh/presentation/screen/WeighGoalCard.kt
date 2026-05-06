@@ -20,9 +20,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -52,13 +53,13 @@ fun WeighGoalCard(
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
                 model = AssetPaths.GOAL_ICON,
-                contentDescription = AppText.WEIGH_GOAL_CARD_TITLE,
+                contentDescription = stringResource(R.string.weigh_goal_card_title),
                 imageLoader = imageLoader,
                 modifier = Modifier.size(WeighDimens.SheetHeaderIconSize),
                 contentScale = ContentScale.Fit
             )
             Text(
-                text = AppText.WEIGH_GOAL_CARD_TITLE,
+                text = stringResource(R.string.weigh_goal_card_title),
                 modifier = Modifier.padding(start = 10.dp),
                 style = AppTypography.Title3,
                 color = AppColors.HomeTitle,
@@ -82,7 +83,7 @@ fun WeighGoalCard(
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = AppText.WEIGH_GAP_LABEL,
+                    text = stringResource(R.string.weigh_gap_label),
                     style = AppTypography.BodyMedium,
                     color = AppColors.WeighGoalLabelMuted,
                     fontWeight = FontWeight.Medium
@@ -109,7 +110,7 @@ fun WeighGoalCard(
         Spacer(Modifier.height(12.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                text = AppText.WEIGH_JOURNEY_PROGRESS_LABEL,
+                text = stringResource(R.string.weigh_journey_progress_label),
                 style = AppTypography.BodyMedium,
                 color = AppColors.WeighGoalLabelMuted,
                 fontWeight = FontWeight.Medium

@@ -22,9 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -57,7 +58,7 @@ fun GoalStatCard(
                 contentScale = ContentScale.Fit
             )
             Text(
-                text = AppText.GOAL_CARD_LABEL,
+                text = stringResource(R.string.water_goal_card_label),
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
                 color = AppColors.HomeMuted,
@@ -73,7 +74,7 @@ fun GoalStatCard(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Edit,
-                    contentDescription = AppText.GOAL_CARD_LABEL,
+                    contentDescription = stringResource(R.string.water_goal_card_label),
                     tint = AppColors.HomePrimary,
                     modifier = Modifier.size(AppDimens.HomeStatEditIconSize)
                 )

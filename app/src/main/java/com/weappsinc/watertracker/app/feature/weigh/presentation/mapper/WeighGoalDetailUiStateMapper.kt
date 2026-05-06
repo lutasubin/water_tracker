@@ -1,6 +1,5 @@
 package com.weappsinc.watertracker.app.feature.weigh.presentation.mapper
 
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.BmiCategory
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighLogEntry
@@ -35,7 +34,7 @@ object WeighGoalDetailUiStateMapper {
         todayLog: WeighLogEntry?,
         draftOverride: Float?,
         savedAtMs: Long?,
-        recordError: String?,
+        recordError: Boolean,
         isRecording: Boolean,
         computeDelta: ComputeWeightProgressDeltaUseCase,
         classifyBmi: (Float) -> BmiCategory,
@@ -85,7 +84,6 @@ object WeighGoalDetailUiStateMapper {
             heightCm = tallCm,
             targetWeightKg = targetKg,
             displayMassUnit = unit,
-            massUnitLabel = unit.toLabel(),
             displayDraftKg = draft,
             targetValueText = if (hasTarget) MassDisplay.formatTargetKg(t, unit) else "--",
             gapValueText = if (hasTarget) MassDisplay.formatAbsKgDelta(gapAbs, unit) else "--",
@@ -102,13 +100,9 @@ object WeighGoalDetailUiStateMapper {
             bmiIndicatorFraction = if (hasDims) mapBmiFraction(bmi) else 0.5f,
             showWeighRecordCta = showWeighRecordCta,
             savedBannerTime = savedBannerTime,
+            lastRecordSuccessMs = savedAtMs,
             recordError = recordError,
             isRecording = isRecording
         )
-    }
-
-    private fun MassUnit.toLabel(): String = when (this) {
-        MassUnit.KG -> AppText.UNIT_MASS_KG
-        MassUnit.LB -> AppText.UNIT_MASS_LB
     }
 }

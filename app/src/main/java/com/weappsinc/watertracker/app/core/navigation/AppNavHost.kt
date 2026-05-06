@@ -22,8 +22,10 @@ import com.weappsinc.watertracker.app.feature.water.presentation.home.HomeScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.report.ReportScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
+import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
+import com.weappsinc.watertracker.app.feature.settings.presentation.screen.LanguageScreen
 import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighGoalDetailScreen
 import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighHistoryScreen
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
@@ -44,6 +46,7 @@ fun AppNavHost(
     waterGoalFactoryEdit: WaterGoalViewModelFactory,
     waterTrackerFactory: WaterTrackerViewModelFactory,
     weighTrackerFactory: WeighTrackerViewModelFactory,
+    meProfileFactory: MeProfileViewModelFactory,
     weighGoalDetailFactory: WeighGoalDetailViewModelFactory,
     weighHistoryFactory: WeighHistoryViewModelFactory,
     reportViewModelFactory: ReportViewModelFactory,
@@ -114,12 +117,17 @@ fun AppNavHost(
             HomeScreen(
                 waterTrackerFactory = waterTrackerFactory,
                 weighTrackerFactory = weighTrackerFactory,
+                meProfileFactory = meProfileFactory,
                 onEditWaterGoal = { navController.navigate(AppRoute.WaterGoalEdit.route) },
                 onOpenReport = { navController.navigate(AppRoute.Report.route) },
                 onEditTall = { navController.navigate(AppRoute.TallEdit.route) },
                 onEditWeight = { navController.navigate(AppRoute.WeightEdit.route) },
-                onOpenWeighGoalDetail = { navController.navigate(AppRoute.WeighGoalDetail.route) }
+                onOpenWeighGoalDetail = { navController.navigate(AppRoute.WeighGoalDetail.route) },
+                onOpenLanguage = { navController.navigate(AppRoute.Language.route) }
             )
+        }
+        composable(AppRoute.Language.route) {
+            LanguageScreen(onBack = { navController.popBackStack() })
         }
         composable(AppRoute.WeighGoalDetail.route) {
             WeighGoalDetailScreen(

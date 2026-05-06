@@ -22,12 +22,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.ZoneId
+import java.util.Locale
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ReportViewModel(
     private val prefs: WaterPreferencesRepository,
     private val intake: WaterIntakeRepository,
     private val buildDayBuckets: BuildDayChartBucketsFromLogsUseCase,
+    private val reportDayBucketLabels: List<String>,
     private val zone: ZoneId = ZoneId.systemDefault()
 ) : ViewModel() {
 
@@ -73,14 +75,26 @@ class ReportViewModel(
                     intake.observeTotalMlForDay(p.anchor.toEpochDay())
                 ) { logs, total ->
                     val buckets = buildDayBuckets(logs, zone)
+                    val locale = Locale.getDefault()
                     ReportUiMapper.buildDayState(
-                        p.anchor, p.goalMl, total, logs, buckets, zone, p.selectedBar
+                        p.anchor,
+                        p.goalMl,
+                        total,
+                        logs,
+                        buckets,
+                        zone,
+                        p.selectedBar,
+                        reportDayBucketLabels,
+                        locale,
                     )
                 }
                 ReportPeriod.Week -> {
                     val (lo, hi) = ReportUiMapper.weekEpochRange(p.anchor)
+                    val locale = Locale.getDefault()
                     intake.observeTotalsBetween(lo, hi).map { m ->
-                        ReportWeekMonthMapper.buildWeekState(p.anchor, p.goalMl, m, p.selectedBar)
+                        ReportWeekMonthMapper.buildWeekState(
+                            p.anchor, p.goalMl, m, p.selectedBar, locale
+                        )
                     }
                 }
                 ReportPeriod.Month -> {
@@ -91,13 +105,15 @@ class ReportViewModel(
                     val windowEnd = today.minusDays(7L * idx)
                     val (lo, hi) = ReportUiMapper.sevenDayWindowEpochRange(windowEnd)
                     intake.observeTotalsBetween(lo, hi).map { m ->
+                        val locale = Locale.getDefault()
                         ReportWeekMonthMapper.buildSevenDayWindowState(
                             windowEnd = windowEnd,
                             goalMl = p.goalMl,
                             totalsByDay = m,
                             selectedBarIndex = p.selectedBar,
                             windowIndex = idx,
-                            maxWindowIndex = maxIdx
+                            maxWindowIndex = maxIdx,
+                            locale = locale,
                         )
                     }
                 }
@@ -108,7 +124,9 @@ class ReportViewModel(
             SharingStarted.WhileSubscribed(5_000),
             ReportUiMapper.buildDayState(
                 LocalDate.now(zone), 0, 0, emptyList(),
-                List(6) { 0 }, zone, null
+                List(6) { 0 }, zone, null,
+                reportDayBucketLabels,
+                Locale.getDefault(),
             )
         )
 
@@ -163,9 +181,10 @@ class ReportViewModel(
 class ReportViewModelFactory(
     private val prefs: WaterPreferencesRepository,
     private val intake: WaterIntakeRepository,
-    private val buildDayBuckets: BuildDayChartBucketsFromLogsUseCase
+    private val buildDayBuckets: BuildDayChartBucketsFromLogsUseCase,
+    private val reportDayBucketLabels: List<String>,
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        ReportViewModel(prefs, intake, buildDayBuckets) as T
+        ReportViewModel(prefs, intake, buildDayBuckets, reportDayBucketLabels) as T
 }

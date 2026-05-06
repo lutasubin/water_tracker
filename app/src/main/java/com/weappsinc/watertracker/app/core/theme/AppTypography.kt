@@ -126,7 +126,7 @@ object AppTypography {
         letterSpacing = 0.5.sp,
         fontFamily = AppFontFamily
     )
-    /** Tiêu đề thẻ xu hướng cân (in hoa theo AppText). */
+    /** Tiêu đề thẻ xu hướng cân (uppercase theo chuỗi localized). */
     val WeighHistoryTrendTitle = TextStyle(
         fontSize = 14.sp,
         lineHeight = 20.sp,

@@ -16,8 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.core.theme.WeighDimens
@@ -53,7 +54,7 @@ fun WeighGoalDetailHeroCard(
         Spacer(Modifier.height(12.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                text = AppText.WEIGH_JOURNEY_PROGRESS_LABEL,
+                text = stringResource(R.string.weigh_journey_progress_label),
                 style = AppTypography.WeighDetailHeroLabel,
                 color = onHero
             )

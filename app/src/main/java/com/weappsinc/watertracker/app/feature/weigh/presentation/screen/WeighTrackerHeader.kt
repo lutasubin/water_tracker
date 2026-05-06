@@ -8,8 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.AppUnitToggle
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.core.theme.WeighDimens
@@ -29,13 +30,13 @@ fun WeighTrackerHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = AppText.WEIGH_TRACKER_TITLE,
+            text = stringResource(R.string.weigh_tracker_title),
             color = AppColors.HomeTitle,
             style = AppTypography.Title1
         )
         AppUnitToggle(
-            leftText = AppText.UNIT_MASS_KG,
-            rightText = AppText.UNIT_MASS_LB,
+            leftText = stringResource(R.string.unit_mass_kg),
+            rightText = stringResource(R.string.unit_mass_lb),
             isLeftSelected = massUnit == MassUnit.KG,
             onLeftClick = { onMassUnitSelected(MassUnit.KG) },
             onRightClick = { onMassUnitSelected(MassUnit.LB) }

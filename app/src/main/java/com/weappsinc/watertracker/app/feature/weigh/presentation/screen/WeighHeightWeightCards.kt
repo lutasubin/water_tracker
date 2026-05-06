@@ -23,9 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -43,7 +44,7 @@ fun WeighHeightWeightCards(
     onEditWeight: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val massLabel = if (massUnit == MassUnit.KG) AppText.UNIT_MASS_KG else AppText.UNIT_MASS_LB
+    val massLabel = if (massUnit == MassUnit.KG) stringResource(R.string.unit_mass_kg) else stringResource(R.string.unit_mass_lb)
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -52,16 +53,16 @@ fun WeighHeightWeightCards(
     ) {
         WeighStatCard(
             iconPath = AssetPaths.HEIGHT_ICON,
-            label = AppText.WEIGH_HEIGHT_LABEL,
+            label = stringResource(R.string.weigh_height_label),
             primary = heightValue,
-            unit = AppText.UNIT_CM,
+            unit = stringResource(R.string.unit_cm),
             imageLoader = imageLoader,
             onEdit = onEditHeight,
             modifier = Modifier.weight(1f)
         )
         WeighStatCard(
             iconPath = AssetPaths.WEIGHT_ICON,
-            label = AppText.WEIGH_WEIGHT_LABEL,
+            label = stringResource(R.string.weigh_weight_label),
             primary = weightValue,
             unit = massLabel,
             imageLoader = imageLoader,

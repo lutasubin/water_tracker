@@ -17,7 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.weappsinc.watertracker.app.core.constants.AppText
+import androidx.compose.ui.res.stringResource
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -59,7 +60,7 @@ fun TrackerDrinkButton(
             )
             Spacer(Modifier.width(AppDimens.HomeDrinkContentGap))
             Text(
-                text = AppText.DRINK,
+                text = stringResource(R.string.drink),
                 color = AppColors.HomeCard,
                 style = AppTypography.DrinkCta
             )
