@@ -58,6 +58,20 @@ object AppTypography {
         fontWeight = FontWeight.Bold,
         fontFamily = AppFontFamily
     )
+    /** Số cân trên thẻ HÔM NAY (màn chi tiết). */
+    val WeighTodayCardWeight = TextStyle(
+        fontSize = 36.sp,
+        lineHeight = 40.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
+    /** Giá trị thẻ Ngày bắt đầu / Tiến triển (màn chi tiết cân). */
+    val WeighDetailStatCardValue = TextStyle(
+        fontSize = 28.sp,
+        lineHeight = 32.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
     val BodyLarge = TextStyle(
         fontSize = 16.sp,
         lineHeight = 24.sp,
@@ -89,6 +103,27 @@ object AppTypography {
         fontSize = 56.sp,
         lineHeight = 64.sp,
         fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
+
+    /** Thẻ mục tiêu nền tím — màn chi tiết (số lớn theo design). */
+    val WeighDetailHeroTargetValue = TextStyle(
+        fontSize = 40.sp,
+        lineHeight = 44.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
+    val WeighDetailHeroGapValue = TextStyle(
+        fontSize = 26.sp,
+        lineHeight = 30.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
+    val WeighDetailHeroLabel = TextStyle(
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 0.5.sp,
         fontFamily = AppFontFamily
     )
 }

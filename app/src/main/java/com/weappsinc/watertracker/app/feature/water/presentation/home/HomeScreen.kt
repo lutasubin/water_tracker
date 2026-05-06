@@ -17,12 +17,18 @@ import com.weappsinc.watertracker.app.core.constants.AppText
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterTrackerScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighTrackerScreen
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
 
 @Composable
 fun HomeScreen(
     waterTrackerFactory: WaterTrackerViewModelFactory,
+    weighTrackerFactory: WeighTrackerViewModelFactory,
     onEditWaterGoal: () -> Unit,
     onOpenReport: () -> Unit,
+    onEditTall: () -> Unit,
+    onEditWeight: () -> Unit,
+    onOpenWeighGoalDetail: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var tab by rememberSaveable { mutableStateOf(HomeTab.Water) }
@@ -45,8 +51,12 @@ fun HomeScreen(
                 onOpenReport = onOpenReport,
                 modifier = Modifier.weight(1f)
             )
-            HomeTab.Bmi -> PlaceholderTabScreen(
-                title = AppText.HOME_TAB_BMI,
+            HomeTab.Bmi -> WeighTrackerScreen(
+                factory = weighTrackerFactory,
+                imageLoader = imageLoader,
+                onEditTall = onEditTall,
+                onEditWeight = onEditWeight,
+                onOpenWeighGoalDetail = onOpenWeighGoalDetail,
                 modifier = Modifier.weight(1f)
             )
             HomeTab.Me -> PlaceholderTabScreen(

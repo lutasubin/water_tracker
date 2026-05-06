@@ -3,6 +3,8 @@ package com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.util.MassDisplay
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +13,8 @@ import kotlinx.coroutines.launch
 
 class WeightViewModel(
     private val observeWeight: ObserveWeightUseCase,
-    private val saveWeight: SaveWeightUseCase
+    private val saveWeight: SaveWeightUseCase,
+    private val saveWeighLog: SaveWeighLogUseCase
 ) : ViewModel() {
     private val _weightKg = MutableStateFlow(DEFAULT_WEIGHT_KG)
     val weightKg = _weightKg.asStateFlow()
@@ -32,8 +35,13 @@ class WeightViewModel(
         _weightKg.value = value
     }
 
+    /** Lưu hồ sơ + thêm bản ghi lịch sử để màn Weigh Tracker (ưu tiên log) hiển thị đúng. */
     fun saveSelection() {
-        viewModelScope.launch { saveWeight(_weightKg.value) }
+        viewModelScope.launch {
+            val w = _weightKg.value
+            saveWeight(w)
+            saveWeighLog(MassDisplay.snapTargetKg(w.toFloat()))
+        }
     }
 
     companion object {
@@ -43,8 +51,10 @@ class WeightViewModel(
 
 class WeightViewModelFactory(
     private val observeWeight: ObserveWeightUseCase,
-    private val saveWeight: SaveWeightUseCase
+    private val saveWeight: SaveWeightUseCase,
+    private val saveWeighLog: SaveWeighLogUseCase
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T = WeightViewModel(observeWeight, saveWeight) as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        WeightViewModel(observeWeight, saveWeight, saveWeighLog) as T
 }

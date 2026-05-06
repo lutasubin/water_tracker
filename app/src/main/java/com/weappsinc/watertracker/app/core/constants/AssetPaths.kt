@@ -22,4 +22,8 @@ object AssetPaths {
     const val DRINK_150_ICON = "$ASSET_BASE/svg/150_icon.svg"
     const val DRINK_200_ICON = "$ASSET_BASE/svg/200_icon.svg"
     const val DRINK_500_ICON = "$ASSET_BASE/svg/500_icon.svg"
+
+    const val HEIGHT_ICON = "$ASSET_BASE/svg/height_icon.svg"
+    const val WEIGHT_ICON = "$ASSET_BASE/svg/weight_icon.svg"
+    const val NO_GOAL_ICON = "$ASSET_BASE/svg/no_goal_icon.svg"
 }

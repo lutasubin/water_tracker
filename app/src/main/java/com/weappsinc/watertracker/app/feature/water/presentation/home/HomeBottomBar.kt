@@ -57,7 +57,7 @@ fun HomeBottomBar(
                     modifier = Modifier.weight(1f)
                 )
                 NavItem(
-                    label = AppText.HOME_TAB_BMI,
+                    label = AppText.HOME_TAB_WEIGH,
                     iconPath = AssetPaths.HOME_BMI_ICON,
                     selected = selected == HomeTab.Bmi,
                     imageLoader = imageLoader,

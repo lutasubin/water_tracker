@@ -24,6 +24,11 @@ import com.weappsinc.watertracker.app.feature.water.presentation.report.ReportSc
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighGoalDetailScreen
+import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighHistoryScreen
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.weight.presentation.screen.WeightSelectionScreen
 import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.WeightViewModelFactory
 
@@ -38,6 +43,9 @@ fun AppNavHost(
     waterGoalFactoryOnboarding: WaterGoalViewModelFactory,
     waterGoalFactoryEdit: WaterGoalViewModelFactory,
     waterTrackerFactory: WaterTrackerViewModelFactory,
+    weighTrackerFactory: WeighTrackerViewModelFactory,
+    weighGoalDetailFactory: WeighGoalDetailViewModelFactory,
+    weighHistoryFactory: WeighHistoryViewModelFactory,
     reportViewModelFactory: ReportViewModelFactory,
     ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase,
     observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase
@@ -105,8 +113,39 @@ fun AppNavHost(
         composable(AppRoute.Home.route) {
             HomeScreen(
                 waterTrackerFactory = waterTrackerFactory,
+                weighTrackerFactory = weighTrackerFactory,
                 onEditWaterGoal = { navController.navigate(AppRoute.WaterGoalEdit.route) },
-                onOpenReport = { navController.navigate(AppRoute.Report.route) }
+                onOpenReport = { navController.navigate(AppRoute.Report.route) },
+                onEditTall = { navController.navigate(AppRoute.TallEdit.route) },
+                onEditWeight = { navController.navigate(AppRoute.WeightEdit.route) },
+                onOpenWeighGoalDetail = { navController.navigate(AppRoute.WeighGoalDetail.route) }
+            )
+        }
+        composable(AppRoute.WeighGoalDetail.route) {
+            WeighGoalDetailScreen(
+                factory = weighGoalDetailFactory,
+                onClose = { navController.popBackStack() },
+                onOpenHistory = { navController.navigate(AppRoute.WeighHistory.route) }
+            )
+        }
+        composable(AppRoute.WeighHistory.route) {
+            WeighHistoryScreen(
+                factory = weighHistoryFactory,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(AppRoute.TallEdit.route) {
+            TallSelectionScreen(
+                factory = tallFactory,
+                onBack = { navController.popBackStack() },
+                onNext = { navController.popBackStack() }
+            )
+        }
+        composable(AppRoute.WeightEdit.route) {
+            WeightSelectionScreen(
+                factory = weightFactory,
+                onBack = { navController.popBackStack() },
+                onNext = { navController.popBackStack() }
             )
         }
         composable(AppRoute.Report.route) {
