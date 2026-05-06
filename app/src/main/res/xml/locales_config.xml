@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trùng AppLanguageCatalog: giúp Android 13+ resolve per-app locale đúng. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en-GB" />
+    <locale android:name="en-US" />
+    <locale android:name="pt-BR" />
+    <locale android:name="es" />
+    <locale android:name="ja" />
+    <locale android:name="ko" />
+    <locale android:name="de" />
+    <locale android:name="id" />
+    <locale android:name="hi" />
+    <locale android:name="ar" />
+    <locale android:name="vi" />
+    <locale android:name="tr" />
+</locale-config>

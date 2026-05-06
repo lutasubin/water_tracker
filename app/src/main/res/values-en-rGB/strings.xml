@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Water Tracker</string>
-
-    <!-- Language picker -->
     <string name="language_screen_title">Language</string>
     <string name="cd_nav_back">Back</string>
     <string name="cd_language_apply">Apply language</string>
@@ -19,64 +17,59 @@
     <string name="lang_vi">Tiếng Việt</string>
     <string name="lang_tr">Türkçe</string>
 
-    <!-- Splash -->
     <string name="splash_title">Water Tracker</string>
     <string name="splash_background_desc">Splash background</string>
     <string name="splash_icon_desc">Splash icon</string>
 
-    <!-- Onboarding -->
-    <string name="select_gender_title">Select Gender?</string>
+    <string name="select_gender_title">Select gender?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="other_gender">Other / Prefer not to disclose</string>
+    <string name="other_gender">Other / Prefer not to say</string>
     <string name="next">NEXT</string>
     <string name="age_title">How old are you?</string>
     <string name="tall_title">How tall are you?</string>
     <string name="weight_title">How much do you weigh?</string>
-    <string name="exercise_title">How much exercise do you each week?</string>
-    <string name="exercise_low">Low Exercise</string>
-    <string name="exercise_moderate">Moderate Exercise</string>
-    <string name="exercise_high">High exercise</string>
+    <string name="exercise_title">How much exercise a week?</string>
+    <string name="exercise_low">Low</string>
+    <string name="exercise_moderate">Moderate</string>
+    <string name="exercise_high">High</string>
     <string name="water_goal_title">Your daily goal is</string>
-    <string name="water_goal_desc">This number is calculated based on your height, weight, and daily activity level.</string>
+    <string name="water_goal_desc">Based on your height, weight and daily activity.</string>
     <string name="adjust">Adjust</string>
     <string name="save">SAVE</string>
     <string name="start">START</string>
     <string name="unit_ml">ml</string>
     <string name="unit_l">l</string>
 
-    <!-- Home tabs -->
     <string name="home_tab_water">Water</string>
     <string name="home_tab_weigh">Weigh</string>
     <string name="home_tab_me">Me</string>
 
-    <!-- Me -->
-    <string name="me_personal_data_title">Personal Data</string>
-    <string name="me_total_drinking_label">Total Drinking</string>
+    <string name="me_personal_data_title">Personal data</string>
+    <string name="me_total_drinking_label">Total drunk</string>
     <string name="me_streak_section_label">Streak</string>
     <string name="me_general_section">General</string>
     <string name="me_menu_language">Language</string>
-    <string name="me_menu_rate_us">Rate Us</string>
+    <string name="me_menu_rate_us">Rate us</string>
     <string name="me_menu_share">Share</string>
-    <string name="me_menu_privacy">Privacy Policy</string>
+    <string name="me_menu_privacy">Privacy policy</string>
 
     <plurals name="me_streak_days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d Day - Streak</item>
-        <item quantity="other">%d Days - Streak</item>
+        <item quantity="one">%d day streak</item>
+        <item quantity="other">%d days streak</item>
     </plurals>
 
-    <!-- Weigh -->
-    <string name="weigh_tracker_title">Weigh Tracker</string>
+    <string name="weigh_tracker_title">Weigh tracker</string>
     <string name="weigh_height_label">Height</string>
     <string name="weigh_weight_label">Weight</string>
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">BMI</string>
+    <string name="weigh_bmi_section_title">BODY MASS INDEX</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Underweight</string>
     <string name="bmi_normal">Normal</string>
@@ -103,13 +96,12 @@
     <string name="weigh_history_empty">No entries in the last 7 days.</string>
     <string name="tab_todo_placeholder">TODO</string>
 
-    <!-- Water tracker -->
     <string name="water_tracker_title">Water Tracker</string>
     <string name="today_progress_label">Today\'s progress</string>
     <string name="today_goal_done_label">You reached today\'s goal 🎉</string>
     <string name="water_goal_card_label">Goal</string>
     <string name="reminder_card_label">Upcoming reminder</string>
-    <string name="reminder_sample_time">09:45 AM</string>
+    <string name="reminder_sample_time">09:45</string>
     <string name="report_inline_title">Report</string>
     <string name="report_details">Details</string>
     <string name="report_screen_title">Report</string>
@@ -122,7 +114,6 @@
     <string name="close">Close</string>
     <string name="goal_done_dialog_title">Congratulations!\nYou reached today\'s goal</string>
 
-    <!-- Report summaries (keys for enum mapping) -->
     <string name="report_summary_today">TODAY</string>
     <string name="report_summary_goal">GOAL</string>
     <string name="report_summary_avg_day">AVG/DAY</string>

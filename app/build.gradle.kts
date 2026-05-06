@@ -38,7 +38,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
+    // Tọa độ đầy đủ giúp một số IDE resolve import AppCompatActivity (catalog đôi khi không được index).
+    implementation("androidx.appcompat:appcompat:1.7.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

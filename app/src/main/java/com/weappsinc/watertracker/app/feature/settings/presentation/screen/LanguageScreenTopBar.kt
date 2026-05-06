@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** Thanh trên màn Language: quay lại, tiêu đề, xác nhận (lưu + áp locale). */
+/** Thanh trên màn Language: quay lại, tiêu đề, xác nhận (lưu + áp locale). [applyContext] nên là applicationContext. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageScreenTopBar(

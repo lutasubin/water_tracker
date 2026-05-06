@@ -33,13 +33,15 @@ fun LanguageScreen(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    val appContext = context.applicationContext
     val scope = rememberCoroutineScope()
     val imageLoader = remember {
         ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }.build()
     }
     var selectedTag by remember { mutableStateOf(AppLocalePreferences.DEFAULT_LOCALE_TAG) }
     LaunchedEffect(Unit) {
-        selectedTag = AppLocalePreferences.readTag(context)
+        // DataStore: dùng applicationContext trùng DrinkWaterApplication / Google khuyến nghị.
+        selectedTag = AppLocalePreferences.readTag(appContext)
     }
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -49,7 +51,7 @@ fun LanguageScreen(
                 selectedTag = selectedTag,
                 scope = scope,
                 onBack = onBack,
-                applyContext = context,
+                applyContext = appContext,
             )
         },
     ) { inner ->

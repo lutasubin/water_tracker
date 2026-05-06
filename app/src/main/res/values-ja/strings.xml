@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Water Tracker</string>
-
-    <!-- Language picker -->
-    <string name="language_screen_title">Language</string>
-    <string name="cd_nav_back">Back</string>
-    <string name="cd_language_apply">Apply language</string>
+    <string name="app_name">水分トラッカー</string>
+    <string name="language_screen_title">言語</string>
+    <string name="cd_nav_back">戻る</string>
+    <string name="cd_language_apply">言語を適用</string>
     <string name="lang_en_gb">English (UK)</string>
     <string name="lang_en_us">English (US)</string>
     <string name="lang_pt_br">Português (Brasil)</string>
@@ -19,114 +17,107 @@
     <string name="lang_vi">Tiếng Việt</string>
     <string name="lang_tr">Türkçe</string>
 
-    <!-- Splash -->
-    <string name="splash_title">Water Tracker</string>
-    <string name="splash_background_desc">Splash background</string>
-    <string name="splash_icon_desc">Splash icon</string>
+    <string name="splash_title">水分トラッカー</string>
+    <string name="splash_background_desc">スプラッシュ背景</string>
+    <string name="splash_icon_desc">スプラッシュアイコン</string>
 
-    <!-- Onboarding -->
-    <string name="select_gender_title">Select Gender?</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other_gender">Other / Prefer not to disclose</string>
-    <string name="next">NEXT</string>
-    <string name="age_title">How old are you?</string>
-    <string name="tall_title">How tall are you?</string>
-    <string name="weight_title">How much do you weigh?</string>
-    <string name="exercise_title">How much exercise do you each week?</string>
-    <string name="exercise_low">Low Exercise</string>
-    <string name="exercise_moderate">Moderate Exercise</string>
-    <string name="exercise_high">High exercise</string>
-    <string name="water_goal_title">Your daily goal is</string>
-    <string name="water_goal_desc">This number is calculated based on your height, weight, and daily activity level.</string>
-    <string name="adjust">Adjust</string>
-    <string name="save">SAVE</string>
-    <string name="start">START</string>
+    <string name="select_gender_title">性別を選択</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="other_gender">その他 / 回答しない</string>
+    <string name="next">次へ</string>
+    <string name="age_title">年齢は？</string>
+    <string name="tall_title">身長は？</string>
+    <string name="weight_title">体重は？</string>
+    <string name="exercise_title">週の運動量は？</string>
+    <string name="exercise_low">少ない</string>
+    <string name="exercise_moderate">普通</string>
+    <string name="exercise_high">多い</string>
+    <string name="water_goal_title">1日の目標は</string>
+    <string name="water_goal_desc">身長・体重・活動量から計算されています。</string>
+    <string name="adjust">調整</string>
+    <string name="save">保存</string>
+    <string name="start">始める</string>
     <string name="unit_ml">ml</string>
     <string name="unit_l">l</string>
 
-    <!-- Home tabs -->
-    <string name="home_tab_water">Water</string>
-    <string name="home_tab_weigh">Weigh</string>
-    <string name="home_tab_me">Me</string>
+    <string name="home_tab_water">水分</string>
+    <string name="home_tab_weigh">体重</string>
+    <string name="home_tab_me">マイ</string>
 
-    <!-- Me -->
-    <string name="me_personal_data_title">Personal Data</string>
-    <string name="me_total_drinking_label">Total Drinking</string>
-    <string name="me_streak_section_label">Streak</string>
-    <string name="me_general_section">General</string>
-    <string name="me_menu_language">Language</string>
-    <string name="me_menu_rate_us">Rate Us</string>
-    <string name="me_menu_share">Share</string>
-    <string name="me_menu_privacy">Privacy Policy</string>
+    <string name="me_personal_data_title">個人データ</string>
+    <string name="me_total_drinking_label">累計摂取量</string>
+    <string name="me_streak_section_label">連続日数</string>
+    <string name="me_general_section">一般</string>
+    <string name="me_menu_language">言語</string>
+    <string name="me_menu_rate_us">評価</string>
+    <string name="me_menu_share">共有</string>
+    <string name="me_menu_privacy">プライバシー</string>
 
     <plurals name="me_streak_days">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
+        <item quantity="one">%d 日</item>
+        <item quantity="other">%d 日</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d Day - Streak</item>
-        <item quantity="other">%d Days - Streak</item>
+        <item quantity="one">%d 日連続</item>
+        <item quantity="other">%d 日連続</item>
     </plurals>
 
-    <!-- Weigh -->
-    <string name="weigh_tracker_title">Weigh Tracker</string>
-    <string name="weigh_height_label">Height</string>
-    <string name="weigh_weight_label">Weight</string>
-    <string name="unit_cm">CM</string>
-    <string name="unit_mass_kg">KG</string>
-    <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">BMI</string>
-    <string name="weigh_bmi_unit_label">KG/m²</string>
-    <string name="bmi_underweight">Underweight</string>
-    <string name="bmi_normal">Normal</string>
-    <string name="bmi_overweight">Overweight</string>
-    <string name="target_weight_section_title">Target weight</string>
-    <string name="target_weight_empty">No target yet!</string>
-    <string name="create_target">Create target</string>
-    <string name="target_sheet_header_title">TARGET WEIGHT</string>
-    <string name="expected_bmi_label">EXPECTED BMI</string>
-    <string name="start_journey">START JOURNEY</string>
-    <string name="weigh_goal_card_title">GOAL</string>
-    <string name="weigh_gap_label">GAP</string>
-    <string name="weigh_journey_progress_label">JOURNEY PROGRESS</string>
-    <string name="weigh_goal_detail_start_day">Start day</string>
-    <string name="weigh_goal_detail_progress">Progress</string>
-    <string name="weigh_goal_detail_today">TODAY</string>
-    <string name="weigh_goal_detail_history">HISTORY</string>
-    <string name="weigh_goal_detail_record">Record</string>
-    <string name="weigh_goal_detail_saved">Weight saved for today</string>
-    <string name="weigh_goal_detail_record_error">Could not save. Try again.</string>
-    <string name="weigh_history_title">History</string>
-    <string name="weigh_history_trend_title">WEIGHT TREND</string>
-    <string name="weigh_history_last_7_days">Last 7 days</string>
-    <string name="weigh_history_empty">No entries in the last 7 days.</string>
-    <string name="tab_todo_placeholder">TODO</string>
+    <string name="weigh_tracker_title">体重トラッカー</string>
+    <string name="weigh_height_label">身長</string>
+    <string name="weigh_weight_label">体重</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_mass_kg">kg</string>
+    <string name="unit_mass_lb">lb</string>
+    <string name="weigh_bmi_section_title">体格指数（BMI）</string>
+    <string name="weigh_bmi_unit_label">kg/m²</string>
+    <string name="bmi_underweight">低体重</string>
+    <string name="bmi_normal">普通</string>
+    <string name="bmi_overweight">過体重</string>
+    <string name="target_weight_section_title">目標体重</string>
+    <string name="target_weight_empty">目標がまだありません</string>
+    <string name="create_target">目標を作成</string>
+    <string name="target_sheet_header_title">目標体重</string>
+    <string name="expected_bmi_label">予想BMI</string>
+    <string name="start_journey">記録を始める</string>
+    <string name="weigh_goal_card_title">目標</string>
+    <string name="weigh_gap_label">差</string>
+    <string name="weigh_journey_progress_label">進捗</string>
+    <string name="weigh_goal_detail_start_day">開始日</string>
+    <string name="weigh_goal_detail_progress">進み具合</string>
+    <string name="weigh_goal_detail_today">今日</string>
+    <string name="weigh_goal_detail_history">履歴</string>
+    <string name="weigh_goal_detail_record">記録</string>
+    <string name="weigh_goal_detail_saved">今日の体重を保存しました</string>
+    <string name="weigh_goal_detail_record_error">保存できませんでした。再試行してください。</string>
+    <string name="weigh_history_title">履歴</string>
+    <string name="weigh_history_trend_title">体重の推移</string>
+    <string name="weigh_history_last_7_days">過去7日間</string>
+    <string name="weigh_history_empty">過去7日間に記録がありません。</string>
+    <string name="tab_todo_placeholder">予定</string>
 
-    <!-- Water tracker -->
-    <string name="water_tracker_title">Water Tracker</string>
-    <string name="today_progress_label">Today\'s progress</string>
-    <string name="today_goal_done_label">You reached today\'s goal 🎉</string>
-    <string name="water_goal_card_label">Goal</string>
-    <string name="reminder_card_label">Upcoming reminder</string>
-    <string name="reminder_sample_time">09:45 AM</string>
-    <string name="report_inline_title">Report</string>
-    <string name="report_details">Details</string>
-    <string name="report_screen_title">Report</string>
-    <string name="report_tab_day">Day</string>
-    <string name="report_tab_week">Week</string>
-    <string name="report_tab_month">Month</string>
-    <string name="report_record_header">Record</string>
-    <string name="drink">DRINK</string>
-    <string name="drink_amount_title">Amount of water</string>
-    <string name="close">Close</string>
-    <string name="goal_done_dialog_title">Congratulations!\nYou reached today\'s goal</string>
+    <string name="water_tracker_title">水分トラッカー</string>
+    <string name="today_progress_label">今日の進捗</string>
+    <string name="today_goal_done_label">今日の目標達成！🎉</string>
+    <string name="water_goal_card_label">目標</string>
+    <string name="reminder_card_label">次のリマインダー</string>
+    <string name="reminder_sample_time">09:45</string>
+    <string name="report_inline_title">レポート</string>
+    <string name="report_details">詳細</string>
+    <string name="report_screen_title">レポート</string>
+    <string name="report_tab_day">日</string>
+    <string name="report_tab_week">週</string>
+    <string name="report_tab_month">月</string>
+    <string name="report_record_header">記録</string>
+    <string name="drink">飲む</string>
+    <string name="drink_amount_title">量</string>
+    <string name="close">閉じる</string>
+    <string name="goal_done_dialog_title">おめでとうございます！\n今日の目標を達成しました</string>
 
-    <!-- Report summaries (keys for enum mapping) -->
-    <string name="report_summary_today">TODAY</string>
-    <string name="report_summary_goal">GOAL</string>
-    <string name="report_summary_avg_day">AVG/DAY</string>
-    <string name="report_summary_total">TOTAL</string>
+    <string name="report_summary_today">今日</string>
+    <string name="report_summary_goal">目標</string>
+    <string name="report_summary_avg_day">平均/日</string>
+    <string name="report_summary_total">合計</string>
 
     <string-array name="report_day_bucket_labels">
         <item>00-04</item>
@@ -137,7 +128,7 @@
         <item>20-24</item>
     </string-array>
 
-    <string name="cd_close">Close</string>
-    <string name="cd_back">Back</string>
-    <string name="cd_goal_icon">Goal</string>
+    <string name="cd_close">閉じる</string>
+    <string name="cd_back">戻る</string>
+    <string name="cd_goal_icon">目標</string>
 </resources>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Water Tracker</string>
-
-    <!-- Language picker -->
-    <string name="language_screen_title">Language</string>
-    <string name="cd_nav_back">Back</string>
-    <string name="cd_language_apply">Apply language</string>
+    <string name="app_name">पानी ट्रैकर</string>
+    <string name="language_screen_title">भाषा</string>
+    <string name="cd_nav_back">वापस</string>
+    <string name="cd_language_apply">भाषा लागू करें</string>
     <string name="lang_en_gb">English (UK)</string>
     <string name="lang_en_us">English (US)</string>
     <string name="lang_pt_br">Português (Brasil)</string>
@@ -19,114 +17,107 @@
     <string name="lang_vi">Tiếng Việt</string>
     <string name="lang_tr">Türkçe</string>
 
-    <!-- Splash -->
-    <string name="splash_title">Water Tracker</string>
-    <string name="splash_background_desc">Splash background</string>
-    <string name="splash_icon_desc">Splash icon</string>
+    <string name="splash_title">पानी ट्रैकर</string>
+    <string name="splash_background_desc">स्प्लैश पृष्ठभूमि</string>
+    <string name="splash_icon_desc">स्प्लैश आइकन</string>
 
-    <!-- Onboarding -->
-    <string name="select_gender_title">Select Gender?</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other_gender">Other / Prefer not to disclose</string>
-    <string name="next">NEXT</string>
-    <string name="age_title">How old are you?</string>
-    <string name="tall_title">How tall are you?</string>
-    <string name="weight_title">How much do you weigh?</string>
-    <string name="exercise_title">How much exercise do you each week?</string>
-    <string name="exercise_low">Low Exercise</string>
-    <string name="exercise_moderate">Moderate Exercise</string>
-    <string name="exercise_high">High exercise</string>
-    <string name="water_goal_title">Your daily goal is</string>
-    <string name="water_goal_desc">This number is calculated based on your height, weight, and daily activity level.</string>
-    <string name="adjust">Adjust</string>
-    <string name="save">SAVE</string>
-    <string name="start">START</string>
-    <string name="unit_ml">ml</string>
-    <string name="unit_l">l</string>
+    <string name="select_gender_title">लिंग चुनें?</string>
+    <string name="male">पुरुष</string>
+    <string name="female">महिला</string>
+    <string name="other_gender">अन्य / बताना नहीं चाहता</string>
+    <string name="next">आगे</string>
+    <string name="age_title">आपकी उम्र?</string>
+    <string name="tall_title">आपकी ऊंचाई?</string>
+    <string name="weight_title">आपका वजन?</string>
+    <string name="exercise_title">सप्ताह में कितना व्यायाम?</string>
+    <string name="exercise_low">कम</string>
+    <string name="exercise_moderate">मध्यम</string>
+    <string name="exercise_high">ज़्यादा</string>
+    <string name="water_goal_title">आपका दैनिक लक्ष्य</string>
+    <string name="water_goal_desc">ऊंचाई, वजन और गतिविधि के आधार पर गणना।</string>
+    <string name="adjust">समायोजित करें</string>
+    <string name="save">सहेजें</string>
+    <string name="start">शुरू</string>
+    <string name="unit_ml">मि.ली.</string>
+    <string name="unit_l">ली.</string>
 
-    <!-- Home tabs -->
-    <string name="home_tab_water">Water</string>
-    <string name="home_tab_weigh">Weigh</string>
-    <string name="home_tab_me">Me</string>
+    <string name="home_tab_water">पानी</string>
+    <string name="home_tab_weigh">वजन</string>
+    <string name="home_tab_me">मैं</string>
 
-    <!-- Me -->
-    <string name="me_personal_data_title">Personal Data</string>
-    <string name="me_total_drinking_label">Total Drinking</string>
-    <string name="me_streak_section_label">Streak</string>
-    <string name="me_general_section">General</string>
-    <string name="me_menu_language">Language</string>
-    <string name="me_menu_rate_us">Rate Us</string>
-    <string name="me_menu_share">Share</string>
-    <string name="me_menu_privacy">Privacy Policy</string>
+    <string name="me_personal_data_title">व्यक्तिगत डेटा</string>
+    <string name="me_total_drinking_label">कुल पानी</string>
+    <string name="me_streak_section_label">लगातार दिन</string>
+    <string name="me_general_section">सामान्य</string>
+    <string name="me_menu_language">भाषा</string>
+    <string name="me_menu_rate_us">रेटिंग</string>
+    <string name="me_menu_share">साझा करें</string>
+    <string name="me_menu_privacy">गोपनीयता नीति</string>
 
     <plurals name="me_streak_days">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
+        <item quantity="one">%d दिन</item>
+        <item quantity="other">%d दिन</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d Day - Streak</item>
-        <item quantity="other">%d Days - Streak</item>
+        <item quantity="one">%d दिन - सिलसिला</item>
+        <item quantity="other">%d दिन - सिलसिला</item>
     </plurals>
 
-    <!-- Weigh -->
-    <string name="weigh_tracker_title">Weigh Tracker</string>
-    <string name="weigh_height_label">Height</string>
-    <string name="weigh_weight_label">Weight</string>
-    <string name="unit_cm">CM</string>
-    <string name="unit_mass_kg">KG</string>
-    <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">BMI</string>
-    <string name="weigh_bmi_unit_label">KG/m²</string>
-    <string name="bmi_underweight">Underweight</string>
-    <string name="bmi_normal">Normal</string>
-    <string name="bmi_overweight">Overweight</string>
-    <string name="target_weight_section_title">Target weight</string>
-    <string name="target_weight_empty">No target yet!</string>
-    <string name="create_target">Create target</string>
-    <string name="target_sheet_header_title">TARGET WEIGHT</string>
-    <string name="expected_bmi_label">EXPECTED BMI</string>
-    <string name="start_journey">START JOURNEY</string>
-    <string name="weigh_goal_card_title">GOAL</string>
-    <string name="weigh_gap_label">GAP</string>
-    <string name="weigh_journey_progress_label">JOURNEY PROGRESS</string>
-    <string name="weigh_goal_detail_start_day">Start day</string>
-    <string name="weigh_goal_detail_progress">Progress</string>
-    <string name="weigh_goal_detail_today">TODAY</string>
-    <string name="weigh_goal_detail_history">HISTORY</string>
-    <string name="weigh_goal_detail_record">Record</string>
-    <string name="weigh_goal_detail_saved">Weight saved for today</string>
-    <string name="weigh_goal_detail_record_error">Could not save. Try again.</string>
-    <string name="weigh_history_title">History</string>
-    <string name="weigh_history_trend_title">WEIGHT TREND</string>
-    <string name="weigh_history_last_7_days">Last 7 days</string>
-    <string name="weigh_history_empty">No entries in the last 7 days.</string>
-    <string name="tab_todo_placeholder">TODO</string>
+    <string name="weigh_tracker_title">वजन ट्रैकर</string>
+    <string name="weigh_height_label">ऊंचाई</string>
+    <string name="weigh_weight_label">वजन</string>
+    <string name="unit_cm">से.मी.</string>
+    <string name="unit_mass_kg">किग्रा</string>
+    <string name="unit_mass_lb">पाउंड</string>
+    <string name="weigh_bmi_section_title">बीएमआई</string>
+    <string name="weigh_bmi_unit_label">किग्रा/मी²</string>
+    <string name="bmi_underweight">कम वजन</string>
+    <string name="bmi_normal">सामान्य</string>
+    <string name="bmi_overweight">अधिक वजन</string>
+    <string name="target_weight_section_title">लक्ष्य वजन</string>
+    <string name="target_weight_empty">अभी कोई लक्ष्य नहीं!</string>
+    <string name="create_target">लक्ष्य बनाएं</string>
+    <string name="target_sheet_header_title">लक्ष्य वजन</string>
+    <string name="expected_bmi_label">अपेक्षित बीएमआई</string>
+    <string name="start_journey">शुरू करें</string>
+    <string name="weigh_goal_card_title">लक्ष्य</string>
+    <string name="weigh_gap_label">अंतर</string>
+    <string name="weigh_journey_progress_label">प्रगति</string>
+    <string name="weigh_goal_detail_start_day">शुरुआत की तारीख</string>
+    <string name="weigh_goal_detail_progress">प्रगति</string>
+    <string name="weigh_goal_detail_today">आज</string>
+    <string name="weigh_goal_detail_history">इतिहास</string>
+    <string name="weigh_goal_detail_record">दर्ज करें</string>
+    <string name="weigh_goal_detail_saved">आज का वजन सहेजा गया</string>
+    <string name="weigh_goal_detail_record_error">सहेज नहीं सके। फिर कोशिश करें।</string>
+    <string name="weigh_history_title">इतिहास</string>
+    <string name="weigh_history_trend_title">वजन रुझान</string>
+    <string name="weigh_history_last_7_days">पिछले 7 दिन</string>
+    <string name="weigh_history_empty">पिछले 7 दिनों में कोई प्रविष्टि नहीं।</string>
+    <string name="tab_todo_placeholder">लंबित</string>
 
-    <!-- Water tracker -->
-    <string name="water_tracker_title">Water Tracker</string>
-    <string name="today_progress_label">Today\'s progress</string>
-    <string name="today_goal_done_label">You reached today\'s goal 🎉</string>
-    <string name="water_goal_card_label">Goal</string>
-    <string name="reminder_card_label">Upcoming reminder</string>
-    <string name="reminder_sample_time">09:45 AM</string>
-    <string name="report_inline_title">Report</string>
-    <string name="report_details">Details</string>
-    <string name="report_screen_title">Report</string>
-    <string name="report_tab_day">Day</string>
-    <string name="report_tab_week">Week</string>
-    <string name="report_tab_month">Month</string>
-    <string name="report_record_header">Record</string>
-    <string name="drink">DRINK</string>
-    <string name="drink_amount_title">Amount of water</string>
-    <string name="close">Close</string>
-    <string name="goal_done_dialog_title">Congratulations!\nYou reached today\'s goal</string>
+    <string name="water_tracker_title">पानी ट्रैकर</string>
+    <string name="today_progress_label">आज की प्रगति</string>
+    <string name="today_goal_done_label">आज का लक्ष्य पूरा! 🎉</string>
+    <string name="water_goal_card_label">लक्ष्य</string>
+    <string name="reminder_card_label">आगामी अनुस्मारक</string>
+    <string name="reminder_sample_time">09:45</string>
+    <string name="report_inline_title">रिपोर्ट</string>
+    <string name="report_details">विवरण</string>
+    <string name="report_screen_title">रिपोर्ट</string>
+    <string name="report_tab_day">दिन</string>
+    <string name="report_tab_week">सप्ताह</string>
+    <string name="report_tab_month">महीना</string>
+    <string name="report_record_header">अभिलेख</string>
+    <string name="drink">पिएं</string>
+    <string name="drink_amount_title">पानी की मात्रा</string>
+    <string name="close">बंद करें</string>
+    <string name="goal_done_dialog_title">बधाई हो!\nआपने आज का लक्ष्य पूरा किया</string>
 
-    <!-- Report summaries (keys for enum mapping) -->
-    <string name="report_summary_today">TODAY</string>
-    <string name="report_summary_goal">GOAL</string>
-    <string name="report_summary_avg_day">AVG/DAY</string>
-    <string name="report_summary_total">TOTAL</string>
+    <string name="report_summary_today">आज</string>
+    <string name="report_summary_goal">लक्ष्य</string>
+    <string name="report_summary_avg_day">औसत/दिन</string>
+    <string name="report_summary_total">कुल</string>
 
     <string-array name="report_day_bucket_labels">
         <item>00-04</item>
@@ -137,7 +128,7 @@
         <item>20-24</item>
     </string-array>
 
-    <string name="cd_close">Close</string>
-    <string name="cd_back">Back</string>
-    <string name="cd_goal_icon">Goal</string>
+    <string name="cd_close">बंद करें</string>
+    <string name="cd_back">वापस</string>
+    <string name="cd_goal_icon">लक्ष्य</string>
 </resources>

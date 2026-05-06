@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Water Tracker</string>
-
-    <!-- Language picker -->
-    <string name="language_screen_title">Language</string>
-    <string name="cd_nav_back">Back</string>
-    <string name="cd_language_apply">Apply language</string>
+    <string name="app_name">Pelacak Air</string>
+    <string name="language_screen_title">Bahasa</string>
+    <string name="cd_nav_back">Kembali</string>
+    <string name="cd_language_apply">Terapkan bahasa</string>
     <string name="lang_en_gb">English (UK)</string>
     <string name="lang_en_us">English (US)</string>
     <string name="lang_pt_br">Português (Brasil)</string>
@@ -19,113 +17,106 @@
     <string name="lang_vi">Tiếng Việt</string>
     <string name="lang_tr">Türkçe</string>
 
-    <!-- Splash -->
-    <string name="splash_title">Water Tracker</string>
-    <string name="splash_background_desc">Splash background</string>
-    <string name="splash_icon_desc">Splash icon</string>
+    <string name="splash_title">Pelacak Air</string>
+    <string name="splash_background_desc">Latar splash</string>
+    <string name="splash_icon_desc">Ikon splash</string>
 
-    <!-- Onboarding -->
-    <string name="select_gender_title">Select Gender?</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other_gender">Other / Prefer not to disclose</string>
-    <string name="next">NEXT</string>
-    <string name="age_title">How old are you?</string>
-    <string name="tall_title">How tall are you?</string>
-    <string name="weight_title">How much do you weigh?</string>
-    <string name="exercise_title">How much exercise do you each week?</string>
-    <string name="exercise_low">Low Exercise</string>
-    <string name="exercise_moderate">Moderate Exercise</string>
-    <string name="exercise_high">High exercise</string>
-    <string name="water_goal_title">Your daily goal is</string>
-    <string name="water_goal_desc">This number is calculated based on your height, weight, and daily activity level.</string>
-    <string name="adjust">Adjust</string>
-    <string name="save">SAVE</string>
-    <string name="start">START</string>
+    <string name="select_gender_title">Pilih jenis kelamin?</string>
+    <string name="male">Laki-laki</string>
+    <string name="female">Perempuan</string>
+    <string name="other_gender">Lainnya / Tidak ingin menyebutkan</string>
+    <string name="next">LANJUT</string>
+    <string name="age_title">Berapa usia Anda?</string>
+    <string name="tall_title">Berapa tinggi Anda?</string>
+    <string name="weight_title">Berapa berat Anda?</string>
+    <string name="exercise_title">Seberapa sering olahraga per minggu?</string>
+    <string name="exercise_low">Ringan</string>
+    <string name="exercise_moderate">Sedang</string>
+    <string name="exercise_high">Tinggi</string>
+    <string name="water_goal_title">Target harian Anda adalah</string>
+    <string name="water_goal_desc">Dihitung dari tinggi, berat, dan aktivitas harian.</string>
+    <string name="adjust">Sesuaikan</string>
+    <string name="save">SIMPAN</string>
+    <string name="start">MULAI</string>
     <string name="unit_ml">ml</string>
     <string name="unit_l">l</string>
 
-    <!-- Home tabs -->
-    <string name="home_tab_water">Water</string>
-    <string name="home_tab_weigh">Weigh</string>
-    <string name="home_tab_me">Me</string>
+    <string name="home_tab_water">Air</string>
+    <string name="home_tab_weigh">Timbang</string>
+    <string name="home_tab_me">Saya</string>
 
-    <!-- Me -->
-    <string name="me_personal_data_title">Personal Data</string>
-    <string name="me_total_drinking_label">Total Drinking</string>
-    <string name="me_streak_section_label">Streak</string>
-    <string name="me_general_section">General</string>
-    <string name="me_menu_language">Language</string>
-    <string name="me_menu_rate_us">Rate Us</string>
-    <string name="me_menu_share">Share</string>
-    <string name="me_menu_privacy">Privacy Policy</string>
+    <string name="me_personal_data_title">Data pribadi</string>
+    <string name="me_total_drinking_label">Total minum</string>
+    <string name="me_streak_section_label">Rangkaian hari</string>
+    <string name="me_general_section">Umum</string>
+    <string name="me_menu_language">Bahasa</string>
+    <string name="me_menu_rate_us">Beri nilai</string>
+    <string name="me_menu_share">Bagikan</string>
+    <string name="me_menu_privacy">Kebijakan privasi</string>
 
     <plurals name="me_streak_days">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
+        <item quantity="one">%d hari</item>
+        <item quantity="other">%d hari</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d Day - Streak</item>
-        <item quantity="other">%d Days - Streak</item>
+        <item quantity="one">%d hari berturut-turut</item>
+        <item quantity="other">%d hari berturut-turut</item>
     </plurals>
 
-    <!-- Weigh -->
-    <string name="weigh_tracker_title">Weigh Tracker</string>
-    <string name="weigh_height_label">Height</string>
-    <string name="weigh_weight_label">Weight</string>
+    <string name="weigh_tracker_title">Pelacak berat</string>
+    <string name="weigh_height_label">Tinggi</string>
+    <string name="weigh_weight_label">Berat</string>
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">BMI</string>
+    <string name="weigh_bmi_section_title">INDUK MASSA TUBUH</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
-    <string name="bmi_underweight">Underweight</string>
+    <string name="bmi_underweight">Kurus</string>
     <string name="bmi_normal">Normal</string>
-    <string name="bmi_overweight">Overweight</string>
-    <string name="target_weight_section_title">Target weight</string>
-    <string name="target_weight_empty">No target yet!</string>
-    <string name="create_target">Create target</string>
-    <string name="target_sheet_header_title">TARGET WEIGHT</string>
-    <string name="expected_bmi_label">EXPECTED BMI</string>
-    <string name="start_journey">START JOURNEY</string>
-    <string name="weigh_goal_card_title">GOAL</string>
-    <string name="weigh_gap_label">GAP</string>
-    <string name="weigh_journey_progress_label">JOURNEY PROGRESS</string>
-    <string name="weigh_goal_detail_start_day">Start day</string>
-    <string name="weigh_goal_detail_progress">Progress</string>
-    <string name="weigh_goal_detail_today">TODAY</string>
-    <string name="weigh_goal_detail_history">HISTORY</string>
-    <string name="weigh_goal_detail_record">Record</string>
-    <string name="weigh_goal_detail_saved">Weight saved for today</string>
-    <string name="weigh_goal_detail_record_error">Could not save. Try again.</string>
-    <string name="weigh_history_title">History</string>
-    <string name="weigh_history_trend_title">WEIGHT TREND</string>
-    <string name="weigh_history_last_7_days">Last 7 days</string>
-    <string name="weigh_history_empty">No entries in the last 7 days.</string>
-    <string name="tab_todo_placeholder">TODO</string>
+    <string name="bmi_overweight">Berlebih</string>
+    <string name="target_weight_section_title">Berat target</string>
+    <string name="target_weight_empty">Belum ada target!</string>
+    <string name="create_target">Buat target</string>
+    <string name="target_sheet_header_title">BERAT TARGET</string>
+    <string name="expected_bmi_label">Perkiraan BMI</string>
+    <string name="start_journey">MULAI PERJALANAN</string>
+    <string name="weigh_goal_card_title">TARGET</string>
+    <string name="weigh_gap_label">SELISIH</string>
+    <string name="weigh_journey_progress_label">Kemajuan</string>
+    <string name="weigh_goal_detail_start_day">Hari mulai</string>
+    <string name="weigh_goal_detail_progress">Kemajuan</string>
+    <string name="weigh_goal_detail_today">HARI INI</string>
+    <string name="weigh_goal_detail_history">RIWAYAT</string>
+    <string name="weigh_goal_detail_record">Catat</string>
+    <string name="weigh_goal_detail_saved">Berat hari ini disimpan</string>
+    <string name="weigh_goal_detail_record_error">Tidak dapat menyimpan. Coba lagi.</string>
+    <string name="weigh_history_title">Riwayat</string>
+    <string name="weigh_history_trend_title">TREN BERAT</string>
+    <string name="weigh_history_last_7_days">7 hari terakhir</string>
+    <string name="weigh_history_empty">Tidak ada data 7 hari terakhir.</string>
+    <string name="tab_todo_placeholder">NANTI</string>
 
-    <!-- Water tracker -->
-    <string name="water_tracker_title">Water Tracker</string>
-    <string name="today_progress_label">Today\'s progress</string>
-    <string name="today_goal_done_label">You reached today\'s goal 🎉</string>
-    <string name="water_goal_card_label">Goal</string>
-    <string name="reminder_card_label">Upcoming reminder</string>
-    <string name="reminder_sample_time">09:45 AM</string>
-    <string name="report_inline_title">Report</string>
-    <string name="report_details">Details</string>
-    <string name="report_screen_title">Report</string>
-    <string name="report_tab_day">Day</string>
-    <string name="report_tab_week">Week</string>
-    <string name="report_tab_month">Month</string>
-    <string name="report_record_header">Record</string>
-    <string name="drink">DRINK</string>
-    <string name="drink_amount_title">Amount of water</string>
-    <string name="close">Close</string>
-    <string name="goal_done_dialog_title">Congratulations!\nYou reached today\'s goal</string>
+    <string name="water_tracker_title">Pelacak Air</string>
+    <string name="today_progress_label">Kemajuan hari ini</string>
+    <string name="today_goal_done_label">Target hari ini tercapai! 🎉</string>
+    <string name="water_goal_card_label">Target</string>
+    <string name="reminder_card_label">Pengingat berikutnya</string>
+    <string name="reminder_sample_time">09.45</string>
+    <string name="report_inline_title">Laporan</string>
+    <string name="report_details">Detail</string>
+    <string name="report_screen_title">Laporan</string>
+    <string name="report_tab_day">Hari</string>
+    <string name="report_tab_week">Minggu</string>
+    <string name="report_tab_month">Bulan</string>
+    <string name="report_record_header">Catatan</string>
+    <string name="drink">MINUM</string>
+    <string name="drink_amount_title">Jumlah air</string>
+    <string name="close">Tutup</string>
+    <string name="goal_done_dialog_title">Selamat!\nAnda mencapai target hari ini</string>
 
-    <!-- Report summaries (keys for enum mapping) -->
-    <string name="report_summary_today">TODAY</string>
-    <string name="report_summary_goal">GOAL</string>
-    <string name="report_summary_avg_day">AVG/DAY</string>
+    <string name="report_summary_today">HARI INI</string>
+    <string name="report_summary_goal">TARGET</string>
+    <string name="report_summary_avg_day">RATA/HARI</string>
     <string name="report_summary_total">TOTAL</string>
 
     <string-array name="report_day_bucket_labels">
@@ -137,7 +128,7 @@
         <item>20-24</item>
     </string-array>
 
-    <string name="cd_close">Close</string>
-    <string name="cd_back">Back</string>
-    <string name="cd_goal_icon">Goal</string>
+    <string name="cd_close">Tutup</string>
+    <string name="cd_back">Kembali</string>
+    <string name="cd_goal_icon">Target</string>
 </resources>

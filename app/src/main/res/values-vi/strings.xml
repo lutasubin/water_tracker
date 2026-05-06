@@ -1,17 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Theo dõi nước uống</string>
+
     <string name="language_screen_title">Ngôn ngữ</string>
     <string name="cd_nav_back">Quay lại</string>
     <string name="cd_language_apply">Áp dụng ngôn ngữ</string>
+    <string name="lang_en_gb">English (UK)</string>
+    <string name="lang_en_us">English (US)</string>
+    <string name="lang_pt_br">Português (Brasil)</string>
+    <string name="lang_es">Español</string>
+    <string name="lang_ja">日本語</string>
+    <string name="lang_ko">한국어</string>
+    <string name="lang_de">Deutsch</string>
+    <string name="lang_id">Bahasa Indonesia</string>
+    <string name="lang_hi">हिन्दी</string>
+    <string name="lang_ar">العربية</string>
+    <string name="lang_vi">Tiếng Việt</string>
+    <string name="lang_tr">Türkçe</string>
+
+    <string name="splash_title">Theo dõi nước uống</string>
+    <string name="splash_background_desc">Nền màn hình splash</string>
+    <string name="splash_icon_desc">Biểu tượng splash</string>
+
+    <string name="select_gender_title">Chọn giới tính?</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other_gender">Khác / Không muốn tiết lộ</string>
+    <string name="next">TIẾP</string>
+    <string name="age_title">Bạn bao nhiêu tuổi?</string>
+    <string name="tall_title">Chiều cao của bạn?</string>
+    <string name="weight_title">Cân nặng của bạn?</string>
+    <string name="exercise_title">Bạn tập thể dục mỗi tuần bao nhiêu?</string>
+    <string name="exercise_low">Ít vận động</string>
+    <string name="exercise_moderate">Vừa phải</string>
+    <string name="exercise_high">Nhiều</string>
+    <string name="water_goal_title">Mục tiêu mỗi ngày của bạn là</string>
+    <string name="water_goal_desc">Con số này được tính dựa trên chiều cao, cân nặng và mức hoạt động hằng ngày.</string>
+    <string name="adjust">Điều chỉnh</string>
+    <string name="save">LƯU</string>
+    <string name="start">BẮT ĐẦU</string>
+    <string name="unit_ml">ml</string>
+    <string name="unit_l">l</string>
+
+    <string name="home_tab_water">Nước</string>
+    <string name="home_tab_weigh">Cân</string>
+    <string name="home_tab_me">Tôi</string>
+
     <string name="me_personal_data_title">Dữ liệu cá nhân</string>
+    <string name="me_total_drinking_label">Tổng đã uống</string>
+    <string name="me_streak_section_label">Chuỗi ngày</string>
     <string name="me_general_section">Chung</string>
     <string name="me_menu_language">Ngôn ngữ</string>
     <string name="me_menu_rate_us">Đánh giá</string>
     <string name="me_menu_share">Chia sẻ</string>
     <string name="me_menu_privacy">Chính sách riêng tư</string>
+
+    <plurals name="me_streak_days">
+        <item quantity="one">%d ngày</item>
+        <item quantity="other">%d ngày</item>
+    </plurals>
+    <plurals name="water_streak_pill">
+        <item quantity="one">%d ngày - Chuỗi</item>
+        <item quantity="other">%d ngày - Chuỗi</item>
+    </plurals>
+
+    <string name="weigh_tracker_title">Theo dõi cân nặng</string>
     <string name="weigh_height_label">Chiều cao</string>
     <string name="weigh_weight_label">Cân nặng</string>
+    <string name="unit_cm">CM</string>
+    <string name="unit_mass_kg">KG</string>
+    <string name="unit_mass_lb">LB</string>
     <string name="weigh_bmi_section_title">CHỈ SỐ BMI CƠ THỂ</string>
+    <string name="weigh_bmi_unit_label">KG/m²</string>
+    <string name="bmi_underweight">Gầy</string>
+    <string name="bmi_normal">Bình thường</string>
+    <string name="bmi_overweight">Thừa cân</string>
     <string name="target_weight_section_title">Cân nặng mục tiêu</string>
     <string name="target_weight_empty">Chưa có mục tiêu nào!</string>
     <string name="create_target">Tạo mục tiêu</string>
@@ -32,24 +95,41 @@
     <string name="weigh_history_trend_title">XU HƯỚNG CÂN NẶNG</string>
     <string name="weigh_history_last_7_days">7 ngày gần nhất</string>
     <string name="weigh_history_empty">Chưa có dữ liệu trong 7 ngày gần nhất.</string>
+    <string name="tab_todo_placeholder">SẼ LÀM</string>
+
+    <string name="water_tracker_title">Theo dõi nước uống</string>
     <string name="today_progress_label">Tiến độ hôm nay</string>
     <string name="today_goal_done_label">Hoàn thành mục tiêu hôm nay 🎉</string>
     <string name="water_goal_card_label">Mục tiêu</string>
     <string name="reminder_card_label">Nhắc nhở sắp tới</string>
+    <string name="reminder_sample_time">09:45 SA</string>
     <string name="report_inline_title">Báo cáo</string>
     <string name="report_details">Chi tiết</string>
     <string name="report_screen_title">Báo cáo</string>
-    <string name="goal_done_dialog_title">Chúc mừng bạn đã hoàn thành\nmục tiêu</string>
+    <string name="report_tab_day">Ngày</string>
+    <string name="report_tab_week">Tuần</string>
+    <string name="report_tab_month">Tháng</string>
+    <string name="report_record_header">Ghi nhận</string>
+    <string name="drink">UỐNG</string>
+    <string name="drink_amount_title">Lượng nước</string>
     <string name="close">Đóng</string>
-    <string name="bmi_underweight">Gầy</string>
-    <string name="bmi_normal">Bình thường</string>
-    <string name="bmi_overweight">Thừa cân</string>
-    <plurals name="me_streak_days">
-        <item quantity="one">%d ngày</item>
-        <item quantity="other">%d ngày</item>
-    </plurals>
-    <plurals name="water_streak_pill">
-        <item quantity="one">%d ngày - Chuỗi</item>
-        <item quantity="other">%d ngày - Chuỗi</item>
-    </plurals>
+    <string name="goal_done_dialog_title">Chúc mừng!\nBạn đã đạt mục tiêu hôm nay</string>
+
+    <string name="report_summary_today">HÔM NAY</string>
+    <string name="report_summary_goal">MỤC TIÊU</string>
+    <string name="report_summary_avg_day">TB/NGÀY</string>
+    <string name="report_summary_total">TỔNG</string>
+
+    <string-array name="report_day_bucket_labels">
+        <item>00-04</item>
+        <item>04-08</item>
+        <item>08-12</item>
+        <item>12-16</item>
+        <item>16-20</item>
+        <item>20-24</item>
+    </string-array>
+
+    <string name="cd_close">Đóng</string>
+    <string name="cd_back">Quay lại</string>
+    <string name="cd_goal_icon">Mục tiêu</string>
 </resources>

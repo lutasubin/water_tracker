@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Water Tracker</string>
-
-    <!-- Language picker -->
-    <string name="language_screen_title">Language</string>
-    <string name="cd_nav_back">Back</string>
-    <string name="cd_language_apply">Apply language</string>
+    <string name="app_name">Control de agua</string>
+    <string name="language_screen_title">Idioma</string>
+    <string name="cd_nav_back">Atrás</string>
+    <string name="cd_language_apply">Aplicar idioma</string>
     <string name="lang_en_gb">English (UK)</string>
     <string name="lang_en_us">English (US)</string>
     <string name="lang_pt_br">Português (Brasil)</string>
@@ -19,113 +17,106 @@
     <string name="lang_vi">Tiếng Việt</string>
     <string name="lang_tr">Türkçe</string>
 
-    <!-- Splash -->
-    <string name="splash_title">Water Tracker</string>
-    <string name="splash_background_desc">Splash background</string>
-    <string name="splash_icon_desc">Splash icon</string>
+    <string name="splash_title">Control de agua</string>
+    <string name="splash_background_desc">Fondo de inicio</string>
+    <string name="splash_icon_desc">Icono de inicio</string>
 
-    <!-- Onboarding -->
-    <string name="select_gender_title">Select Gender?</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other_gender">Other / Prefer not to disclose</string>
-    <string name="next">NEXT</string>
-    <string name="age_title">How old are you?</string>
-    <string name="tall_title">How tall are you?</string>
-    <string name="weight_title">How much do you weigh?</string>
-    <string name="exercise_title">How much exercise do you each week?</string>
-    <string name="exercise_low">Low Exercise</string>
-    <string name="exercise_moderate">Moderate Exercise</string>
-    <string name="exercise_high">High exercise</string>
-    <string name="water_goal_title">Your daily goal is</string>
-    <string name="water_goal_desc">This number is calculated based on your height, weight, and daily activity level.</string>
-    <string name="adjust">Adjust</string>
-    <string name="save">SAVE</string>
-    <string name="start">START</string>
+    <string name="select_gender_title">¿Género?</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
+    <string name="other_gender">Otro / Prefiero no decirlo</string>
+    <string name="next">SIGUIENTE</string>
+    <string name="age_title">¿Cuántos años tienes?</string>
+    <string name="tall_title">¿Cuál es tu altura?</string>
+    <string name="weight_title">¿Cuánto pesas?</string>
+    <string name="exercise_title">¿Cuánto ejercicio haces cada semana?</string>
+    <string name="exercise_low">Poco ejercicio</string>
+    <string name="exercise_moderate">Moderado</string>
+    <string name="exercise_high">Mucho ejercicio</string>
+    <string name="water_goal_title">Tu objetivo diario es</string>
+    <string name="water_goal_desc">Este número se calcula según tu altura, peso y nivel de actividad diaria.</string>
+    <string name="adjust">Ajustar</string>
+    <string name="save">GUARDAR</string>
+    <string name="start">EMPEZAR</string>
     <string name="unit_ml">ml</string>
     <string name="unit_l">l</string>
 
-    <!-- Home tabs -->
-    <string name="home_tab_water">Water</string>
-    <string name="home_tab_weigh">Weigh</string>
-    <string name="home_tab_me">Me</string>
+    <string name="home_tab_water">Agua</string>
+    <string name="home_tab_weigh">Peso</string>
+    <string name="home_tab_me">Yo</string>
 
-    <!-- Me -->
-    <string name="me_personal_data_title">Personal Data</string>
-    <string name="me_total_drinking_label">Total Drinking</string>
-    <string name="me_streak_section_label">Streak</string>
+    <string name="me_personal_data_title">Datos personales</string>
+    <string name="me_total_drinking_label">Total bebido</string>
+    <string name="me_streak_section_label">Racha</string>
     <string name="me_general_section">General</string>
-    <string name="me_menu_language">Language</string>
-    <string name="me_menu_rate_us">Rate Us</string>
-    <string name="me_menu_share">Share</string>
-    <string name="me_menu_privacy">Privacy Policy</string>
+    <string name="me_menu_language">Idioma</string>
+    <string name="me_menu_rate_us">Valóranos</string>
+    <string name="me_menu_share">Compartir</string>
+    <string name="me_menu_privacy">Privacidad</string>
 
     <plurals name="me_streak_days">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
+        <item quantity="one">%d día</item>
+        <item quantity="other">%d días</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d Day - Streak</item>
-        <item quantity="other">%d Days - Streak</item>
+        <item quantity="one">%d día - Racha</item>
+        <item quantity="other">%d días - Racha</item>
     </plurals>
 
-    <!-- Weigh -->
-    <string name="weigh_tracker_title">Weigh Tracker</string>
-    <string name="weigh_height_label">Height</string>
-    <string name="weigh_weight_label">Weight</string>
+    <string name="weigh_tracker_title">Peso</string>
+    <string name="weigh_height_label">Altura</string>
+    <string name="weigh_weight_label">Peso</string>
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">BMI</string>
+    <string name="weigh_bmi_section_title">ÍNDICE DE MASA CORPORAL</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
-    <string name="bmi_underweight">Underweight</string>
+    <string name="bmi_underweight">Bajo peso</string>
     <string name="bmi_normal">Normal</string>
-    <string name="bmi_overweight">Overweight</string>
-    <string name="target_weight_section_title">Target weight</string>
-    <string name="target_weight_empty">No target yet!</string>
-    <string name="create_target">Create target</string>
-    <string name="target_sheet_header_title">TARGET WEIGHT</string>
-    <string name="expected_bmi_label">EXPECTED BMI</string>
-    <string name="start_journey">START JOURNEY</string>
-    <string name="weigh_goal_card_title">GOAL</string>
-    <string name="weigh_gap_label">GAP</string>
-    <string name="weigh_journey_progress_label">JOURNEY PROGRESS</string>
-    <string name="weigh_goal_detail_start_day">Start day</string>
-    <string name="weigh_goal_detail_progress">Progress</string>
-    <string name="weigh_goal_detail_today">TODAY</string>
-    <string name="weigh_goal_detail_history">HISTORY</string>
-    <string name="weigh_goal_detail_record">Record</string>
-    <string name="weigh_goal_detail_saved">Weight saved for today</string>
-    <string name="weigh_goal_detail_record_error">Could not save. Try again.</string>
-    <string name="weigh_history_title">History</string>
-    <string name="weigh_history_trend_title">WEIGHT TREND</string>
-    <string name="weigh_history_last_7_days">Last 7 days</string>
-    <string name="weigh_history_empty">No entries in the last 7 days.</string>
-    <string name="tab_todo_placeholder">TODO</string>
+    <string name="bmi_overweight">Sobrepeso</string>
+    <string name="target_weight_section_title">Peso objetivo</string>
+    <string name="target_weight_empty">¡Aún sin objetivo!</string>
+    <string name="create_target">Crear objetivo</string>
+    <string name="target_sheet_header_title">PESO OBJETIVO</string>
+    <string name="expected_bmi_label">IMC ESPERADO</string>
+    <string name="start_journey">INICIAR CAMINO</string>
+    <string name="weigh_goal_card_title">OBJETIVO</string>
+    <string name="weigh_gap_label">DIFERENCIA</string>
+    <string name="weigh_journey_progress_label">PROGRESO</string>
+    <string name="weigh_goal_detail_start_day">Día de inicio</string>
+    <string name="weigh_goal_detail_progress">Progreso</string>
+    <string name="weigh_goal_detail_today">HOY</string>
+    <string name="weigh_goal_detail_history">HISTORIAL</string>
+    <string name="weigh_goal_detail_record">Registrar</string>
+    <string name="weigh_goal_detail_saved">Peso de hoy guardado</string>
+    <string name="weigh_goal_detail_record_error">No se pudo guardar. Inténtalo de nuevo.</string>
+    <string name="weigh_history_title">Historial</string>
+    <string name="weigh_history_trend_title">TENDENCIA DE PESO</string>
+    <string name="weigh_history_last_7_days">Últimos 7 días</string>
+    <string name="weigh_history_empty">Sin registros en los últimos 7 días.</string>
+    <string name="tab_todo_placeholder">PENDIENTE</string>
 
-    <!-- Water tracker -->
-    <string name="water_tracker_title">Water Tracker</string>
-    <string name="today_progress_label">Today\'s progress</string>
-    <string name="today_goal_done_label">You reached today\'s goal 🎉</string>
-    <string name="water_goal_card_label">Goal</string>
-    <string name="reminder_card_label">Upcoming reminder</string>
-    <string name="reminder_sample_time">09:45 AM</string>
-    <string name="report_inline_title">Report</string>
-    <string name="report_details">Details</string>
-    <string name="report_screen_title">Report</string>
-    <string name="report_tab_day">Day</string>
-    <string name="report_tab_week">Week</string>
-    <string name="report_tab_month">Month</string>
-    <string name="report_record_header">Record</string>
-    <string name="drink">DRINK</string>
-    <string name="drink_amount_title">Amount of water</string>
-    <string name="close">Close</string>
-    <string name="goal_done_dialog_title">Congratulations!\nYou reached today\'s goal</string>
+    <string name="water_tracker_title">Control de agua</string>
+    <string name="today_progress_label">Progreso de hoy</string>
+    <string name="today_goal_done_label">¡Objetivo de hoy alcanzado! 🎉</string>
+    <string name="water_goal_card_label">Objetivo</string>
+    <string name="reminder_card_label">Próximo recordatorio</string>
+    <string name="reminder_sample_time">09:45</string>
+    <string name="report_inline_title">Informe</string>
+    <string name="report_details">Detalles</string>
+    <string name="report_screen_title">Informe</string>
+    <string name="report_tab_day">Día</string>
+    <string name="report_tab_week">Semana</string>
+    <string name="report_tab_month">Mes</string>
+    <string name="report_record_header">Registro</string>
+    <string name="drink">BEBER</string>
+    <string name="drink_amount_title">Cantidad de agua</string>
+    <string name="close">Cerrar</string>
+    <string name="goal_done_dialog_title">¡Enhorabuena!\nHas alcanzado el objetivo de hoy</string>
 
-    <!-- Report summaries (keys for enum mapping) -->
-    <string name="report_summary_today">TODAY</string>
-    <string name="report_summary_goal">GOAL</string>
-    <string name="report_summary_avg_day">AVG/DAY</string>
+    <string name="report_summary_today">HOY</string>
+    <string name="report_summary_goal">OBJETIVO</string>
+    <string name="report_summary_avg_day">MED/DÍA</string>
     <string name="report_summary_total">TOTAL</string>
 
     <string-array name="report_day_bucket_labels">
@@ -137,7 +128,7 @@
         <item>20-24</item>
     </string-array>
 
-    <string name="cd_close">Close</string>
-    <string name="cd_back">Back</string>
-    <string name="cd_goal_icon">Goal</string>
+    <string name="cd_close">Cerrar</string>
+    <string name="cd_back">Atrás</string>
+    <string name="cd_goal_icon">Objetivo</string>
 </resources>
