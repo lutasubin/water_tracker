@@ -2,5 +2,9 @@
 <resources>
 
     <!-- AppCompatActivity bắt buộc dùng theme kế thừa Theme.AppCompat (hoặc Material Components). -->
-    <style name="Theme.Drink_water_kotlin" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.Drink_water_kotlin" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/home_background</item>
+        <item name="android:colorBackground">@color/home_background</item>
+        <item name="android:navigationBarColor">@color/home_background</item>
+    </style>
 </resources>

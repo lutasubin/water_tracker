@@ -59,8 +59,8 @@
         <item quantity="other">%d 日</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d 日連続</item>
-        <item quantity="other">%d 日連続</item>
+        <item quantity="one">連続%d日</item>
+        <item quantity="other">連続%d日</item>
     </plurals>
 
     <string name="weigh_tracker_title">体重トラッカー</string>
@@ -69,7 +69,7 @@
     <string name="unit_cm">cm</string>
     <string name="unit_mass_kg">kg</string>
     <string name="unit_mass_lb">lb</string>
-    <string name="weigh_bmi_section_title">体格指数（BMI）</string>
+    <string name="weigh_bmi_section_title">BMI</string>
     <string name="weigh_bmi_unit_label">kg/m²</string>
     <string name="bmi_underweight">低体重</string>
     <string name="bmi_normal">普通</string>
@@ -79,7 +79,7 @@
     <string name="create_target">目標を作成</string>
     <string name="target_sheet_header_title">目標体重</string>
     <string name="expected_bmi_label">予想BMI</string>
-    <string name="start_journey">記録を始める</string>
+    <string name="start_journey">開始</string>
     <string name="weigh_goal_card_title">目標</string>
     <string name="weigh_gap_label">差</string>
     <string name="weigh_journey_progress_label">進捗</string>

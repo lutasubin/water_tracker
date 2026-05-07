@@ -59,8 +59,8 @@
         <item quantity="other">%d dias</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d dia - Sequência</item>
-        <item quantity="other">%d dias - Sequência</item>
+        <item quantity="one">Série · %d d</item>
+        <item quantity="other">Série · %d d</item>
     </plurals>
 
     <string name="weigh_tracker_title">Peso</string>
@@ -69,7 +69,7 @@
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">ÍNDICE DE MASSA CORPORAL</string>
+    <string name="weigh_bmi_section_title">IMC</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Abaixo do peso</string>
     <string name="bmi_normal">Normal</string>
@@ -79,7 +79,7 @@
     <string name="create_target">Criar meta</string>
     <string name="target_sheet_header_title">PESO ALVO</string>
     <string name="expected_bmi_label">IMC ESPERADO</string>
-    <string name="start_journey">INICIAR JORNADA</string>
+    <string name="start_journey">INICIAR</string>
     <string name="weigh_goal_card_title">META</string>
     <string name="weigh_gap_label">DIFERENÇA</string>
     <string name="weigh_journey_progress_label">PROGRESSO</string>
@@ -91,7 +91,7 @@
     <string name="weigh_goal_detail_saved">Peso de hoje salvo</string>
     <string name="weigh_goal_detail_record_error">Não foi possível salvar. Tente de novo.</string>
     <string name="weigh_history_title">Histórico</string>
-    <string name="weigh_history_trend_title">TENDÊNCIA DE PESO</string>
+    <string name="weigh_history_trend_title">TENDÊNCIA</string>
     <string name="weigh_history_last_7_days">Últimos 7 dias</string>
     <string name="weigh_history_empty">Sem registros nos últimos 7 dias.</string>
     <string name="tab_todo_placeholder">A FAZER</string>

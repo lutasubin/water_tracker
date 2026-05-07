@@ -33,6 +33,8 @@ import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.Weigh
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.weight.presentation.screen.WeightSelectionScreen
 import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.WeightViewModelFactory
+import com.weappsinc.watertracker.app.feature.settings.domain.usecase.MarkLocaleOnboardingCompletedUseCase
+import com.weappsinc.watertracker.app.feature.settings.domain.usecase.ObserveLocaleOnboardingCompletedUseCase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,17 +53,24 @@ fun AppNavHost(
     weighHistoryFactory: WeighHistoryViewModelFactory,
     reportViewModelFactory: ReportViewModelFactory,
     ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase,
-    observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase
+    observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase,
+    observeLocaleOnboardingCompletedUseCase: ObserveLocaleOnboardingCompletedUseCase,
+    markLocaleOnboardingCompletedUseCase: MarkLocaleOnboardingCompletedUseCase,
 ) {
     val navController = rememberNavController()
     val savedGoalMl by observeSavedGoalMlUseCase().collectAsState(initial = null)
+    val localeOnboardingDone by observeLocaleOnboardingCompletedUseCase()
+        .collectAsState(initial = false)
     NavHost(navController = navController, startDestination = AppRoute.Splash.route) {
         composable(AppRoute.Splash.route) {
             SplashScreen(
                 onBootstrap = { ensureFirstInstallDayUseCase() },
                 onSplashFinished = {
-                    val targetRoute =
-                        if ((savedGoalMl ?: 0) > 0) AppRoute.Home.route else AppRoute.Gender.route
+                    val targetRoute = when {
+                        (savedGoalMl ?: 0) > 0 -> AppRoute.Home.route
+                        !localeOnboardingDone -> AppRoute.LanguageOnboarding.route
+                        else -> AppRoute.Gender.route
+                    }
                     navController.navigate(targetRoute) {
                         popUpTo(AppRoute.Splash.route) { inclusive = true }
                     }
@@ -127,7 +136,24 @@ fun AppNavHost(
             )
         }
         composable(AppRoute.Language.route) {
-            LanguageScreen(onBack = { navController.popBackStack() })
+            LanguageScreen(
+                showBackButton = true,
+                onBack = { navController.popBackStack() },
+                beforeApplyMain = {},
+                onApplied = { navController.popBackStack() },
+            )
+        }
+        composable(AppRoute.LanguageOnboarding.route) {
+            LanguageScreen(
+                showBackButton = false,
+                onBack = {},
+                beforeApplyMain = { markLocaleOnboardingCompletedUseCase() },
+                onApplied = {
+                    navController.navigate(AppRoute.Gender.route) {
+                        popUpTo(AppRoute.LanguageOnboarding.route) { inclusive = true }
+                    }
+                },
+            )
         }
         composable(AppRoute.WeighGoalDetail.route) {
             WeighGoalDetailScreen(

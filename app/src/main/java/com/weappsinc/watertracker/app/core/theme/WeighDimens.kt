@@ -22,7 +22,11 @@ object WeighDimens {
     val CardIconSize get() = AppDimens.HomeStatCardIconSize
     val SheetSliderSpacing = 20.dp
     val SheetHeaderIconSize = 28.dp
-    val SheetStepperButtonSize = 44.dp
+    /** Nút −/+ sheet mục tiêu — vuông lớn như mock. */
+    val SheetStepperButtonSize = 56.dp
+    val SheetStepperCorner = 14.dp
+    /** Khoảng cách giữa số và đơn vị KG/LB. */
+    val SheetWeightUnitGap = 8.dp
     val SheetInnerSpacing = 16.dp
     val SheetCtaHeight = 56.dp
     val GoalProgressBarHeight = 10.dp

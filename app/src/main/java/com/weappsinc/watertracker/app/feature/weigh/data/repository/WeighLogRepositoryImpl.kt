@@ -37,6 +37,9 @@ class WeighLogRepositoryImpl(
             Unit
         }
 
+    override suspend fun countLogsForEpochDay(epochDay: Long): Int =
+        dao.countForEpochDay(epochDay)
+
     private fun WeighWeightLogEntity.toDomain() = WeighLogEntry(
         weightKg = weightKg,
         recordedAtMs = recordedAtMs,

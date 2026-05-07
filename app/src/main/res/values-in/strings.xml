@@ -59,8 +59,9 @@
         <item quantity="other">%d hari</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d hari berturut-turut</item>
-        <item quantity="other">%d hari berturut-turut</item>
+        <!-- Rút gọn: icon lửa + số — tránh pill quá dài. -->
+        <item quantity="one">Seri %d hari</item>
+        <item quantity="other">Seri %d hari</item>
     </plurals>
 
     <string name="weigh_tracker_title">Pelacak berat</string>
@@ -69,7 +70,7 @@
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">INDUK MASSA TUBUH</string>
+    <string name="weigh_bmi_section_title">BMI</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Kurus</string>
     <string name="bmi_normal">Normal</string>
@@ -79,7 +80,7 @@
     <string name="create_target">Buat target</string>
     <string name="target_sheet_header_title">BERAT TARGET</string>
     <string name="expected_bmi_label">Perkiraan BMI</string>
-    <string name="start_journey">MULAI PERJALANAN</string>
+    <string name="start_journey">MULAI</string>
     <string name="weigh_goal_card_title">TARGET</string>
     <string name="weigh_gap_label">SELISIH</string>
     <string name="weigh_journey_progress_label">Kemajuan</string>

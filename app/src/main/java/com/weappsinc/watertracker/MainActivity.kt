@@ -48,6 +48,9 @@ import com.weappsinc.watertracker.app.feature.weight.data.repository.WeightRepos
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUseCase
 import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.WeightViewModelFactory
+import com.weappsinc.watertracker.app.feature.settings.data.repository.LocalePreferencesRepositoryImpl
+import com.weappsinc.watertracker.app.feature.settings.domain.usecase.MarkLocaleOnboardingCompletedUseCase
+import com.weappsinc.watertracker.app.feature.settings.domain.usecase.ObserveLocaleOnboardingCompletedUseCase
 import com.weappsinc.watertracker.app.feature.weigh.data.preferences.WeighPreferencesRepositoryImpl
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ClassifyBmiUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.MapBmiToScaleFractionUseCase
@@ -122,6 +125,11 @@ class MainActivity : AppCompatActivity() {
         val observeSavedUnit = ObserveSavedUnitUseCase(waterPrefs)
         val ensureFirstInstallDayUseCase = EnsureFirstInstallDayUseCase(waterPrefs)
         val observeFirstInstallEpochDay = ObserveFirstInstallEpochDayUseCase(waterPrefs)
+        val localePrefsRepo = LocalePreferencesRepositoryImpl(applicationContext)
+        val observeLocaleOnboardingCompletedUseCase =
+            ObserveLocaleOnboardingCompletedUseCase(localePrefsRepo)
+        val markLocaleOnboardingCompletedUseCase =
+            MarkLocaleOnboardingCompletedUseCase(localePrefsRepo)
 
         val waterGoalFactoryOnboarding = WaterGoalViewModelFactory(
             observeWaterGoalMl = observeWaterGoalMl,
@@ -222,7 +230,9 @@ class MainActivity : AppCompatActivity() {
                     weighHistoryFactory = weighHistoryFactory,
                     reportViewModelFactory = reportViewModelFactory,
                     ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
-                    observeSavedGoalMlUseCase = observeSavedGoalMl
+                    observeSavedGoalMlUseCase = observeSavedGoalMl,
+                    observeLocaleOnboardingCompletedUseCase = observeLocaleOnboardingCompletedUseCase,
+                    markLocaleOnboardingCompletedUseCase = markLocaleOnboardingCompletedUseCase,
                 )
             }
         }

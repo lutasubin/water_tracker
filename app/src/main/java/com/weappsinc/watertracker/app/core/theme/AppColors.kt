@@ -59,8 +59,10 @@ object AppColors {
     val WeighJourneyCta = Color(0xFF5D5FEF)
     val WeighJourneyProgressTrack = Color(0xFFE8EAF0)
     val WeighJourneyProgressFill = Color(0xFF5D5FEF)
-    val WeighSheetStepperBg = Color(0xFFE8EBF0)
-    val WeighSheetStepperIcon = Color(0xFF3C4043)
+    /** Nền ô −/+ sheet cân mục tiêu — xanh nhạt (mock). */
+    val WeighSheetStepperBg = Color(0xFFE8EEFC)
+    /** Glyph −/+ trên nền ô stepper — xanh đậm (mock). */
+    val WeighSheetStepperIcon = Color(0xFF1855D8)
     /** Nhãn phụ thẻ mục tiêu (CÁCH BIỆT, TIẾN ĐỘ…). */
     val WeighGoalLabelMuted = Color(0xFF8E92A3)
     /** Tiến triển cân: hướng có lợi với mục tiêu (giảm hoặc tăng tùy ngữ cảnh). */

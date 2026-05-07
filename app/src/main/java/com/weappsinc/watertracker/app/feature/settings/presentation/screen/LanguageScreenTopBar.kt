@@ -23,14 +23,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** Thanh trên màn Language: quay lại, tiêu đề, xác nhận (lưu + áp locale). [applyContext] nên là applicationContext. */
+/** Top bar chọn ngôn ngữ: có thể ẩn nút back (onboarding). ✓ → lưu tag → [beforeApplyMain] → áp locale → [onApplied]. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageScreenTopBar(
     selectedTag: String,
     scope: CoroutineScope,
-    onBack: () -> Unit,
+    showBackButton: Boolean,
     applyContext: Context,
+    /** Gọi trước khi áp locale trên main (vd. đánh dấu onboarding xong). */
+    beforeApplyMain: suspend () -> Unit,
+    /** Sau khi lưu tag + áp locale (Main). */
+    onApplied: () -> Unit,
+    onBack: () -> Unit,
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -41,12 +46,14 @@ fun LanguageScreenTopBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = onBack) {
-                Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.cd_back),
-                    tint = AppColors.HomeTitle,
-                )
+            if (showBackButton) {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.cd_back),
+                        tint = AppColors.HomeTitle,
+                    )
+                }
             }
         },
         actions = {
@@ -54,12 +61,13 @@ fun LanguageScreenTopBar(
                 onClick = {
                     scope.launch {
                         AppLocalePreferences.saveTag(applyContext, selectedTag)
-                        withContext(Dispatchers.Main) {
+                        beforeApplyMain()
+                        withContext(Dispatchers.Main.immediate) {
                             AppCompatDelegate.setApplicationLocales(
                                 LocaleListCompat.forLanguageTags(selectedTag)
                             )
+                            onApplied()
                         }
-                        onBack()
                     }
                 }
             ) {

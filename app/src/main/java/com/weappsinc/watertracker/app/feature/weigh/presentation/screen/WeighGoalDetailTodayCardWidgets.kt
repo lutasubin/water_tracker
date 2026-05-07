@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -84,6 +85,7 @@ internal fun WeighTodayCardHeaderRow(onHistoryClick: () -> Unit, modifier: Modif
 internal fun WeighTodayWeightStepperRow(
     weightText: String,
     massUnitLabel: String,
+    steppersEnabled: Boolean,
     onStepMinus: () -> Unit,
     onStepPlus: () -> Unit,
     modifier: Modifier = Modifier
@@ -93,7 +95,7 @@ internal fun WeighTodayWeightStepperRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        WeighTodaySquareStepper(onClick = onStepMinus) {
+        WeighTodaySquareStepper(enabled = steppersEnabled, onClick = onStepMinus) {
             Icon(
                 Icons.Filled.Remove,
                 null,
@@ -115,7 +117,7 @@ internal fun WeighTodayWeightStepperRow(
                 modifier = Modifier.padding(bottom = 4.dp)
             )
         }
-        WeighTodaySquareStepper(onClick = onStepPlus) {
+        WeighTodaySquareStepper(enabled = steppersEnabled, onClick = onStepPlus) {
             Icon(
                 Icons.Filled.Add,
                 null,
@@ -127,23 +129,28 @@ internal fun WeighTodayWeightStepperRow(
 }
 
 @Composable
-private fun WeighTodaySquareStepper(onClick: () -> Unit, content: @Composable () -> Unit) {
-    Box(
+private fun WeighTodaySquareStepper(
+    enabled: Boolean,
+    onClick: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    val boxModifier =
         Modifier
             .size(WeighDimens.WeighTodayStepperSize)
             .clip(RoundedCornerShape(WeighDimens.WeighTodayStepperCorner))
             .background(AppColors.WeighTodayStepperSurface)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
+            .alpha(if (enabled) 1f else 0.38f)
+            .clickable(enabled = enabled, onClick = onClick)
+    Box(boxModifier, contentAlignment = Alignment.Center) {
         content()
     }
 }
 
 @Composable
-internal fun WeighTodayRecordPillButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+internal fun WeighTodayRecordPillButton(onClick: () -> Unit, enabled: Boolean = true, modifier: Modifier = Modifier) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         modifier = modifier.fillMaxWidth().height(AppDimens.AgeButtonHeight),
         shape = RoundedCornerShape(29.dp),
         colors = ButtonDefaults.buttonColors(containerColor = AppColors.WeighHistoryAccent)

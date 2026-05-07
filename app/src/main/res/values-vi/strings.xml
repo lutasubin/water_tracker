@@ -60,17 +60,18 @@
         <item quantity="other">%d ngày</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d ngày - Chuỗi</item>
-        <item quantity="other">%d ngày - Chuỗi</item>
+        <!-- Rút gọn: icon lửa đã gợi “chuỗi”, tránh pill tràn. -->
+        <item quantity="one">%d ngày</item>
+        <item quantity="other">%d ngày</item>
     </plurals>
 
-    <string name="weigh_tracker_title">Theo dõi cân nặng</string>
+    <string name="weigh_tracker_title">Cân nặng</string>
     <string name="weigh_height_label">Chiều cao</string>
     <string name="weigh_weight_label">Cân nặng</string>
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">CHỈ SỐ BMI CƠ THỂ</string>
+    <string name="weigh_bmi_section_title">BMI</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Gầy</string>
     <string name="bmi_normal">Bình thường</string>
@@ -78,21 +79,21 @@
     <string name="target_weight_section_title">Cân nặng mục tiêu</string>
     <string name="target_weight_empty">Chưa có mục tiêu nào!</string>
     <string name="create_target">Tạo mục tiêu</string>
-    <string name="target_sheet_header_title">CÂN NẶNG MỤC TIÊU</string>
+    <string name="target_sheet_header_title">MỤC TIÊU CÂN</string>
     <string name="expected_bmi_label">BMI DỰ KIẾN</string>
-    <string name="start_journey">BẮT ĐẦU HÀNH TRÌNH</string>
+    <string name="start_journey">BẮT ĐẦU</string>
     <string name="weigh_goal_card_title">MỤC TIÊU</string>
     <string name="weigh_gap_label">CÁCH BIỆT</string>
-    <string name="weigh_journey_progress_label">TIẾN ĐỘ HÀNH TRÌNH</string>
+    <string name="weigh_journey_progress_label">TIẾN ĐỘ</string>
     <string name="weigh_goal_detail_start_day">Ngày bắt đầu</string>
     <string name="weigh_goal_detail_progress">Tiến triển</string>
     <string name="weigh_goal_detail_today">HÔM NAY</string>
-    <string name="weigh_goal_detail_history">LỊCH SỬ GHI NHẬN</string>
+    <string name="weigh_goal_detail_history">LỊCH SỬ</string>
     <string name="weigh_goal_detail_record">Ghi nhận</string>
     <string name="weigh_goal_detail_saved">Đã lưu cân nặng hôm nay</string>
     <string name="weigh_goal_detail_record_error">Không lưu được. Thử lại.</string>
     <string name="weigh_history_title">Lịch sử ghi nhận</string>
-    <string name="weigh_history_trend_title">XU HƯỚNG CÂN NẶNG</string>
+    <string name="weigh_history_trend_title">XU HƯỚNG CÂN</string>
     <string name="weigh_history_last_7_days">7 ngày gần nhất</string>
     <string name="weigh_history_empty">Chưa có dữ liệu trong 7 ngày gần nhất.</string>
     <string name="tab_todo_placeholder">SẼ LÀM</string>

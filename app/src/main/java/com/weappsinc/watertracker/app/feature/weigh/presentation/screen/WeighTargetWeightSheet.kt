@@ -1,27 +1,17 @@
 package com.weappsinc.watertracker.app.feature.weigh.presentation.screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -31,18 +21,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
-import com.weappsinc.watertracker.R
 import coil.ImageLoader
-import coil.compose.AsyncImage
-import com.weappsinc.watertracker.app.core.constants.AssetPaths
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.core.theme.WeighDimens
@@ -66,53 +49,24 @@ fun WeighTargetWeightSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var draftKg by remember { mutableFloatStateOf(initialKg.coerceIn(MIN_TARGET_KG, MAX_TARGET_KG)) }
     LaunchedEffect(initialKg) { draftKg = initialKg.coerceIn(MIN_TARGET_KG, MAX_TARGET_KG) }
-    val unitLabel = if (massUnit == MassUnit.KG) stringResource(R.string.unit_mass_kg) else stringResource(R.string.unit_mass_lb)
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         containerColor = AppColors.HomeCard
     ) {
         Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp)) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                AsyncImage(
-                    model = AssetPaths.GOAL_ICON,
-                    contentDescription = null,
-                    imageLoader = imageLoader,
-                    modifier = Modifier.size(WeighDimens.SheetHeaderIconSize),
-                    contentScale = ContentScale.Fit
-                )
-                Text(
-                    stringResource(R.string.target_sheet_header_title),
-                    Modifier.weight(1f).padding(horizontal = 10.dp),
-                    style = AppTypography.Title3,
-                    color = AppColors.HomeTitle
-                )
-                IconButton(onClick = onDismiss) {
-                    Icon(Icons.Filled.Close, stringResource(R.string.close), tint = AppColors.HomeMuted)
-                }
-            }
+            WeighTargetWeightSheetHeader(imageLoader = imageLoader, onDismiss = onDismiss)
             Spacer(Modifier.height(WeighDimens.SheetInnerSpacing))
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                StepperChip(Icons.Filled.KeyboardArrowLeft) {
+            WeighTargetWeightPickerRow(
+                draftKg = draftKg,
+                massUnit = massUnit,
+                onDecrement = {
                     draftKg = MassDisplay.snapTargetKg((draftKg - STEP_KG).coerceIn(MIN_TARGET_KG, MAX_TARGET_KG))
-                }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        MassDisplay.formatTargetKg(draftKg, massUnit),
-                        style = AppTypography.StatCardValue,
-                        color = AppColors.HomeTitle,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(unitLabel, style = AppTypography.BodyMedium, color = AppColors.HomeMuted)
-                }
-                StepperChip(Icons.Filled.KeyboardArrowRight) {
+                },
+                onIncrement = {
                     draftKg = MassDisplay.snapTargetKg((draftKg + STEP_KG).coerceIn(MIN_TARGET_KG, MAX_TARGET_KG))
                 }
-            }
+            )
             Spacer(Modifier.height(WeighDimens.SheetInnerSpacing))
             WeighTargetSheetExpectedBmiCard(heightCm, draftKg)
             Spacer(Modifier.height(WeighDimens.SheetInnerSpacing))
@@ -131,19 +85,5 @@ fun WeighTargetWeightSheet(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun StepperChip(icon: ImageVector, onClick: () -> Unit) {
-    Box(
-        Modifier
-            .size(WeighDimens.SheetStepperButtonSize)
-            .clip(RoundedCornerShape(12.dp))
-            .background(AppColors.WeighSheetStepperBg)
-            .clickable(onClick = onClick),
-        Alignment.Center
-    ) {
-        Icon(icon, null, tint = AppColors.WeighSheetStepperIcon)
     }
 }

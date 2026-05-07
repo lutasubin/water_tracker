@@ -33,7 +33,6 @@ import com.weappsinc.watertracker.app.feature.water.domain.util.WaterAmountForma
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.DrinkAmountBottomSheet
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.GoalCompletedDialog
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.TrackerDrinkButton
-import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterDrinkLottieOverlay
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterGoalReminderCards
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterProgressSection
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterTrackerHeader
@@ -46,7 +45,7 @@ import java.time.LocalDate
  * Màn Water tab — map từng khối với design:
  * 1. [WaterTrackerHeader] — tiêu đề + pill streak
  * 2. [WaterProgressSection] — số đã uống (căn giữa) + thanh + “Tiến độ hôm nay” / % (xanh)
- * 3. [WaterGoalReminderCards] — [GoalStatCard] + [ReminderStatCard]
+ * 3. [WaterGoalReminderCards] — thẻ mục tiêu (nhắc nhở tạm ẩn)
  * 4. [WeeklyReportSection] — card “Báo cáo” + 7 ngày
  * 5. [TrackerDrinkButton] — DRINK
  */
@@ -66,9 +65,6 @@ fun WaterTrackerScreen(
     var goalFireworksSession by remember { mutableIntStateOf(0) }
     var showDrinkSheet by remember { mutableStateOf(false) }
     var selectedDrinkMl by remember { mutableStateOf(WaterConstants.PRESET_DRINK_200) }
-    var drinkLottieSession by remember { mutableIntStateOf(0) }
-    var pendingDrinkMl by remember { mutableStateOf<Int?>(null) }
-
     val goalMl = state.goalMl
     val displayFraction =
         if (goalMl > 0) (displayedIntakeMl.toFloat() / goalMl).coerceIn(0f, 1f) else 0f
@@ -144,8 +140,7 @@ fun WaterTrackerScreen(
                 onDrink = {
                     val ml = selectedDrinkMl
                     showDrinkSheet = false
-                    drinkLottieSession++
-                    pendingDrinkMl = ml
+                    vm.onDrink(ml)
                 }
             )
         }
@@ -153,15 +148,6 @@ fun WaterTrackerScreen(
             GoalCompletedDialog(
                 goalDisplayCompact = goalDisplayCompact,
                 onDismiss = { showGoalDoneDialog = false }
-            )
-        }
-        pendingDrinkMl?.let { ml ->
-            WaterDrinkLottieOverlay(
-                playToken = drinkLottieSession,
-                onFinished = {
-                    vm.onDrink(ml)
-                    pendingDrinkMl = null
-                }
             )
         }
         if (showGoalFireworks) {

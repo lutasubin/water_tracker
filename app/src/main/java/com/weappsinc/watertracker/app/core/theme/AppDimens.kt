@@ -64,6 +64,8 @@ object AppDimens {
     val WaterTrackerProgressToLabelSpacing = 10.dp
     /** Khoảng tối thiểu giữa tiêu đề Water Tracker và pill streak. */
     val HomeHeaderTitleStreakGap = 16.dp
+    /** Giới hạn chữ trong pill streak — chuỗi dài ellipsis, tránh đẩy vỡ hàng header. */
+    val HomeStreakPillTextMaxWidth = 152.dp
     val HomeCardCorner = 20.dp
     val HomeCardInnerPadding = 16.dp
     val HomeCardShadowElevation = 6.dp
@@ -71,6 +73,8 @@ object AppDimens {
     /** Tách nền navigation khỏi nội dung (Material tonal). */
     val HomeBottomBarTonalElevation = 6.dp
     val HomeStatCardIconSize = 28.dp
+    /** Khoảng icon mục tiêu và chữ nhãn (hàng đầu thẻ mục tiêu Water). */
+    val HomeGoalStatIconLabelGap = 10.dp
     val HomeStatCardMinHeight = 102.dp
     val HomeStatEditButtonSize = 30.dp
     val HomeStatEditButtonCorner = 8.dp

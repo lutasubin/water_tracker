@@ -7,4 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Nền cửa sổ khi khởi động/đổi cấu hình — khớp AppColors.HomeBackground, tránh chợt đen. -->
+    <color name="home_background">#FFF5F8FF</color>
 </resources>

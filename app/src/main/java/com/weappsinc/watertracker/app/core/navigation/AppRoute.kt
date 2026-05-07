@@ -13,7 +13,11 @@ sealed class AppRoute(val route: String) {
     data object WaterGoalEdit : AppRoute("water_goal_edit")
     data object Home : AppRoute("home")
     data object Report : AppRoute("report")
+    /** Cài đặt: có nút back. */
     data object Language : AppRoute("language")
+
+    /** Onboarding sau splash: chỉ ✓ sang gender, không back. */
+    data object LanguageOnboarding : AppRoute("language_onboarding")
     data object WeighGoalDetail : AppRoute("weigh_goal_detail")
     data object WeighHistory : AppRoute("weigh_history")
 }

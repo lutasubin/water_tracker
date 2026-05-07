@@ -59,8 +59,9 @@
         <item quantity="other">%d दिन</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d दिन - सिलसिला</item>
-        <item quantity="other">%d दिन - सिलसिला</item>
+        <!-- Rút gọn pill; biểu tượng lửa là “chuỗi”. -->
+        <item quantity="one">%d दिन</item>
+        <item quantity="other">%d दिन</item>
     </plurals>
 
     <string name="weigh_tracker_title">वजन ट्रैकर</string>

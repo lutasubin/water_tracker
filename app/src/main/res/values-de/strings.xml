@@ -59,8 +59,9 @@
         <item quantity="other">%d Tage</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d Tag - Serie</item>
-        <item quantity="other">%d Tage - Serie</item>
+        <!-- Rút gọn pill header; “Serie” + số + “Tag(e)” vừa ô. -->
+        <item quantity="one">Serie · %d Tag</item>
+        <item quantity="other">Serie · %d Tage</item>
     </plurals>
 
     <string name="weigh_tracker_title">Gewicht</string>
@@ -69,7 +70,7 @@
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">KÖPER-MASSENINDEX</string>
+    <string name="weigh_bmi_section_title">BMI</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Untergewicht</string>
     <string name="bmi_normal">Normal</string>
@@ -79,7 +80,7 @@
     <string name="create_target">Ziel anlegen</string>
     <string name="target_sheet_header_title">ZIELGEWICHT</string>
     <string name="expected_bmi_label">ERWARTETER BMI</string>
-    <string name="start_journey">REISE STARTEN</string>
+    <string name="start_journey">START</string>
     <string name="weigh_goal_card_title">ZIEL</string>
     <string name="weigh_gap_label">DIFFERENZ</string>
     <string name="weigh_journey_progress_label">FORTSCHRITT</string>
@@ -91,7 +92,7 @@
     <string name="weigh_goal_detail_saved">Gewicht für heute gespeichert</string>
     <string name="weigh_goal_detail_record_error">Speichern fehlgeschlagen. Erneut versuchen.</string>
     <string name="weigh_history_title">Verlauf</string>
-    <string name="weigh_history_trend_title">GEWICHTSTREND</string>
+    <string name="weigh_history_trend_title">Verlauf</string>
     <string name="weigh_history_last_7_days">Letzte 7 Tage</string>
     <string name="weigh_history_empty">Keine Einträge in den letzten 7 Tagen.</string>
     <string name="tab_todo_placeholder">OFFEN</string>

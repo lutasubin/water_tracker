@@ -65,6 +65,27 @@ object AppTypography {
         fontWeight = FontWeight.Bold,
         fontFamily = AppFontFamily
     )
+    /** Giá trị mục tiêu trong bottom sheet — số rất lớn (mock). */
+    val WeighTargetSheetValue = TextStyle(
+        fontSize = 52.sp,
+        lineHeight = 56.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
+    /** Đơn vị KG/LB cạnh số trong sheet mục tiêu — nhỏ, phụ. */
+    val WeighTargetSheetUnit = TextStyle(
+        fontSize = 15.sp,
+        lineHeight = 22.sp,
+        fontWeight = FontWeight.Medium,
+        fontFamily = AppFontFamily
+    )
+    /** Glyph −/+ trên ô stepper sheet mục tiêu. */
+    val WeighTargetSheetStepperGlyph = TextStyle(
+        fontSize = 28.sp,
+        lineHeight = 32.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
     /** Giá trị thẻ Ngày bắt đầu / Tiến triển (màn chi tiết cân). */
     val WeighDetailStatCardValue = TextStyle(
         fontSize = 28.sp,

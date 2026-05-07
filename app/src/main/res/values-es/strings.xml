@@ -59,8 +59,8 @@
         <item quantity="other">%d días</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="one">%d día - Racha</item>
-        <item quantity="other">%d días - Racha</item>
+        <item quantity="one">Racha · %d d</item>
+        <item quantity="other">Racha · %d d</item>
     </plurals>
 
     <string name="weigh_tracker_title">Peso</string>
@@ -69,7 +69,7 @@
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">ÍNDICE DE MASA CORPORAL</string>
+    <string name="weigh_bmi_section_title">IMC</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Bajo peso</string>
     <string name="bmi_normal">Normal</string>
@@ -79,7 +79,7 @@
     <string name="create_target">Crear objetivo</string>
     <string name="target_sheet_header_title">PESO OBJETIVO</string>
     <string name="expected_bmi_label">IMC ESPERADO</string>
-    <string name="start_journey">INICIAR CAMINO</string>
+    <string name="start_journey">INICIAR</string>
     <string name="weigh_goal_card_title">OBJETIVO</string>
     <string name="weigh_gap_label">DIFERENCIA</string>
     <string name="weigh_journey_progress_label">PROGRESO</string>
@@ -91,7 +91,7 @@
     <string name="weigh_goal_detail_saved">Peso de hoy guardado</string>
     <string name="weigh_goal_detail_record_error">No se pudo guardar. Inténtalo de nuevo.</string>
     <string name="weigh_history_title">Historial</string>
-    <string name="weigh_history_trend_title">TENDENCIA DE PESO</string>
+    <string name="weigh_history_trend_title">TENDENCIA</string>
     <string name="weigh_history_last_7_days">Últimos 7 días</string>
     <string name="weigh_history_empty">Sin registros en los últimos 7 días.</string>
     <string name="tab_todo_placeholder">PENDIENTE</string>

@@ -21,7 +21,9 @@ data class WeighGoalDetailUiState(
     val scaleLowEndFraction: Float,
     val scaleNormalEndFraction: Float,
     val bmiIndicatorFraction: Float,
-    /** false = đã khớp lần ghi hôm nay → chỉ pill “Đã lưu”, ẩn nút Ghi nhận. */
+    /** false khi đã có log cho hôm nay — chỉ được ghi nhận 1 lần/ngày. */
+    val canEditTodayWeight: Boolean,
+    /** false khi không hiện nút Ghi nhận (đã có log trong ngày). */
     val showWeighRecordCta: Boolean,
     val savedBannerTime: String?,
     /** Mốc thời gian lần ghi nhận thành công gần nhất (epoch ms); null nếu chưa có. */

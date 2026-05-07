@@ -17,8 +17,6 @@ object AssetPaths {
     const val REPORT_ICON = "$ASSET_BASE/svg/report_icon.svg"
     /** Lottie ngọn lửa streak (tab Me, pill màn Water). Đường dẫn tương đối thư mục assets. */
     const val STREAK_FIRE_LOTTIE = "lottie/Fire.json"
-    /** Lottie sau khi bấm DRINK (bottom sheet). */
-    const val WATER_DRINK_LOTTIE = "lottie/water_drink_pro.json"
     /** Lottie chúc mừng đạt mục tiêu uống nước trong ngày (tab Water). */
     const val FIREWORKS_LOTTIE = "lottie/fireworks.json"
     const val HOME_WATER_ICON = "$ASSET_BASE/svg/home_water_icon.svg"

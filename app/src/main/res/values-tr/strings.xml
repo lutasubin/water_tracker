@@ -69,7 +69,7 @@
     <string name="unit_cm">CM</string>
     <string name="unit_mass_kg">KG</string>
     <string name="unit_mass_lb">LB</string>
-    <string name="weigh_bmi_section_title">VÜCUT KİTLE İNDEKSİ</string>
+    <string name="weigh_bmi_section_title">VKİ</string>
     <string name="weigh_bmi_unit_label">KG/m²</string>
     <string name="bmi_underweight">Zayıf</string>
     <string name="bmi_normal">Normal</string>
@@ -79,7 +79,7 @@
     <string name="create_target">Hedef oluştur</string>
     <string name="target_sheet_header_title">HEDEF KİLO</string>
     <string name="expected_bmi_label">BEKLENEN VKİ</string>
-    <string name="start_journey">YOLCULUĞA BAŞLA</string>
+    <string name="start_journey">BAŞLA</string>
     <string name="weigh_goal_card_title">HEDEF</string>
     <string name="weigh_gap_label">FARK</string>
     <string name="weigh_journey_progress_label">İLERLEME</string>
@@ -91,7 +91,7 @@
     <string name="weigh_goal_detail_saved">Bugünün kilosu kaydedildi</string>
     <string name="weigh_goal_detail_record_error">Kaydedilemedi. Tekrar deneyin.</string>
     <string name="weigh_history_title">Geçmiş</string>
-    <string name="weigh_history_trend_title">KİLO TRENDİ</string>
+    <string name="weigh_history_trend_title">KİLO TREND</string>
     <string name="weigh_history_last_7_days">Son 7 gün</string>
     <string name="weigh_history_empty">Son 7 günde kayıt yok.</string>
     <string name="tab_todo_placeholder">YAPILACAK</string>

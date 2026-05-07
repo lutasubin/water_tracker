@@ -16,7 +16,13 @@ class DrinkWaterApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         val tag = runBlocking(Dispatchers.IO) {
-            AppLocalePreferences.readTag(applicationContext)
+            AppLocalePreferences.seedDefaultLocaleIfAbsent(applicationContext)
+            // Chưa hoàn tất onboarding ngôn ngữ: luôn hiển thị English (kể cả khi DataStore còn vi từ bản cũ / debug).
+            if (!AppLocalePreferences.readLocaleOnboardingCompleted(applicationContext)) {
+                AppLocalePreferences.DEFAULT_LOCALE_TAG
+            } else {
+                AppLocalePreferences.readTag(applicationContext)
+            }
         }
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
     }

@@ -21,8 +21,6 @@ object WeighGoalDetailUiStateMapper {
     private val savedFmt: DateTimeFormatter =
         DateTimeFormatter.ofPattern("HH:mm dd/MM/uuuu").withZone(ZoneId.systemDefault())
 
-    private const val DRAFT_MATCH_SAVED_TODAY_EPS = 0.05f
-
     @Suppress("LongParameterList")
     fun map(
         tallCm: Int,
@@ -70,15 +68,11 @@ object WeighGoalDetailUiStateMapper {
         val bmi = if (hasDims) BmiCalculator.computeBmi(tallCm, draft) else 0f
         val category = if (hasDims) classifyBmi(bmi) else BmiCategory.Normal
         val (segLow, segNorm) = BmiScaleGeometry.segmentThresholds()
-        val savedTodayKg = todayLog?.weightKg?.toFloat()
-        val draftMatchesTodayLog =
-            savedTodayKg != null && abs(draft - savedTodayKg) < DRAFT_MATCH_SAVED_TODAY_EPS
-        val showWeighRecordCta = todayLog == null || !draftMatchesTodayLog
-        val savedBannerTime = if (!showWeighRecordCta && todayLog != null) {
-            val ms = maxOf(todayLog.recordedAtMs, savedAtMs ?: 0L)
+        val hasLogToday = todayLog != null
+        val showWeighRecordCta = !hasLogToday
+        val savedBannerTime = todayLog?.let { tl ->
+            val ms = maxOf(tl.recordedAtMs, savedAtMs ?: 0L)
             savedFmt.format(Instant.ofEpochMilli(ms))
-        } else {
-            null
         }
         return WeighGoalDetailUiState(
             heightCm = tallCm,
@@ -98,6 +92,7 @@ object WeighGoalDetailUiStateMapper {
             scaleLowEndFraction = segLow,
             scaleNormalEndFraction = segNorm,
             bmiIndicatorFraction = if (hasDims) mapBmiFraction(bmi) else 0.5f,
+            canEditTodayWeight = !hasLogToday,
             showWeighRecordCta = showWeighRecordCta,
             savedBannerTime = savedBannerTime,
             lastRecordSuccessMs = savedAtMs,

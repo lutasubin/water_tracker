@@ -47,4 +47,8 @@ interface WeighWeightLogDao {
         """
     )
     fun observeLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): Flow<List<WeighWeightLogEntity>>
+
+    /** Phục vụ luật một bản ghi / ngày (epoch day). */
+    @Query("SELECT COUNT(*) FROM weigh_weight_log WHERE epochDay = :epochDay")
+    suspend fun countForEpochDay(epochDay: Long): Int
 }

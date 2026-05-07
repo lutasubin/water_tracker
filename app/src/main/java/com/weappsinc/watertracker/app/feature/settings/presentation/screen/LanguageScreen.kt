@@ -29,7 +29,12 @@ import com.weappsinc.watertracker.app.core.theme.AppColors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageScreen(
+    showBackButton: Boolean = true,
     onBack: () -> Unit,
+    /** Trước khi set locale (IO suspend, gọi từ TopBar). */
+    beforeApplyMain: suspend () -> Unit = {},
+    /** Sau khi lưu + áp locale (main). */
+    onApplied: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -50,8 +55,11 @@ fun LanguageScreen(
             LanguageScreenTopBar(
                 selectedTag = selectedTag,
                 scope = scope,
-                onBack = onBack,
+                showBackButton = showBackButton,
                 applyContext = appContext,
+                beforeApplyMain = beforeApplyMain,
+                onApplied = onApplied,
+                onBack = onBack,
             )
         },
     ) { inner ->

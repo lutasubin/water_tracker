@@ -109,9 +109,11 @@ fun WeighGoalDetailScreen(
                 displayDraftKg = state.displayDraftKg,
                 massUnit = state.displayMassUnit,
                 massUnitLabel = massLabel,
+                canEditTodayWeight = state.canEditTodayWeight,
                 showWeighRecordCta = state.showWeighRecordCta,
                 savedBannerTime = state.savedBannerTime,
                 recordError = state.recordError,
+                isRecording = state.isRecording,
                 onStepKg = vm::onDraftStep,
                 onRecord = { vm.onRecordWeight(state.displayDraftKg) },
                 onHistoryClick = onOpenHistory

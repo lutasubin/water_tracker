@@ -41,6 +41,7 @@ class WeightViewModel(
             val w = _weightKg.value
             saveWeight(w)
             saveWeighLog(MassDisplay.snapTargetKg(w.toFloat()))
+                .onFailure { /* Đã có log hôm nay — chỉ cập nhật hồ sơ. */ }
         }
     }
 

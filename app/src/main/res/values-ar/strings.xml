@@ -63,12 +63,13 @@
         <item quantity="other">%d يوم</item>
     </plurals>
     <plurals name="water_streak_pill">
-        <item quantity="zero">%d يوم - سلسلة</item>
-        <item quantity="one">يوم - سلسلة</item>
-        <item quantity="two">يومان - سلسلة</item>
-        <item quantity="few">%d أيام - سلسلة</item>
-        <item quantity="many">%d يوماً - سلسلة</item>
-        <item quantity="other">%d يوم - سلسلة</item>
+        <!-- Rút gọn; lửa + số thể hiện streak. -->
+        <item quantity="zero">سلسلة · %d</item>
+        <item quantity="one">سلسلة · %d</item>
+        <item quantity="two">سلسلة · %d</item>
+        <item quantity="few">سلسلة · %d</item>
+        <item quantity="many">سلسلة · %d</item>
+        <item quantity="other">سلسلة · %d</item>
     </plurals>
 
     <string name="weigh_tracker_title">تتبع الوزن</string>
@@ -77,7 +78,7 @@
     <string name="unit_cm">سم</string>
     <string name="unit_mass_kg">كجم</string>
     <string name="unit_mass_lb">رطل</string>
-    <string name="weigh_bmi_section_title">مؤشر كتلة الجسم</string>
+    <string name="weigh_bmi_section_title">BMI</string>
     <string name="weigh_bmi_unit_label">كجم/م²</string>
     <string name="bmi_underweight">نحافة</string>
     <string name="bmi_normal">طبيعي</string>
@@ -85,12 +86,12 @@
     <string name="target_weight_section_title">الوزن المستهدف</string>
     <string name="target_weight_empty">لا يوجد هدف بعد!</string>
     <string name="create_target">إنشاء هدف</string>
-    <string name="target_sheet_header_title">الوزن المستهدف</string>
+    <string name="target_sheet_header_title">هدف الوزن</string>
     <string name="expected_bmi_label">مؤشر متوقع</string>
-    <string name="start_journey">ابدأ الرحلة</string>
+    <string name="start_journey">ابدأ</string>
     <string name="weigh_goal_card_title">الهدف</string>
     <string name="weigh_gap_label">الفجوة</string>
-    <string name="weigh_journey_progress_label">تقدم الرحلة</string>
+    <string name="weigh_journey_progress_label">التقدم</string>
     <string name="weigh_goal_detail_start_day">يوم البداية</string>
     <string name="weigh_goal_detail_progress">التقدم</string>
     <string name="weigh_goal_detail_today">اليوم</string>
@@ -99,7 +100,7 @@
     <string name="weigh_goal_detail_saved">تم حفظ وزن اليوم</string>
     <string name="weigh_goal_detail_record_error">تعذر الحفظ. حاول مرة أخرى.</string>
     <string name="weigh_history_title">السجل</string>
-    <string name="weigh_history_trend_title">اتجاه الوزن</string>
+    <string name="weigh_history_trend_title">اتجاه</string>
     <string name="weigh_history_last_7_days">آخر 7 أيام</string>
     <string name="weigh_history_empty">لا بيانات في آخر 7 أيام.</string>
     <string name="tab_todo_placeholder">قيد العمل</string>

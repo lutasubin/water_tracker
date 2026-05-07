@@ -26,9 +26,11 @@ fun WeighGoalDetailTodayCard(
     displayDraftKg: Float,
     massUnit: MassUnit,
     massUnitLabel: String,
+    canEditTodayWeight: Boolean,
     showWeighRecordCta: Boolean,
     savedBannerTime: String?,
     recordError: Boolean,
+    isRecording: Boolean,
     onStepKg: (Float) -> Unit,
     onRecord: () -> Unit,
     onHistoryClick: () -> Unit,
@@ -45,12 +47,16 @@ fun WeighGoalDetailTodayCard(
         WeighTodayWeightStepperRow(
             weightText = MassDisplay.formatTargetKg(displayDraftKg, massUnit),
             massUnitLabel = massUnitLabel,
+            steppersEnabled = canEditTodayWeight,
             onStepMinus = { onStepKg(-STEP_KG) },
             onStepPlus = { onStepKg(STEP_KG) }
         )
         Spacer(Modifier.height(16.dp))
         if (showWeighRecordCta) {
-            WeighTodayRecordPillButton(onClick = onRecord)
+            WeighTodayRecordPillButton(
+                onClick = onRecord,
+                enabled = !isRecording,
+            )
             if (recordError) {
                 Text(
                     text = stringResource(R.string.weigh_goal_detail_record_error),
