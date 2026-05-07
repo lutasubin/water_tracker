@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Keystore và mật khẩu ký APK/AAB — không commit (bảo mật).
+key.properties
+*.jks
+*.keystore
