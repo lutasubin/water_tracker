@@ -10,19 +10,16 @@ object MeProfileUiMapper {
     fun build(
         zone: ZoneId,
         firstInstallEpochDay: Long?,
-        goalMl: Int?,
         intakeByEpochDay: Map<Long, Int>,
+        openEpochDays: Set<Long>,
     ): MeProfileUiState {
         val today = LocalDate.now(zone).toEpochDay()
         val install = firstInstallEpochDay ?: today
-        val goal = goalMl?.coerceAtLeast(0) ?: 0
         val totalMl = intakeByEpochDay.values.sum()
-        val lookup: (Long) -> Int = { d -> intakeByEpochDay[d] ?: 0 }
         val streak = WaterStreakCalculator.computeForDisplay(
             todayEpochDay = today,
             firstInstallEpochDay = install,
-            goalMl = goal,
-            intakeMlForDay = lookup
+            openedEpochDays = openEpochDays
         )
         return MeProfileUiState(
             totalDrinkingMl = totalMl,

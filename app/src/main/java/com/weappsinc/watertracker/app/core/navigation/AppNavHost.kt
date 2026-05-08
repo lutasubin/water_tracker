@@ -24,6 +24,7 @@ import com.weappsinc.watertracker.app.feature.tall.presentation.screen.TallSelec
 import com.weappsinc.watertracker.app.feature.tall.presentation.viewmodel.TallViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstInstallDayUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.RecordWaterAppOpenDayUseCase
 import com.weappsinc.watertracker.app.feature.water.presentation.home.HomeScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.report.ReportScreen
@@ -64,6 +65,7 @@ fun AppNavHost(
     weighHistoryFactory: WeighHistoryViewModelFactory,
     reportViewModelFactory: ReportViewModelFactory,
     ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase,
+    recordWaterAppOpenDayUseCase: RecordWaterAppOpenDayUseCase,
     observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase,
     observeLocaleOnboardingCompletedUseCase: ObserveLocaleOnboardingCompletedUseCase,
     markLocaleOnboardingCompletedUseCase: MarkLocaleOnboardingCompletedUseCase,
@@ -85,7 +87,10 @@ fun AppNavHost(
     ) {
         composable(AppRoute.Splash.route) {
             SplashScreen(
-                onBootstrap = { ensureFirstInstallDayUseCase() },
+                onBootstrap = {
+                    ensureFirstInstallDayUseCase()
+                    recordWaterAppOpenDayUseCase()
+                },
                 onSplashFinished = {
                     val targetRoute = when {
                         (savedGoalMl ?: 0) > 0 -> AppRoute.Home.route

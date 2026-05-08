@@ -3,6 +3,7 @@ package com.weappsinc.watertracker
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.lifecycleScope
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,14 +35,16 @@ import com.weappsinc.watertracker.app.feature.water.data.local.WaterTrackingData
 import com.weappsinc.watertracker.app.feature.water.data.preferences.WaterPreferencesRepositoryImpl
 import com.weappsinc.watertracker.app.feature.water.data.repository.WaterGoalRepositoryImpl
 import com.weappsinc.watertracker.app.feature.water.data.repository.WaterIntakeRepositoryImpl
+import com.weappsinc.watertracker.app.feature.water.data.repository.WaterAppVisitRepositoryImpl
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.AddWaterIntakeUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.BuildDayChartBucketsFromLogsUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstInstallDayUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveFirstInstallEpochDayUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.SaveOnboardingWaterGoalUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedUnitUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveWaterGoalMlUseCase
-import com.weappsinc.watertracker.app.feature.water.domain.usecase.SaveOnboardingWaterGoalUseCase
+import com.weappsinc.watertracker.app.feature.water.domain.usecase.RecordWaterAppOpenDayUseCase
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
@@ -74,10 +77,25 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogU
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
+import kotlinx.coroutines.launch
 
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase
+    private lateinit var recordWaterAppOpenDayUseCase: RecordWaterAppOpenDayUseCase
+
+    override fun onResume() {
+        super.onResume()
+        if (::ensureFirstInstallDayUseCase.isInitialized) {
+            lifecycleScope.launch {
+                ensureFirstInstallDayUseCase()
+                recordWaterAppOpenDayUseCase()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -124,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         val saveOnboardingWaterGoal = SaveOnboardingWaterGoalUseCase(waterPrefs)
         val observeSavedGoalMl = ObserveSavedGoalMlUseCase(waterPrefs)
         val observeSavedUnit = ObserveSavedUnitUseCase(waterPrefs)
-        val ensureFirstInstallDayUseCase = EnsureFirstInstallDayUseCase(waterPrefs)
+        ensureFirstInstallDayUseCase = EnsureFirstInstallDayUseCase(waterPrefs)
         val observeFirstInstallEpochDay = ObserveFirstInstallEpochDayUseCase(waterPrefs)
         val localePrefsRepo = LocalePreferencesRepositoryImpl(applicationContext)
         val observeLocaleOnboardingCompletedUseCase =
@@ -149,15 +167,19 @@ class MainActivity : AppCompatActivity() {
 
         val waterDb = WaterTrackingDatabase.create(applicationContext)
         val intakeRepository = WaterIntakeRepositoryImpl(waterDb.waterIntakeDao())
+        val visitRepository = WaterAppVisitRepositoryImpl(waterDb.waterAppVisitDao())
+        recordWaterAppOpenDayUseCase = RecordWaterAppOpenDayUseCase(visitRepository)
         val addWaterIntakeUseCase = AddWaterIntakeUseCase(intakeRepository)
         val waterTrackerFactory = WaterTrackerViewModelFactory(
             prefs = waterPrefs,
             intake = intakeRepository,
-            addWaterIntake = addWaterIntakeUseCase
+            visits = visitRepository,
+            addWaterIntake = addWaterIntakeUseCase,
         )
         val meProfileFactory = MeProfileViewModelFactory(
             prefs = waterPrefs,
             intake = intakeRepository,
+            visits = visitRepository,
         )
         val buildDayBuckets = BuildDayChartBucketsFromLogsUseCase()
         val reportViewModelFactory = ReportViewModelFactory(
@@ -232,6 +254,7 @@ class MainActivity : AppCompatActivity() {
                     weighHistoryFactory = weighHistoryFactory,
                     reportViewModelFactory = reportViewModelFactory,
                     ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
+                    recordWaterAppOpenDayUseCase = recordWaterAppOpenDayUseCase,
                     observeSavedGoalMlUseCase = observeSavedGoalMl,
                     observeLocaleOnboardingCompletedUseCase = observeLocaleOnboardingCompletedUseCase,
                     markLocaleOnboardingCompletedUseCase = markLocaleOnboardingCompletedUseCase,

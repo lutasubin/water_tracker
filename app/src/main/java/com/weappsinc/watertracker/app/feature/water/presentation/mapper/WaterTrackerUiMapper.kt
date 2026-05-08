@@ -17,6 +17,7 @@ object WaterTrackerUiMapper {
         goalMl: Int?,
         unit: WaterUnit?,
         intakeByEpochDay: Map<Long, Int>,
+        openEpochDays: Set<Long>,
         locale: Locale,
     ): WaterTrackerUiState {
         val today = LocalDate.now(zone)
@@ -28,12 +29,11 @@ object WaterTrackerUiMapper {
         val fraction = if (goal > 0) (todayIntake.toFloat() / goal).coerceIn(0f, 1f) else 0f
         val percent = (fraction * 100f).toInt().coerceIn(0, 100)
 
-        val lookup: (Long) -> Int = { d -> intakeByEpochDay[d] ?: 0 }
+        val lookup: (Long) -> Int = { intakeByEpochDay[it] ?: 0 }
         val streak = WaterStreakCalculator.computeForDisplay(
             todayEpochDay = todayEpoch,
             firstInstallEpochDay = installEpoch,
-            goalMl = goal,
-            intakeMlForDay = lookup
+            openedEpochDays = openEpochDays,
         )
 
         val monday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))

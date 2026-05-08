@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.weappsinc.watertracker.app.core.constants.WaterConstants
+import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterAppVisitRepository
 import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterIntakeRepository
 import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterPreferencesRepository
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.AddWaterIntakeUseCase
@@ -14,7 +15,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -26,6 +26,7 @@ import java.time.temporal.TemporalAdjusters
 class WaterTrackerViewModel(
     private val prefs: WaterPreferencesRepository,
     private val intake: WaterIntakeRepository,
+    private val visits: WaterAppVisitRepository,
     private val addWaterIntake: AddWaterIntakeUseCase,
     private val zone: ZoneId = ZoneId.systemDefault()
 ) : ViewModel() {
@@ -50,14 +51,21 @@ class WaterTrackerViewModel(
             val sunday = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toEpochDay()
             val first = install ?: today.toEpochDay()
             val low = minOf(monday, first)
-            intake.observeTotalsBetween(low, sunday).map { map ->
-                WaterTrackerUiMapper.buildState(zone, install, goal, unit, map, java.util.Locale.getDefault())
+            combine(
+                intake.observeTotalsBetween(low, sunday),
+                visits.observeOpenEpochDaysBetween(low, sunday),
+            ) { map, openDays ->
+                WaterTrackerUiMapper.buildState(
+                    zone, install, goal, unit, map, openDays, java.util.Locale.getDefault(),
+                )
             }
         }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5_000),
-            WaterTrackerUiMapper.buildState(zone, null, null, null, emptyMap(), java.util.Locale.getDefault())
+            WaterTrackerUiMapper.buildState(
+                zone, null, null, null, emptyMap(), emptySet(), java.util.Locale.getDefault(),
+            )
         )
 
     fun onDrink() {
@@ -89,9 +97,10 @@ class WaterTrackerViewModel(
 class WaterTrackerViewModelFactory(
     private val prefs: WaterPreferencesRepository,
     private val intake: WaterIntakeRepository,
-    private val addWaterIntake: AddWaterIntakeUseCase
+    private val visits: WaterAppVisitRepository,
+    private val addWaterIntake: AddWaterIntakeUseCase,
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WaterTrackerViewModel(prefs, intake, addWaterIntake) as T
+        WaterTrackerViewModel(prefs, intake, visits, addWaterIntake) as T
 }

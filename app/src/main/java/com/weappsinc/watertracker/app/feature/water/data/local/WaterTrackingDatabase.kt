@@ -8,12 +8,17 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [DailyWaterTotalEntity::class, WaterIntakeLogEntity::class],
-    version = 2,
+    entities = [
+        DailyWaterTotalEntity::class,
+        WaterIntakeLogEntity::class,
+        WaterAppVisitDayEntity::class,
+    ],
+    version = 3,
     exportSchema = false
 )
 abstract class WaterTrackingDatabase : RoomDatabase() {
     abstract fun waterIntakeDao(): WaterIntakeDao
+    abstract fun waterAppVisitDao(): WaterAppVisitDao
 
     companion object {
         private const val DB_NAME = "water_tracking.db"
@@ -34,9 +39,22 @@ abstract class WaterTrackingDatabase : RoomDatabase() {
             }
         }
 
+        /** Bảng streak theo ngày mở app (không phụ thuộc đủ mục tiêu nước). */
+        val MIGRATION_2_3: Migration = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `water_app_visit_day` (
+                        `epoch_day` INTEGER NOT NULL PRIMARY KEY
+                    )
+                    """.trimIndent()
+                )
+            }
+        }
+
         fun create(context: Context): WaterTrackingDatabase =
             Room.databaseBuilder(context.applicationContext, WaterTrackingDatabase::class.java, DB_NAME)
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .build()
     }
 }
