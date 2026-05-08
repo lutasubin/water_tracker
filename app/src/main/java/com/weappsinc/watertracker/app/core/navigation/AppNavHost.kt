@@ -193,7 +193,13 @@ fun AppNavHost(
                 factory = waterGoalFactoryEdit,
                 viewModelKey = "water_goal_edit",
                 onBack = { navController.popBackStack() },
-                onStartComplete = { navController.popBackStack() }
+                // pop theo route: lần gọi thứ hai (race) là no-op, không pop nhầm Home.
+                onStartComplete = {
+                    navController.popBackStack(
+                        AppRoute.WaterGoalEdit.route,
+                        inclusive = true,
+                    )
+                }
             )
         }
     }

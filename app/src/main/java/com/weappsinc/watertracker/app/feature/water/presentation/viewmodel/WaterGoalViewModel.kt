@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 class WaterGoalViewModel(
     private val observeWaterGoalMl: ObserveWaterGoalMlUseCase,
@@ -22,6 +23,9 @@ class WaterGoalViewModel(
     private val observeSavedGoalMl: ObserveSavedGoalMlUseCase,
     private val observeSavedUnit: ObserveSavedUnitUseCase
 ) : ViewModel() {
+    // Tránh double-tap Start gọi onSaved hai lần (pop/nav trùng → màn trắng).
+    private val startSaveMutex = Mutex()
+
     private var editAdjustSeeded = false
 
     private val _baseGoalMl = MutableStateFlow(0)
@@ -62,9 +66,14 @@ class WaterGoalViewModel(
 
     fun onStart(onSaved: () -> Unit) {
         viewModelScope.launch {
-            val total = _baseGoalMl.value + _adjustMl.value
-            saveOnboardingWaterGoal(total, _unit.value)
-            onSaved()
+            if (!startSaveMutex.tryLock()) return@launch
+            try {
+                val total = _baseGoalMl.value + _adjustMl.value
+                saveOnboardingWaterGoal(total, _unit.value)
+                onSaved()
+            } finally {
+                startSaveMutex.unlock()
+            }
         }
     }
 
@@ -103,4 +112,3 @@ class WaterGoalViewModelFactory(
             observeSavedUnit = observeSavedUnit
         ) as T
 }
-
