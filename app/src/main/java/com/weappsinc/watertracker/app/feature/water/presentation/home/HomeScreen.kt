@@ -18,6 +18,7 @@ import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.me.MeProfileScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsBottomSheet
 import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsViewModelFactory
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterTrackerScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighTrackerScreen

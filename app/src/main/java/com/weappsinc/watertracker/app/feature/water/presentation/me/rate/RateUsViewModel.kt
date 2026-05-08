@@ -20,6 +20,11 @@ class RateUsViewModel : ViewModel() {
     private val _completedStars = MutableSharedFlow<Int>(extraBufferCapacity = 1)
     val completedStars: SharedFlow<Int> = _completedStars.asSharedFlow()
 
+    /** Đặt lại sao nháp khi mở sheet — chỉ sau submit mới coi là đã chọn. */
+    fun resetDraft() {
+        _uiState.value = RateUsUiState()
+    }
+
     fun selectStars(stars: Int) {
         _uiState.update { it.copy(selectedStars = stars.coerceIn(0, 5)) }
     }
@@ -27,6 +32,9 @@ class RateUsViewModel : ViewModel() {
     fun submit() {
         val n = _uiState.value.selectedStars
         if (n < 1) return
-        viewModelScope.launch { _completedStars.emit(n) }
+        viewModelScope.launch {
+            _completedStars.emit(n)
+            resetDraft()
+        }
     }
 }

@@ -67,7 +67,7 @@
     <string name="rate_sheet_title_four">You\'re awesome too!</string>
     <string name="rate_sheet_title_five">We love you too!</string>
     <string name="rate_sheet_positive_body">Thank you for your positive review. Please feel free to share any further feedback.</string>
-    <string name="rate_sheet_subtitle_vi">Đánh giá tốt nhất cho chúng tôi</string>
+    <string name="rate_sheet_subtitle">Give us your best rating!</string>
     <string name="cd_rate_star_row">Select star rating</string>
 
     <plurals name="me_streak_days">

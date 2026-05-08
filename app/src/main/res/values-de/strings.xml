@@ -53,6 +53,15 @@
     <string name="me_menu_share">Teilen</string>
     <string name="me_menu_privacy">Datenschutz</string>
 
+    <string name="rate_sheet_intro_body">Wir arbeiten daran, dein Erlebnis zu verbessern. Wir freuen uns über dein Feedback!</string>
+    <string name="rate_sheet_oh_no_title">Oh nein!</string>
+    <string name="rate_sheet_feedback_body">Wir verbessern das Erlebnis ständig. Bitte hinterlasse uns Feedback!</string>
+    <string name="rate_sheet_title_four">Du bist auch großartig!</string>
+    <string name="rate_sheet_title_five">Wir mögen dich auch!</string>
+    <string name="rate_sheet_positive_body">Danke für deine positive Bewertung. Weitere Ideen sind willkommen.</string>
+    <string name="rate_sheet_subtitle">Gib uns deine beste Bewertung!</string>
+    <string name="cd_rate_star_row">Sternebewertung wählen</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d Tag</item>
         <item quantity="other">%d Tage</item>

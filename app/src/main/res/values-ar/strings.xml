@@ -53,6 +53,15 @@
     <string name="me_menu_share">مشاركة</string>
     <string name="me_menu_privacy">سياسة الخصوصية</string>
 
+    <string name="rate_sheet_intro_body">نعمل على تحسين تجربتك. نود أن نسمع رأيك!</string>
+    <string name="rate_sheet_oh_no_title">يا للأسف!</string>
+    <string name="rate_sheet_feedback_body">نحسّن التجربة باستمرار. اترك لنا ملاحظاتك!</string>
+    <string name="rate_sheet_title_four">أنت رائع أيضًا!</string>
+    <string name="rate_sheet_title_five">نحبك أيضًا!</string>
+    <string name="rate_sheet_positive_body">شكرًا لتقييمك الإيجابي. يمكنك مشاركة المزيد من الملاحظات في أي وقت.</string>
+    <string name="rate_sheet_subtitle">أعطنا أفضل تقييم لديك!</string>
+    <string name="cd_rate_star_row">اختر تقييم النجوم</string>
+
     <plurals name="me_streak_days">
         <item quantity="zero">%d يوم</item>
         <item quantity="one">يوم واحد</item>

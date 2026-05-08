@@ -28,7 +28,7 @@ object AssetPaths {
     const val DRINK_500_ICON = "$ASSET_BASE/svg/500_icon.svg"
     const val DRINK_ASSET = "$ASSET_BASE/svg/drink.svg"
 
-    /** Minh họa sheet đánh giá (số sao 0–5). */
+    /** Minh họa sheet đánh giá theo số sao (rate_0 … rate_5). */
     const val RATE_0_SVG = "$ASSET_BASE/svg/rate_0.svg"
     const val RATE_1_SVG = "$ASSET_BASE/svg/rate_1.svg"
     const val RATE_2_SVG = "$ASSET_BASE/svg/rate_2.svg"
@@ -36,6 +36,7 @@ object AssetPaths {
     const val RATE_4_SVG = "$ASSET_BASE/svg/rate_4.svg"
     const val RATE_5_SVG = "$ASSET_BASE/svg/rate_5.svg"
 
+    /** Đường asset SVG tương ứng số sao đã chọn (0–5). */
     fun rateSheetSvg(stars: Int): String = when (stars.coerceIn(0, 5)) {
         0 -> RATE_0_SVG
         1 -> RATE_1_SVG

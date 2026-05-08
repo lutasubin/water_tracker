@@ -116,12 +116,21 @@ object AppDimens {
     /** Khoảng dọc giữa các thẻ menu General (tab Me). */
     val MeProfileMenuCardSpacing = 12.dp
 
-    /** Sheet Rate Us — mascot nhô lên trên mép sheet. */
-    val RateUsHeroOverlapUp = 48.dp
+    /** Sheet Rate Us — không còn drag handle; không offset mascot lên trùng nút đóng. */
+    val RateUsHeroOverlapUp = 0.dp
+    val RateUsSheetTopCorner = 20.dp
+    /** Khung minh họa SVG (Fit — thu nhỏ so với full-width). */
+    val RateUsMascotSlotHeight = 118.dp
+    /** Tỉ lệ chiều ngang minh họa trong sheet (thu nhỏ SVG). */
+    val RateUsMascotWidthFraction = 0.66f
     val RateUsHorizontalPadding = 24.dp
+    /** Lề phải nút đóng sheet — nhỏ hơn padding nội dung để X sát mép phải hơn. */
+    val RateUsCloseTrailingInset = 6.dp
     val RateUsSectionSpacing = 16.dp
-    /** Chiều cao vùng chạm 5 sao (overlay trên SVG). */
-    val RateUsStarTouchStripHeight = 56.dp
+    val RateUsStarIconSize = 40.dp
+    val RateUsStarTouchMinWidth = 48.dp
+    /** Khoảng cách mascot (crop) tới khối chữ. */
+    val RateUsMascotToTextGap = 8.dp
     /** Chiều cao nút Rate Us trong sheet. */
     val RateUsCtaHeight = 56.dp
     val RateUsBottomPadding = 28.dp

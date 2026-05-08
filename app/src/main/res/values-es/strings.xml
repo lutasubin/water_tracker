@@ -53,6 +53,15 @@
     <string name="me_menu_share">Compartir</string>
     <string name="me_menu_privacy">Privacidad</string>
 
+    <string name="rate_sheet_intro_body">Trabajamos para mejorar tu experiencia. ¡Nos encantaría conocer tu opinión!</string>
+    <string name="rate_sheet_oh_no_title">¡Uy!</string>
+    <string name="rate_sheet_feedback_body">Estamos mejorando la experiencia. ¡Deja tus comentarios!</string>
+    <string name="rate_sheet_title_four">¡Tú también eres genial!</string>
+    <string name="rate_sheet_title_five">¡También te queremos!</string>
+    <string name="rate_sheet_positive_body">Gracias por tu reseña positiva. Comparte más comentarios cuando quieras.</string>
+    <string name="rate_sheet_subtitle">¡Danos tu mejor valoración!</string>
+    <string name="cd_rate_star_row">Seleccionar valoración con estrellas</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d día</item>
         <item quantity="other">%d días</item>

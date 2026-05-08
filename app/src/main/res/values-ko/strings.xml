@@ -53,6 +53,15 @@
     <string name="me_menu_share">공유</string>
     <string name="me_menu_privacy">개인정보 처리방침</string>
 
+    <string name="rate_sheet_intro_body">더 나은 경험을 위해 노력하고 있습니다. 의견을 들려주세요!</string>
+    <string name="rate_sheet_oh_no_title">앗!</string>
+    <string name="rate_sheet_feedback_body">경험 개선을 위해 노력 중입니다. 피드백을 남겨 주세요.</string>
+    <string name="rate_sheet_title_four">당신도 최고예요!</string>
+    <string name="rate_sheet_title_five">저희도 당신을 응원해요!</string>
+    <string name="rate_sheet_positive_body">좋은 평가 감사합니다. 추가 의견도 환영합니다.</string>
+    <string name="rate_sheet_subtitle">최고의 별점을 부탁드려요</string>
+    <string name="cd_rate_star_row">별점 선택</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d일</item>
         <item quantity="other">%d일</item>

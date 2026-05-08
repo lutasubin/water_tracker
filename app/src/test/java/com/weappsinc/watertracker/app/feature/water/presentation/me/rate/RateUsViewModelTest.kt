@@ -44,6 +44,16 @@ class RateUsViewModelTest {
         }
         vm.submit()
         assertEquals(listOf(4), emissions)
+        assertEquals(0, vm.uiState.value.selectedStars)
         job.cancel()
+    }
+
+    @Test
+    fun resetDraft_xoaChonSao() = runTest {
+        Dispatchers.setMain(UnconfinedTestDispatcher())
+        val vm = RateUsViewModel()
+        vm.selectStars(3)
+        vm.resetDraft()
+        assertEquals(0, vm.uiState.value.selectedStars)
     }
 }

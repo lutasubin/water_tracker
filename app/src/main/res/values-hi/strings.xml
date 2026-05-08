@@ -53,6 +53,15 @@
     <string name="me_menu_share">साझा करें</string>
     <string name="me_menu_privacy">गोपनीयता नीति</string>
 
+    <string name="rate_sheet_intro_body">हम आपके अनुभव को बेहतर बनाने में लगे हैं। हमें आपकी राय सुनकर खुशी होगी!</string>
+    <string name="rate_sheet_oh_no_title">ओह!</string>
+    <string name="rate_sheet_feedback_body">हम अनुभव सुधारने का प्रयास कर रहे हैं। कृपया फ़ीडबैक दें!</string>
+    <string name="rate_sheet_title_four">आप भी शानदार हैं!</string>
+    <string name="rate_sheet_title_five">हम भी आपको पसंद करते हैं!</string>
+    <string name="rate_sheet_positive_body">सकारात्मक समीक्षा के लिए धन्यवाद। और सुझाव साझा करें।</string>
+    <string name="rate_sheet_subtitle">हमें अपनी सर्वोत्तम रेटिंग दें!</string>
+    <string name="cd_rate_star_row">स्टार रेटिंग चुनें</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d दिन</item>
         <item quantity="other">%d दिन</item>

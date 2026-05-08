@@ -53,6 +53,15 @@
     <string name="me_menu_share">Bagikan</string>
     <string name="me_menu_privacy">Kebijakan privasi</string>
 
+    <string name="rate_sheet_intro_body">Kami terus berusaha meningkatkan pengalamanmu. Kami ingin mendengar pendapatmu!</string>
+    <string name="rate_sheet_oh_no_title">Aduh!</string>
+    <string name="rate_sheet_feedback_body">Kami memperbaiki pengalaman pengguna. Tinggalkan masukan ya!</string>
+    <string name="rate_sheet_title_four">Kamu juga luar biasa!</string>
+    <string name="rate_sheet_title_five">Kami juga menyukaimu!</string>
+    <string name="rate_sheet_positive_body">Terima kasih atas ulasan positifnya. Silakan beri masukan lagi kapan saja.</string>
+    <string name="rate_sheet_subtitle">Beri kami rating terbaikmu!</string>
+    <string name="cd_rate_star_row">Pilih rating bintang</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d hari</item>
         <item quantity="other">%d hari</item>

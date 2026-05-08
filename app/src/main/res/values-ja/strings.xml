@@ -53,6 +53,15 @@
     <string name="me_menu_share">共有</string>
     <string name="me_menu_privacy">プライバシー</string>
 
+    <string name="rate_sheet_intro_body">より良い体験のために日々改善しています。ぜひご感想をお聞かせください！</string>
+    <string name="rate_sheet_oh_no_title">おっと！</string>
+    <string name="rate_sheet_feedback_body">体験向上に努めています。ご意見をお寄せください。</string>
+    <string name="rate_sheet_title_four">あなたもすごい！</string>
+    <string name="rate_sheet_title_five">こちらも応援しています！</string>
+    <string name="rate_sheet_positive_body">素晴らしい評価ありがとうございます。ほかにもご意見があればお聞かせください。</string>
+    <string name="rate_sheet_subtitle">最高評価をお願いします</string>
+    <string name="cd_rate_star_row">星の評価を選択</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d 日</item>
         <item quantity="other">%d 日</item>

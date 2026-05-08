@@ -94,4 +94,8 @@ object AppColors {
     /** Nút CTA sheet Rate Us khi chưa chọn sao (mock nhạt). */
     val RateUsCtaDisabledBg = GenderUnselectedBackground
     val RateUsCtaDisabledContent = HomeMuted
+    /** Sao chưa chọn — xám nhạt như mock. */
+    val RateUsStarEmpty = HomeProgressTrack
+    /** Sao đã chọn — vàng đánh giá. */
+    val RateUsStarFilled = Color(0xFFFFC107)
 }

@@ -59,7 +59,7 @@
     <string name="rate_sheet_title_four">Bạn cũng thật tuyệt!</string>
     <string name="rate_sheet_title_five">Chúng tôi cũng yêu bạn!</string>
     <string name="rate_sheet_positive_body">Cảm ơn bạn đã đánh giá tích cực. Mọi góp ý thêm đều được trân trọng.</string>
-    <string name="rate_sheet_subtitle_vi">Đánh giá tốt nhất cho chúng tôi</string>
+    <string name="rate_sheet_subtitle">Đánh giá tốt nhất cho chúng tôi</string>
     <string name="cd_rate_star_row">Chọn số sao đánh giá</string>
 
     <plurals name="me_streak_days">

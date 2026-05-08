@@ -53,6 +53,15 @@
     <string name="me_menu_share">Paylaş</string>
     <string name="me_menu_privacy">Gizlilik politikası</string>
 
+    <string name="rate_sheet_intro_body">Deneyiminizi iyileştirmek için çalışıyoruz. Görüşlerinizi duymak isteriz!</string>
+    <string name="rate_sheet_oh_no_title">Hay aksi!</string>
+    <string name="rate_sheet_feedback_body">Deneyimi geliştiriyoruz. Lütfen geri bildirim bırakın!</string>
+    <string name="rate_sheet_title_four">Sen de harikasın!</string>
+    <string name="rate_sheet_title_five">Biz de seni seviyoruz!</string>
+    <string name="rate_sheet_positive_body">Olumlu değerlendirmen için teşekkürler. Başka önerilerini bekleriz.</string>
+    <string name="rate_sheet_subtitle">Bize en iyi puanı ver!</string>
+    <string name="cd_rate_star_row">Yıldız derecelendirmesi seç</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d gün</item>
         <item quantity="other">%d gün</item>

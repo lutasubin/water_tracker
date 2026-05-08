@@ -53,6 +53,15 @@
     <string name="me_menu_share">Compartilhar</string>
     <string name="me_menu_privacy">Privacidade</string>
 
+    <string name="rate_sheet_intro_body">Estamos trabalhando para melhorar sua experiência. Adoraríamos ouvir você!</string>
+    <string name="rate_sheet_oh_no_title">Puxa!</string>
+    <string name="rate_sheet_feedback_body">Estamos melhorando o app. Deixe seu feedback!</string>
+    <string name="rate_sheet_title_four">Você também é incrível!</string>
+    <string name="rate_sheet_title_five">Nós também te adoramos!</string>
+    <string name="rate_sheet_positive_body">Obrigado pela avaliação positiva. Envie mais sugestões quando quiser.</string>
+    <string name="rate_sheet_subtitle">Dê sua melhor avaliação!</string>
+    <string name="cd_rate_star_row">Selecionar avaliação em estrelas</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d dia</item>
         <item quantity="other">%d dias</item>
