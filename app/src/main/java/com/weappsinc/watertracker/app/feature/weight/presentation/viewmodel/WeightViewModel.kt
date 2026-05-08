@@ -3,8 +3,6 @@ package com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogUseCase
-import com.weappsinc.watertracker.app.feature.weigh.domain.util.MassDisplay
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,8 +12,7 @@ import kotlinx.coroutines.sync.Mutex
 
 class WeightViewModel(
     private val observeWeight: ObserveWeightUseCase,
-    private val saveWeight: SaveWeightUseCase,
-    private val saveWeighLog: SaveWeighLogUseCase
+    private val saveWeight: SaveWeightUseCase
 ) : ViewModel() {
     private val saveMutex = Mutex()
 
@@ -38,15 +35,15 @@ class WeightViewModel(
         _weightKg.value = value
     }
 
-    /** Lưu hồ sơ + log xong mới onSaved — tránh double-tap Next/pop trùng. */
+    /**
+     * Chỉ lưu cân hồ sơ (SQLite); không ghi log ngày — log chỉ khi user bấm "Ghi nhận cân nặng".
+     * Lưu xong mới onSaved — tránh double-tap Next/pop trùng.
+     */
     fun saveSelection(onSaved: () -> Unit) {
         viewModelScope.launch {
             if (!saveMutex.tryLock()) return@launch
             try {
-                val w = _weightKg.value
-                saveWeight(w)
-                saveWeighLog(MassDisplay.snapTargetKg(w.toFloat()))
-                    .onFailure { /* Đã có log hôm nay — chỉ cập nhật hồ sơ. */ }
+                saveWeight(_weightKg.value)
                 onSaved()
             } finally {
                 saveMutex.unlock()
@@ -61,10 +58,9 @@ class WeightViewModel(
 
 class WeightViewModelFactory(
     private val observeWeight: ObserveWeightUseCase,
-    private val saveWeight: SaveWeightUseCase,
-    private val saveWeighLog: SaveWeighLogUseCase
+    private val saveWeight: SaveWeightUseCase
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WeightViewModel(observeWeight, saveWeight, saveWeighLog) as T
+        WeightViewModel(observeWeight, saveWeight) as T
 }

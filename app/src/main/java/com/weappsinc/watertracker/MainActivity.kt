@@ -106,8 +106,7 @@ class MainActivity : AppCompatActivity() {
         )
         val weightFactory = WeightViewModelFactory(
             observeWeight = ObserveWeightUseCase(weightRepository),
-            saveWeight = SaveWeightUseCase(weightRepository),
-            saveWeighLog = saveWeighLog
+            saveWeight = SaveWeightUseCase(weightRepository)
         )
         val exerciseFactory = ExerciseSelectionViewModelFactory(
             observeExerciseLevel = ObserveExerciseLevelUseCase(exerciseRepository),
