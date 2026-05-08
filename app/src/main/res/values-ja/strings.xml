@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">水分トラッカー</string>
     <string name="language_screen_title">言語</string>
     <string name="cd_nav_back">戻る</string>
     <string name="cd_language_apply">言語を適用</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pelacak Air</string>
     <string name="language_screen_title">Bahasa</string>
     <string name="cd_nav_back">Kembali</string>
     <string name="cd_language_apply">Terapkan bahasa</string>

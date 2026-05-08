@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">تتبع المياه</string>
     <string name="language_screen_title">اللغة</string>
     <string name="cd_nav_back">رجوع</string>
     <string name="cd_language_apply">تطبيق اللغة</string>

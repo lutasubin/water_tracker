@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">पानी ट्रैकर</string>
     <string name="language_screen_title">भाषा</string>
     <string name="cd_nav_back">वापस</string>
     <string name="cd_language_apply">भाषा लागू करें</string>

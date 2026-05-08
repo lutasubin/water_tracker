@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">물 섭취 추적</string>
     <string name="language_screen_title">언어</string>
     <string name="cd_nav_back">뒤로</string>
     <string name="cd_language_apply">언어 적용</string>

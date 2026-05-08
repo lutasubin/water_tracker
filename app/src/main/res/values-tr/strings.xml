@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Su Takibi</string>
     <string name="language_screen_title">Dil</string>
     <string name="cd_nav_back">Geri</string>
     <string name="cd_language_apply">Dili uygula</string>
