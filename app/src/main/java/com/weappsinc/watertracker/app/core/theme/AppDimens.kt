@@ -68,10 +68,12 @@ object AppDimens {
     val HomeStreakPillTextMaxWidth = 152.dp
     val HomeCardCorner = 20.dp
     val HomeCardInnerPadding = 16.dp
-    val HomeCardShadowElevation = 6.dp
-    val HomeStreakPillShadowElevation = 4.dp
-    /** Tách nền navigation khỏi nội dung (Material tonal). */
-    val HomeBottomBarTonalElevation = 6.dp
+    /** Thẻ Surface Home/Report — không đổ bóng (UI phẳng). */
+    val HomeCardShadowElevation = 0.dp
+    /** Pill streak header — không đổ bóng. */
+    val HomeStreakPillShadowElevation = 0.dp
+    /** Bottom bar Home — không tonal elevation (phẳng). */
+    val HomeBottomBarTonalElevation = 0.dp
     val HomeStatCardIconSize = 28.dp
     /** Khoảng icon mục tiêu và chữ nhãn (hàng đầu thẻ mục tiêu Water). */
     val HomeGoalStatIconLabelGap = 10.dp

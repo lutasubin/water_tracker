@@ -67,18 +67,22 @@ fun WeighGoalCard(
             )
         }
         Spacer(Modifier.height(16.dp))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = targetValueText,
-                    style = AppTypography.StatCardValue,
+                    style = AppTypography.WeighGoalCardTargetValue,
                     color = AppColors.HomeTitle
                 )
                 Text(
                     text = " $massUnitLabel",
-                    style = AppTypography.BodyMedium,
+                    style = AppTypography.WeighGoalCardTargetUnit,
                     color = AppColors.WeighGoalLabelMuted,
-                    modifier = Modifier.padding(bottom = 2.dp)
+                    modifier = Modifier.padding(bottom = 3.dp)
                 )
             }
             Column(horizontalAlignment = Alignment.End) {

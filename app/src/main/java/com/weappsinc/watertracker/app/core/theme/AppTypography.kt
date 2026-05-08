@@ -58,6 +58,20 @@ object AppTypography {
         fontWeight = FontWeight.Bold,
         fontFamily = AppFontFamily
     )
+    /** Số mục tiêu cân — thẻ Goal Weigh Tracker (lớn, cân với GAP / progress). */
+    val WeighGoalCardTargetValue = TextStyle(
+        fontSize = 32.sp,
+        lineHeight = 38.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = AppFontFamily
+    )
+    /** Đơn vị KG/LB cạnh số mục tiêu — thẻ Goal Weigh Tracker. */
+    val WeighGoalCardTargetUnit = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 22.sp,
+        fontWeight = FontWeight.Medium,
+        fontFamily = AppFontFamily
+    )
     /** Số cân trên thẻ HÔM NAY (màn chi tiết). */
     val WeighTodayCardWeight = TextStyle(
         fontSize = 36.sp,

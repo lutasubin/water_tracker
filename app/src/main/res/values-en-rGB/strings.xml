@@ -41,7 +41,7 @@
     <string name="unit_l">l</string>
 
     <string name="home_tab_water">Water</string>
-    <string name="home_tab_weigh">Weigh</string>
+    <string name="home_tab_weigh">Weight</string>
     <string name="home_tab_me">Me</string>
 
     <string name="me_personal_data_title">Personal data</string>
@@ -71,7 +71,7 @@
         <item quantity="other">%d days streak</item>
     </plurals>
 
-    <string name="weigh_tracker_title">Weigh tracker</string>
+    <string name="weigh_tracker_title">Weight Tracker</string>
     <string name="weigh_height_label">Height</string>
     <string name="weigh_weight_label">Weight</string>
     <string name="unit_cm">CM</string>

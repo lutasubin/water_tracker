@@ -24,6 +24,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import com.weappsinc.watertracker.app.core.theme.AppColors
@@ -51,6 +53,15 @@ fun ScrollPickerWheel(
     val listState = rememberLazyListState(initialFirstVisibleItemIndex = initialIndex)
     val snapFling = rememberSnapFlingBehavior(lazyListState = listState)
     val inset = (wheelHeight - itemHeight) / 2
+    val wheelNumberStyle = remember {
+        AppTypography.DisplayNumber.copy(
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Center,
+                trim = LineHeightStyle.Trim.Both,
+            ),
+            platformStyle = PlatformTextStyle(includeFontPadding = false),
+        )
+    }
 
     val centerRowIndex by remember(listState, values.size) {
         derivedStateOf {
@@ -94,11 +105,7 @@ fun ScrollPickerWheel(
                 val v = values[idx]
                 val color =
                     if (idx == centerRowIndex) AppColors.GenderPrimary else AppColors.GenderUnselectedContent
-                Text(
-                    text = v.toString(),
-                    color = color,
-                    style = AppTypography.DisplayNumber,
-                    textAlign = TextAlign.Center,
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(itemHeight)
@@ -109,8 +116,17 @@ fun ScrollPickerWheel(
                             scope.launch {
                                 listState.animateScrollToItem(idx)
                             }
-                        }
-                )
+                        },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = v.toString(),
+                        color = color,
+                        style = wheelNumberStyle,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             }
         }
     }

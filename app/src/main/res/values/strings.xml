@@ -47,7 +47,7 @@
 
     <!-- Home tabs -->
     <string name="home_tab_water">Water</string>
-    <string name="home_tab_weigh">Weigh</string>
+    <string name="home_tab_weigh">Weight</string>
     <string name="home_tab_me">Me</string>
 
     <!-- Me -->
@@ -80,7 +80,7 @@
     </plurals>
 
     <!-- Weigh -->
-    <string name="weigh_tracker_title">Weigh Tracker</string>
+    <string name="weigh_tracker_title">Weight Tracker</string>
     <string name="weigh_height_label">Height</string>
     <string name="weigh_weight_label">Weight</string>
     <string name="unit_cm">CM</string>

@@ -79,7 +79,11 @@ fun WeighStatCard(
             }
         }
         Spacer(Modifier.height(AppDimens.HomeStatValueSpacing))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom,
+        ) {
             Text(text = primary, color = AppColors.HomeTitle, style = AppTypography.StatCardValue)
             Text(text = " $unit", color = AppColors.HomeMuted, style = AppTypography.BodyMedium)
         }
