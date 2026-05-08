@@ -58,7 +58,7 @@ fun LanguageScreen(
                 selectedTag = selectedTag,
                 scope = scope,
                 showBackButton = showBackButton,
-                applyContext = appContext,
+                applyContext = context,
                 beforeApplyMain = beforeApplyMain,
                 applyMutex = applyMutex,
                 onApplied = onApplied,

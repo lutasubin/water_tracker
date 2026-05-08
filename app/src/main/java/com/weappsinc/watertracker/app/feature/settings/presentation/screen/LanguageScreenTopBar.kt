@@ -12,6 +12,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import android.content.Context
+import android.content.ContextWrapper
+import android.app.Activity
 import java.util.Locale
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -67,18 +69,23 @@ fun LanguageScreenTopBar(
                     scope.launch {
                         if (!applyMutex.tryLock()) return@launch
                         try {
-                            AppLocalePreferences.saveTag(applyContext, selectedTag)
+                            AppLocalePreferences.saveTag(applyContext.applicationContext, selectedTag)
                             beforeApplyMain()
-                            // Điều hướng trước; chỉ gọi setLocales khi khác app hiện tại (tránh một nháy đen không cần).
-                            withContext(Dispatchers.Main.immediate) { onApplied() }
-                            delay(120L)
+                            // Quan trọng: áp locale trước khi rời màn.
+                            // Nếu popBackStack khiến LanguageScreen bị dispose, coroutine có thể bị hủy
+                            // trước khi kịp tới đoạn setApplicationLocales (emulator hay gặp hơn).
                             withContext(Dispatchers.Main.immediate) {
                                 val cur = AppCompatDelegate.getApplicationLocales()
-                                if (!applicationLocalesCompatibleWithSelected(cur, selectedTag)) {
+                                val applied =
+                                    !applicationLocalesCompatibleWithSelected(cur, selectedTag)
+                                if (applied) {
                                     AppCompatDelegate.setApplicationLocales(
                                         LocaleListCompat.forLanguageTags(selectedTag)
                                     )
+                                    // Ép Activity recreate để Compose lấy lại Resources theo locale mới.
+                                    applyContext.findActivity()?.recreate()
                                 }
+                                onApplied()
                             }
                         } finally {
                             applyMutex.unlock()
@@ -118,4 +125,13 @@ private fun applicationLocalesCompatibleWithSelected(
         if (c.equals(d, ignoreCase = true)) return true
     }
     return false
+}
+
+private fun Context.findActivity(): Activity? {
+    var ctx = this
+    while (ctx is ContextWrapper) {
+        if (ctx is Activity) return ctx
+        ctx = ctx.baseContext
+    }
+    return if (this is Activity) this else null
 }
