@@ -20,11 +20,12 @@ import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 
-/** Top bar chọn ngôn ngữ: có thể ẩn nút back (onboarding). ✓ → lưu tag → [beforeApplyMain] → áp locale → [onApplied]. */
+/** Top bar chọn ngôn ngữ: có thể ẩn nút back (onboarding). ✓ → lưu tag → điều hướng → sau ~1 frame đổi locale (tránh nháy đen). */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageScreenTopBar(
@@ -67,11 +68,13 @@ fun LanguageScreenTopBar(
                         try {
                             AppLocalePreferences.saveTag(applyContext, selectedTag)
                             beforeApplyMain()
+                            // Đổi màn trước — tránh một frame Compose trong suốt khi setLocales làm nháy đen.
+                            withContext(Dispatchers.Main.immediate) { onApplied() }
+                            delay(64L)
                             withContext(Dispatchers.Main.immediate) {
                                 AppCompatDelegate.setApplicationLocales(
                                     LocaleListCompat.forLanguageTags(selectedTag)
                                 )
-                                onApplied()
                             }
                         } finally {
                             applyMutex.unlock()

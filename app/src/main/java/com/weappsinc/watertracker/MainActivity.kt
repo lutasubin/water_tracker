@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.ui.Modifier
+import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.local.GenderSQLiteHelper
 import com.weappsinc.watertracker.app.core.navigation.AppNavHost
 import com.weappsinc.watertracker.app.feature.age.data.repository.AgeRepositoryImpl
@@ -213,6 +215,7 @@ class MainActivity : AppCompatActivity() {
             Box(
                 Modifier
                     .fillMaxSize()
+                    .background(AppColors.HomeBackground)
                     .windowInsetsPadding(WindowInsets.safeDrawing)
             ) {
                 AppNavHost(
