@@ -20,4 +20,5 @@ sealed class AppRoute(val route: String) {
     data object LanguageOnboarding : AppRoute("language_onboarding")
     data object WeighGoalDetail : AppRoute("weigh_goal_detail")
     data object WeighHistory : AppRoute("weigh_history")
+    data object PrivacyPolicy : AppRoute("privacy_policy")
 }

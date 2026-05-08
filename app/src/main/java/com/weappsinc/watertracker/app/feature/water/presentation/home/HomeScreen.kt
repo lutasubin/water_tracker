@@ -1,7 +1,5 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.home
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import coil.ImageLoader
 import coil.decode.SvgDecoder
-import com.weappsinc.watertracker.app.core.constants.LegalUrls
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterTrackerScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.me.MeProfileScreen
@@ -35,6 +32,7 @@ fun HomeScreen(
     onEditWeight: () -> Unit,
     onOpenWeighGoalDetail: () -> Unit,
     onOpenLanguage: () -> Unit,
+    onOpenPrivacyPolicy: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var tab by rememberSaveable { mutableStateOf(HomeTab.Water) }
@@ -69,13 +67,7 @@ fun HomeScreen(
                 factory = meProfileFactory,
                 imageLoader = imageLoader,
                 onLanguage = onOpenLanguage,
-                onPrivacyPolicy = {
-                    val intent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(LegalUrls.PRIVACY_POLICY),
-                    )
-                    context.startActivity(Intent.createChooser(intent, null))
-                },
+                onPrivacyPolicy = onOpenPrivacyPolicy,
                 modifier = Modifier.weight(1f)
             )
         }

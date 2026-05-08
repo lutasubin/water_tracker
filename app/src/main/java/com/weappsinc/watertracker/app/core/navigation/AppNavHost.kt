@@ -26,6 +26,7 @@ import com.weappsinc.watertracker.app.feature.water.domain.usecase.EnsureFirstIn
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.RecordWaterAppOpenDayUseCase
 import com.weappsinc.watertracker.app.feature.water.presentation.home.HomeScreen
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.PrivacyPolicyScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.report.ReportScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
@@ -213,7 +214,12 @@ fun AppNavHost(
                     navGate.run {
                         navController.navigate(AppRoute.Language.route) { launchSingleTop = true }
                     }
-                }
+                },
+                onOpenPrivacyPolicy = {
+                    navGate.run {
+                        navController.navigate(AppRoute.PrivacyPolicy.route) { launchSingleTop = true }
+                    }
+                },
             )
         }
         composable(AppRoute.Language.route) {
@@ -300,6 +306,9 @@ fun AppNavHost(
                 factory = reportViewModelFactory,
                 onBack = { navGate.run { navController.popBackStack() } }
             )
+        }
+        composable(AppRoute.PrivacyPolicy.route) {
+            PrivacyPolicyScreen(onBack = { navGate.run { navController.popBackStack() } })
         }
         composable(AppRoute.WaterGoalEdit.route) {
             WaterGoalScreen(
