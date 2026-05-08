@@ -9,8 +9,8 @@ object AssetPaths {
     const val MALE_ICON = "$ASSET_BASE/svg/male_icon.svg"
     const val FEMALE_ICON = "$ASSET_BASE/svg/female_icon.svg"
     const val EXERCISE_LOW_ICON = "$ASSET_BASE/svg/icon1.svg"
-    const val EXERCISE_MODERATE_ICON = "$ASSET_BASE/svg/icon2.svg"
-    const val EXERCISE_HIGH_ICON = "$ASSET_BASE/svg/icon3.svg"
+    const val EXERCISE_MODERATE_ICON = "$ASSET_BASE/svg/icon3.svg"
+    const val EXERCISE_HIGH_ICON = "$ASSET_BASE/svg/icon2.svg"
 
     const val GOAL_ICON = "$ASSET_BASE/svg/goal_icon.svg"
     const val NOTIE_ICON = "$ASSET_BASE/svg/notie_icon.svg"
