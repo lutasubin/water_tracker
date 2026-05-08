@@ -9,11 +9,14 @@ import com.weappsinc.watertracker.app.feature.exercise.domain.usecase.SaveExerci
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 class ExerciseSelectionViewModel(
     private val observeExerciseLevel: ObserveExerciseLevelUseCase,
     private val saveExerciseLevel: SaveExerciseLevelUseCase
 ) : ViewModel() {
+    private val saveMutex = Mutex()
+
     private val _selectedLevel = MutableStateFlow(ExerciseLevel.LOW)
     val selectedLevel = _selectedLevel.asStateFlow()
 
@@ -27,8 +30,17 @@ class ExerciseSelectionViewModel(
         _selectedLevel.value = level
     }
 
-    fun saveSelection() {
-        viewModelScope.launch { saveExerciseLevel(_selectedLevel.value) }
+    /** Lưu xong mới onSaved — tránh double-tap Next/nav trùng. */
+    fun saveSelection(onSaved: () -> Unit) {
+        viewModelScope.launch {
+            if (!saveMutex.tryLock()) return@launch
+            try {
+                saveExerciseLevel(_selectedLevel.value)
+                onSaved()
+            } finally {
+                saveMutex.unlock()
+            }
+        }
     }
 }
 

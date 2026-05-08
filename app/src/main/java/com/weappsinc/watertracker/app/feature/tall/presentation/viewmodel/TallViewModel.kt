@@ -8,11 +8,14 @@ import com.weappsinc.watertracker.app.feature.tall.domain.usecase.SaveTallUseCas
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 class TallViewModel(
     private val observeTall: ObserveTallUseCase,
     private val saveTall: SaveTallUseCase
 ) : ViewModel() {
+    private val saveMutex = Mutex()
+
     private val _tallCm = MutableStateFlow(DEFAULT_TALL_CM)
     val tallCm = _tallCm.asStateFlow()
 
@@ -30,8 +33,17 @@ class TallViewModel(
         _tallCm.value = value
     }
 
-    fun saveSelection() {
-        viewModelScope.launch { saveTall(_tallCm.value) }
+    /** Lưu xong mới gọi onSaved — tránh double-tap Next/pop trùng. */
+    fun saveSelection(onSaved: () -> Unit) {
+        viewModelScope.launch {
+            if (!saveMutex.tryLock()) return@launch
+            try {
+                saveTall(_tallCm.value)
+                onSaved()
+            } finally {
+                saveMutex.unlock()
+            }
+        }
     }
 
     companion object {

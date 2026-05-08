@@ -36,6 +36,8 @@ import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.Weig
 import com.weappsinc.watertracker.app.feature.settings.domain.usecase.MarkLocaleOnboardingCompletedUseCase
 import com.weappsinc.watertracker.app.feature.settings.domain.usecase.ObserveLocaleOnboardingCompletedUseCase
 
+// Mọi điều hướng từ UI đều qua navGate để tránh nhấp đôi gây stack/pop lệch (màn trắng).
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavHost(
@@ -58,6 +60,7 @@ fun AppNavHost(
     markLocaleOnboardingCompletedUseCase: MarkLocaleOnboardingCompletedUseCase,
 ) {
     val navController = rememberNavController()
+    val navGate = rememberNavActionGate()
     val savedGoalMl by observeSavedGoalMlUseCase().collectAsState(initial = null)
     val localeOnboardingDone by observeLocaleOnboardingCompletedUseCase()
         .collectAsState(initial = false)
@@ -71,53 +74,78 @@ fun AppNavHost(
                         !localeOnboardingDone -> AppRoute.LanguageOnboarding.route
                         else -> AppRoute.Gender.route
                     }
-                    navController.navigate(targetRoute) {
-                        popUpTo(AppRoute.Splash.route) { inclusive = true }
+                    navGate.run {
+                        navController.navigate(targetRoute) {
+                            popUpTo(AppRoute.Splash.route) { inclusive = true }
+                            launchSingleTop = true
+                        }
                     }
                 }
             )
         }
         composable(AppRoute.Gender.route) {
             GenderSelectionScreen(factory = genderFactory) {
-                navController.navigate(AppRoute.Age.route)
+                navGate.run {
+                    navController.navigate(AppRoute.Age.route) { launchSingleTop = true }
+                }
             }
         }
         composable(AppRoute.Age.route) {
             AgeSelectionScreen(
                 factory = ageFactory,
-                onBack = { navController.popBackStack() },
-                onNext = { navController.navigate(AppRoute.Tall.route) }
+                onBack = { navGate.run { navController.popBackStack() } },
+                onNext = {
+                    navGate.run {
+                        navController.navigate(AppRoute.Tall.route) { launchSingleTop = true }
+                    }
+                }
             )
         }
         composable(AppRoute.Tall.route) {
             TallSelectionScreen(
                 factory = tallFactory,
-                onBack = { navController.popBackStack() },
-                onNext = { navController.navigate(AppRoute.Weight.route) }
+                onBack = { navGate.run { navController.popBackStack() } },
+                onNext = {
+                    navGate.run {
+                        navController.navigate(AppRoute.Weight.route) { launchSingleTop = true }
+                    }
+                }
             )
         }
         composable(AppRoute.Weight.route) {
             WeightSelectionScreen(
                 factory = weightFactory,
-                onBack = { navController.popBackStack() },
-                onNext = { navController.navigate(AppRoute.Exercise.route) }
+                onBack = { navGate.run { navController.popBackStack() } },
+                onNext = {
+                    navGate.run {
+                        navController.navigate(AppRoute.Exercise.route) { launchSingleTop = true }
+                    }
+                }
             )
         }
         composable(AppRoute.Exercise.route) {
             ExerciseSelectionScreen(
                 factory = exerciseFactory,
-                onBack = { navController.popBackStack() },
-                onNext = { navController.navigate(AppRoute.WaterGoal.route) }
+                onBack = { navGate.run { navController.popBackStack() } },
+                onNext = {
+                    navGate.run {
+                        navController.navigate(AppRoute.WaterGoal.route) { launchSingleTop = true }
+                    }
+                }
             )
         }
         composable(AppRoute.WaterGoal.route) {
             WaterGoalScreen(
                 factory = waterGoalFactoryOnboarding,
                 viewModelKey = "water_goal_onboarding",
-                onBack = { navController.popBackStack() },
+                onBack = { navGate.run { navController.popBackStack() } },
                 onStartComplete = {
-                    navController.navigate(AppRoute.Home.route) {
-                        popUpTo(AppRoute.WaterGoal.route) { inclusive = true }
+                    navGate.run {
+                        // Xóa cả onboarding (Gender…WaterGoal); chỉ giữ Home — tránh Language pop chồng gọi rơi vào Tall/Weight/…
+                        navController.navigate(AppRoute.Home.route) {
+                            popUpTo(AppRoute.Gender.route) { inclusive = true }
+                            launchSingleTop = true
+                        }
                     }
                 }
             )
@@ -127,20 +155,52 @@ fun AppNavHost(
                 waterTrackerFactory = waterTrackerFactory,
                 weighTrackerFactory = weighTrackerFactory,
                 meProfileFactory = meProfileFactory,
-                onEditWaterGoal = { navController.navigate(AppRoute.WaterGoalEdit.route) },
-                onOpenReport = { navController.navigate(AppRoute.Report.route) },
-                onEditTall = { navController.navigate(AppRoute.TallEdit.route) },
-                onEditWeight = { navController.navigate(AppRoute.WeightEdit.route) },
-                onOpenWeighGoalDetail = { navController.navigate(AppRoute.WeighGoalDetail.route) },
-                onOpenLanguage = { navController.navigate(AppRoute.Language.route) }
+                onEditWaterGoal = {
+                    navGate.run {
+                        navController.navigate(AppRoute.WaterGoalEdit.route) { launchSingleTop = true }
+                    }
+                },
+                onOpenReport = {
+                    navGate.run {
+                        navController.navigate(AppRoute.Report.route) { launchSingleTop = true }
+                    }
+                },
+                onEditTall = {
+                    navGate.run {
+                        navController.navigate(AppRoute.TallEdit.route) { launchSingleTop = true }
+                    }
+                },
+                onEditWeight = {
+                    navGate.run {
+                        navController.navigate(AppRoute.WeightEdit.route) { launchSingleTop = true }
+                    }
+                },
+                onOpenWeighGoalDetail = {
+                    navGate.run {
+                        navController.navigate(AppRoute.WeighGoalDetail.route) { launchSingleTop = true }
+                    }
+                },
+                onOpenLanguage = {
+                    navGate.run {
+                        navController.navigate(AppRoute.Language.route) { launchSingleTop = true }
+                    }
+                }
             )
         }
         composable(AppRoute.Language.route) {
             LanguageScreen(
                 showBackButton = true,
-                onBack = { navController.popBackStack() },
+                onBack = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.Language.route, inclusive = true)
+                    }
+                },
                 beforeApplyMain = {},
-                onApplied = { navController.popBackStack() },
+                onApplied = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.Language.route, inclusive = true)
+                    }
+                },
             )
         }
         composable(AppRoute.LanguageOnboarding.route) {
@@ -149,8 +209,11 @@ fun AppNavHost(
                 onBack = {},
                 beforeApplyMain = { markLocaleOnboardingCompletedUseCase() },
                 onApplied = {
-                    navController.navigate(AppRoute.Gender.route) {
-                        popUpTo(AppRoute.LanguageOnboarding.route) { inclusive = true }
+                    navGate.run {
+                        navController.navigate(AppRoute.Gender.route) {
+                            popUpTo(AppRoute.LanguageOnboarding.route) { inclusive = true }
+                            launchSingleTop = true
+                        }
                     }
                 },
             )
@@ -158,47 +221,69 @@ fun AppNavHost(
         composable(AppRoute.WeighGoalDetail.route) {
             WeighGoalDetailScreen(
                 factory = weighGoalDetailFactory,
-                onClose = { navController.popBackStack() },
-                onOpenHistory = { navController.navigate(AppRoute.WeighHistory.route) }
+                onClose = { navGate.run { navController.popBackStack() } },
+                onOpenHistory = {
+                    navGate.run {
+                        navController.navigate(AppRoute.WeighHistory.route) { launchSingleTop = true }
+                    }
+                }
             )
         }
         composable(AppRoute.WeighHistory.route) {
             WeighHistoryScreen(
                 factory = weighHistoryFactory,
-                onBack = { navController.popBackStack() }
+                onBack = { navGate.run { navController.popBackStack() } }
             )
         }
         composable(AppRoute.TallEdit.route) {
             TallSelectionScreen(
                 factory = tallFactory,
-                onBack = { navController.popBackStack() },
-                onNext = { navController.popBackStack() }
+                // pop theo route: nhấp back hai lần không pop nhầm Home.
+                onBack = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.TallEdit.route, inclusive = true)
+                    }
+                },
+                onNext = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.TallEdit.route, inclusive = true)
+                    }
+                }
             )
         }
         composable(AppRoute.WeightEdit.route) {
             WeightSelectionScreen(
                 factory = weightFactory,
-                onBack = { navController.popBackStack() },
-                onNext = { navController.popBackStack() }
+                onBack = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.WeightEdit.route, inclusive = true)
+                    }
+                },
+                onNext = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.WeightEdit.route, inclusive = true)
+                    }
+                }
             )
         }
         composable(AppRoute.Report.route) {
             ReportScreen(
                 factory = reportViewModelFactory,
-                onBack = { navController.popBackStack() }
+                onBack = { navGate.run { navController.popBackStack() } }
             )
         }
         composable(AppRoute.WaterGoalEdit.route) {
             WaterGoalScreen(
                 factory = waterGoalFactoryEdit,
                 viewModelKey = "water_goal_edit",
-                onBack = { navController.popBackStack() },
-                // pop theo route: lần gọi thứ hai (race) là no-op, không pop nhầm Home.
+                onBack = { navGate.run { navController.popBackStack() } },
                 onStartComplete = {
-                    navController.popBackStack(
-                        AppRoute.WaterGoalEdit.route,
-                        inclusive = true,
-                    )
+                    navGate.run {
+                        navController.popBackStack(
+                            AppRoute.WaterGoalEdit.route,
+                            inclusive = true,
+                        )
+                    }
                 }
             )
         }

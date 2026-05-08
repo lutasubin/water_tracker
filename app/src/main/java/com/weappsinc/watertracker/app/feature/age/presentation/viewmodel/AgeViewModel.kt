@@ -8,8 +8,10 @@ import com.weappsinc.watertracker.app.feature.age.domain.usecase.SaveAgeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 class AgeViewModel(private val observeAge: ObserveAgeUseCase, private val saveAge: SaveAgeUseCase) : ViewModel() {
+    private val saveMutex = Mutex()
     private val _age = MutableStateFlow(26)
     val age = _age.asStateFlow()
 
@@ -21,8 +23,17 @@ class AgeViewModel(private val observeAge: ObserveAgeUseCase, private val saveAg
         _age.value = value
     }
 
-    fun saveSelection() {
-        viewModelScope.launch { saveAge(_age.value) }
+    /** Lưu xong mới onSaved — tránh double-tap Next/nav trùng. */
+    fun saveSelection(onSaved: () -> Unit) {
+        viewModelScope.launch {
+            if (!saveMutex.tryLock()) return@launch
+            try {
+                saveAge(_age.value)
+                onSaved()
+            } finally {
+                saveMutex.unlock()
+            }
+        }
     }
 }
 

@@ -10,11 +10,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 class GenderViewModel(
     private val observeSelectedGenderUseCase: ObserveSelectedGenderUseCase,
     private val saveSelectedGenderUseCase: SaveSelectedGenderUseCase
 ) : ViewModel() {
+    private val saveMutex = Mutex()
+
     private val _selectedGender = MutableStateFlow(GenderType.MALE)
     val selectedGender = _selectedGender.asStateFlow()
 
@@ -28,9 +31,16 @@ class GenderViewModel(
         _selectedGender.update { gender }
     }
 
-    fun saveSelection() {
+    /** Lưu xong mới onSaved — tránh double-tap Next/nav trùng. */
+    fun saveSelection(onSaved: () -> Unit) {
         viewModelScope.launch {
-            saveSelectedGenderUseCase(_selectedGender.value)
+            if (!saveMutex.tryLock()) return@launch
+            try {
+                saveSelectedGenderUseCase(_selectedGender.value)
+                onSaved()
+            } finally {
+                saveMutex.unlock()
+            }
         }
     }
 }

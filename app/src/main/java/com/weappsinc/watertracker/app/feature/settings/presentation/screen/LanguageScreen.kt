@@ -24,6 +24,7 @@ import com.weappsinc.watertracker.app.core.constants.AppLanguageCatalog
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
 import com.weappsinc.watertracker.app.core.theme.AppColors
+import kotlinx.coroutines.sync.Mutex
 
 /** Màn chọn ngôn ngữ: lưu DataStore + áp dụng AppCompat per-app locale. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,6 +41,7 @@ fun LanguageScreen(
     val context = LocalContext.current
     val appContext = context.applicationContext
     val scope = rememberCoroutineScope()
+    val applyMutex = remember { Mutex() }
     val imageLoader = remember {
         ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }.build()
     }
@@ -58,6 +60,7 @@ fun LanguageScreen(
                 showBackButton = showBackButton,
                 applyContext = appContext,
                 beforeApplyMain = beforeApplyMain,
+                applyMutex = applyMutex,
                 onApplied = onApplied,
                 onBack = onBack,
             )

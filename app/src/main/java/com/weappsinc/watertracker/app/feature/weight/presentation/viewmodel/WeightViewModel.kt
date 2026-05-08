@@ -10,12 +10,15 @@ import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUs
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 
 class WeightViewModel(
     private val observeWeight: ObserveWeightUseCase,
     private val saveWeight: SaveWeightUseCase,
     private val saveWeighLog: SaveWeighLogUseCase
 ) : ViewModel() {
+    private val saveMutex = Mutex()
+
     private val _weightKg = MutableStateFlow(DEFAULT_WEIGHT_KG)
     val weightKg = _weightKg.asStateFlow()
 
@@ -35,13 +38,19 @@ class WeightViewModel(
         _weightKg.value = value
     }
 
-    /** Lưu hồ sơ + thêm bản ghi lịch sử để màn Weigh Tracker (ưu tiên log) hiển thị đúng. */
-    fun saveSelection() {
+    /** Lưu hồ sơ + log xong mới onSaved — tránh double-tap Next/pop trùng. */
+    fun saveSelection(onSaved: () -> Unit) {
         viewModelScope.launch {
-            val w = _weightKg.value
-            saveWeight(w)
-            saveWeighLog(MassDisplay.snapTargetKg(w.toFloat()))
-                .onFailure { /* Đã có log hôm nay — chỉ cập nhật hồ sơ. */ }
+            if (!saveMutex.tryLock()) return@launch
+            try {
+                val w = _weightKg.value
+                saveWeight(w)
+                saveWeighLog(MassDisplay.snapTargetKg(w.toFloat()))
+                    .onFailure { /* Đã có log hôm nay — chỉ cập nhật hồ sơ. */ }
+                onSaved()
+            } finally {
+                saveMutex.unlock()
+            }
         }
     }
 

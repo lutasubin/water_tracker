@@ -71,10 +71,7 @@ fun GenderSelectionScreen(modifier: Modifier = Modifier, factory: GenderViewMode
         }
         AppPrimaryButton(
             text = stringResource(R.string.next),
-            onClick = {
-                vm.saveSelection()
-                onNext()
-            },
+            onClick = { vm.saveSelection(onNext) },
             modifier = Modifier.padding(bottom = AppDimens.GenderBottomPadding)
         )
     }

@@ -21,6 +21,7 @@ import com.weappsinc.watertracker.app.core.theme.AppTypography
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 
 /** Top bar chọn ngôn ngữ: có thể ẩn nút back (onboarding). ✓ → lưu tag → [beforeApplyMain] → áp locale → [onApplied]. */
@@ -33,6 +34,8 @@ fun LanguageScreenTopBar(
     applyContext: Context,
     /** Gọi trước khi áp locale trên main (vd. đánh dấu onboarding xong). */
     beforeApplyMain: suspend () -> Unit,
+    /** Tránh hai lần ✓ chồng hai coroutine đều gọi onApplied/pop. */
+    applyMutex: Mutex,
     /** Sau khi lưu tag + áp locale (Main). */
     onApplied: () -> Unit,
     onBack: () -> Unit,
@@ -60,13 +63,18 @@ fun LanguageScreenTopBar(
             IconButton(
                 onClick = {
                     scope.launch {
-                        AppLocalePreferences.saveTag(applyContext, selectedTag)
-                        beforeApplyMain()
-                        withContext(Dispatchers.Main.immediate) {
-                            AppCompatDelegate.setApplicationLocales(
-                                LocaleListCompat.forLanguageTags(selectedTag)
-                            )
-                            onApplied()
+                        if (!applyMutex.tryLock()) return@launch
+                        try {
+                            AppLocalePreferences.saveTag(applyContext, selectedTag)
+                            beforeApplyMain()
+                            withContext(Dispatchers.Main.immediate) {
+                                AppCompatDelegate.setApplicationLocales(
+                                    LocaleListCompat.forLanguageTags(selectedTag)
+                                )
+                                onApplied()
+                            }
+                        } finally {
+                            applyMutex.unlock()
                         }
                     }
                 }
