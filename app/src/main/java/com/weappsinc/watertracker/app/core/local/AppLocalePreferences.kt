@@ -15,16 +15,17 @@ object AppLocalePreferences {
     private val localeTagKey = stringPreferencesKey("locale_tag")
     private val localeOnboardingDoneKey = booleanPreferencesKey("locale_onboarding_completed")
 
-    /** Mặc định cài đặt lần đầu: English (US). */
+    /** Fallback khi hệ thống / máy không khớp ngôn ngữ app đã hỗ trợ. */
     const val DEFAULT_LOCALE_TAG = "en-US"
 
     /**
-     * Ghi mặc định vào DataStore nếu chưa có — tránh lần đầu mở app bám theo locale máy (vd. vi).
+     * Chưa có tag trong DataStore → gắn tag khớp [LocaleListCompat] máy hoặc [DEFAULT_LOCALE_TAG].
      */
     suspend fun seedDefaultLocaleIfAbsent(context: Context) {
         val prefs = context.appLocaleDataStore.data.first()
         if (prefs[localeTagKey] == null) {
-            context.appLocaleDataStore.edit { it[localeTagKey] = DEFAULT_LOCALE_TAG }
+            val initial = SystemLocaleResolver.matchedCatalogTag()
+            context.appLocaleDataStore.edit { it[localeTagKey] = initial }
         }
     }
 
