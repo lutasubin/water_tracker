@@ -1,6 +1,5 @@
 package com.weappsinc.watertracker.app.core.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -11,14 +10,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 
-/** Overlay pháo hoa: đạt mục tiêu uống nước trong ngày (tab Water). Chạy 1 lần rồi gọi [onFinished]. */
+/** Pháo hoa Lottie đạt mục tiêu (tab Water): không scrim, chồng trực tiếp lên nền app. Chạy 1 lần rồi [onFinished]. */
 @Composable
 fun FireworksCelebrationOverlay(
     onFinished: () -> Unit,
@@ -41,9 +39,7 @@ fun FireworksCelebrationOverlay(
         }
     }
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.35f)),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         LottieAnimation(

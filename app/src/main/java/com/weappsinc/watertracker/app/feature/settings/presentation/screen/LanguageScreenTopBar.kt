@@ -12,6 +12,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import android.content.Context
+import java.util.Locale
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.weappsinc.watertracker.R
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 
-/** Top bar chọn ngôn ngữ: có thể ẩn nút back (onboarding). ✓ → lưu tag → điều hướng → sau ~1 frame đổi locale (tránh nháy đen). */
+/** Top bar chọn ngôn ngữ: ✓ → lưu → điều hướng → chỉ đổi locale nếu khác app hiện tại (tránh nháy đen). */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageScreenTopBar(
@@ -68,13 +69,16 @@ fun LanguageScreenTopBar(
                         try {
                             AppLocalePreferences.saveTag(applyContext, selectedTag)
                             beforeApplyMain()
-                            // Đổi màn trước — tránh một frame Compose trong suốt khi setLocales làm nháy đen.
+                            // Điều hướng trước; chỉ gọi setLocales khi khác app hiện tại (tránh một nháy đen không cần).
                             withContext(Dispatchers.Main.immediate) { onApplied() }
-                            delay(64L)
+                            delay(120L)
                             withContext(Dispatchers.Main.immediate) {
-                                AppCompatDelegate.setApplicationLocales(
-                                    LocaleListCompat.forLanguageTags(selectedTag)
-                                )
+                                val cur = AppCompatDelegate.getApplicationLocales()
+                                if (!applicationLocalesCompatibleWithSelected(cur, selectedTag)) {
+                                    AppCompatDelegate.setApplicationLocales(
+                                        LocaleListCompat.forLanguageTags(selectedTag)
+                                    )
+                                }
                             }
                         } finally {
                             applyMutex.unlock()
@@ -96,4 +100,22 @@ fun LanguageScreenTopBar(
             actionIconContentColor = AppColors.HomeTitle,
         ),
     )
+}
+
+/** Khớp ngôn ngữ (+ vùng nếu cả hai khai báo); "vi" chấp nhận máy vi-VN → không cần đổi locale. */
+private fun applicationLocalesCompatibleWithSelected(
+    applicationLocales: LocaleListCompat,
+    selectedTag: String,
+): Boolean {
+    val desired = Locale.forLanguageTag(selectedTag)
+    if (desired.language.isEmpty()) return false
+    repeat(applicationLocales.size()) { i ->
+        val cur = applicationLocales[i] ?: return@repeat
+        if (!desired.language.equals(cur.language, ignoreCase = true)) return@repeat
+        val d = desired.country.takeIf { it.isNotBlank() } ?: ""
+        val c = cur.country.takeIf { it.isNotBlank() } ?: ""
+        if (d.isEmpty() || c.isEmpty()) return true
+        if (c.equals(d, ignoreCase = true)) return true
+    }
+    return false
 }

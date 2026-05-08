@@ -1,9 +1,15 @@
 package com.weappsinc.watertracker.app.core.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -35,6 +41,9 @@ import com.weappsinc.watertracker.app.feature.weight.presentation.screen.WeightS
 import com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel.WeightViewModelFactory
 import com.weappsinc.watertracker.app.feature.settings.domain.usecase.MarkLocaleOnboardingCompletedUseCase
 import com.weappsinc.watertracker.app.feature.settings.domain.usecase.ObserveLocaleOnboardingCompletedUseCase
+import com.weappsinc.watertracker.app.core.theme.AppColors
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 // Mọi điều hướng từ UI đều qua navGate để tránh nhấp đôi gây stack/pop lệch (màn trắng).
 
@@ -64,7 +73,16 @@ fun AppNavHost(
     val savedGoalMl by observeSavedGoalMlUseCase().collectAsState(initial = null)
     val localeOnboardingDone by observeLocaleOnboardingCompletedUseCase()
         .collectAsState(initial = false)
-    NavHost(navController = navController, startDestination = AppRoute.Splash.route) {
+    // Không animate giữa màn → tránh lộ nền tối khi đổi locale / pop stack rút gọn onboarding.
+    NavHost(
+        navController = navController,
+        startDestination = AppRoute.Splash.route,
+        modifier = Modifier.fillMaxSize().background(AppColors.HomeBackground),
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None },
+    ) {
         composable(AppRoute.Splash.route) {
             SplashScreen(
                 onBootstrap = { ensureFirstInstallDayUseCase() },
@@ -84,6 +102,12 @@ fun AppNavHost(
             )
         }
         composable(AppRoute.Gender.route) {
+            // Ghi sau khi đã sang màn Gender — tránh ✓ Language làm đổi flow state + navigate cùng lúc (nháy đen).
+            LaunchedEffect(Unit) {
+                withContext(Dispatchers.IO) {
+                    markLocaleOnboardingCompletedUseCase()
+                }
+            }
             GenderSelectionScreen(factory = genderFactory) {
                 navGate.run {
                     navController.navigate(AppRoute.Age.route) { launchSingleTop = true }
@@ -207,7 +231,7 @@ fun AppNavHost(
             LanguageScreen(
                 showBackButton = false,
                 onBack = {},
-                beforeApplyMain = { markLocaleOnboardingCompletedUseCase() },
+                beforeApplyMain = {},
                 onApplied = {
                     navGate.run {
                         navController.navigate(AppRoute.Gender.route) {
