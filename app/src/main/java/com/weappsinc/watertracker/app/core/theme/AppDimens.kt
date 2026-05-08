@@ -115,4 +115,14 @@ object AppDimens {
     val MeProfileMenuRowHeight = 52.dp
     /** Khoảng dọc giữa các thẻ menu General (tab Me). */
     val MeProfileMenuCardSpacing = 12.dp
+
+    /** Sheet Rate Us — mascot nhô lên trên mép sheet. */
+    val RateUsHeroOverlapUp = 48.dp
+    val RateUsHorizontalPadding = 24.dp
+    val RateUsSectionSpacing = 16.dp
+    /** Chiều cao vùng chạm 5 sao (overlay trên SVG). */
+    val RateUsStarTouchStripHeight = 56.dp
+    /** Chiều cao nút Rate Us trong sheet. */
+    val RateUsCtaHeight = 56.dp
+    val RateUsBottomPadding = 28.dp
 }

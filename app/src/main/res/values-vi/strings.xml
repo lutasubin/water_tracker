@@ -53,6 +53,15 @@
     <string name="me_menu_share">Chia sẻ</string>
     <string name="me_menu_privacy">Chính sách riêng tư</string>
 
+    <string name="rate_sheet_intro_body">Chúng tôi đang cố gắng để trải nghiệm của bạn tốt hơn. Rất mong nhận được ý kiến của bạn!</string>
+    <string name="rate_sheet_oh_no_title">Ôi không!</string>
+    <string name="rate_sheet_feedback_body">Chúng tôi đang cố gắng cải thiện trải nghiệm. Hãy để lại góp ý nhé!</string>
+    <string name="rate_sheet_title_four">Bạn cũng thật tuyệt!</string>
+    <string name="rate_sheet_title_five">Chúng tôi cũng yêu bạn!</string>
+    <string name="rate_sheet_positive_body">Cảm ơn bạn đã đánh giá tích cực. Mọi góp ý thêm đều được trân trọng.</string>
+    <string name="rate_sheet_subtitle_vi">Đánh giá tốt nhất cho chúng tôi</string>
+    <string name="cd_rate_star_row">Chọn số sao đánh giá</string>
+
     <plurals name="me_streak_days">
         <item quantity="one">%d ngày</item>
         <item quantity="other">%d ngày</item>

@@ -30,6 +30,7 @@ import com.weappsinc.watertracker.app.feature.water.presentation.screen.PrivacyP
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.WaterGoalScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.report.ReportScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
+import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
@@ -62,6 +63,7 @@ fun AppNavHost(
     waterTrackerFactory: WaterTrackerViewModelFactory,
     weighTrackerFactory: WeighTrackerViewModelFactory,
     meProfileFactory: MeProfileViewModelFactory,
+    rateUsFactory: RateUsViewModelFactory,
     weighGoalDetailFactory: WeighGoalDetailViewModelFactory,
     weighHistoryFactory: WeighHistoryViewModelFactory,
     reportViewModelFactory: ReportViewModelFactory,
@@ -185,6 +187,7 @@ fun AppNavHost(
                 waterTrackerFactory = waterTrackerFactory,
                 weighTrackerFactory = weighTrackerFactory,
                 meProfileFactory = meProfileFactory,
+                rateUsFactory = rateUsFactory,
                 onEditWaterGoal = {
                     navGate.run {
                         navController.navigate(AppRoute.WaterGoalEdit.route) { launchSingleTop = true }

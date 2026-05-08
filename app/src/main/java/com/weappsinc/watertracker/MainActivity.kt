@@ -45,6 +45,7 @@ import com.weappsinc.watertracker.app.feature.water.domain.usecase.SaveOnboardin
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveSavedUnitUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.ObserveWaterGoalMlUseCase
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.RecordWaterAppOpenDayUseCase
+import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.ReportViewModelFactory
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterGoalViewModelFactory
@@ -181,6 +182,7 @@ class MainActivity : AppCompatActivity() {
             intake = intakeRepository,
             visits = visitRepository,
         )
+        val rateUsFactory = RateUsViewModelFactory()
         val buildDayBuckets = BuildDayChartBucketsFromLogsUseCase()
         val reportViewModelFactory = ReportViewModelFactory(
             prefs = waterPrefs,
@@ -250,6 +252,7 @@ class MainActivity : AppCompatActivity() {
                     waterTrackerFactory = waterTrackerFactory,
                     weighTrackerFactory = weighTrackerFactory,
                     meProfileFactory = meProfileFactory,
+                    rateUsFactory = rateUsFactory,
                     weighGoalDetailFactory = weighGoalDetailFactory,
                     weighHistoryFactory = weighHistoryFactory,
                     reportViewModelFactory = reportViewModelFactory,

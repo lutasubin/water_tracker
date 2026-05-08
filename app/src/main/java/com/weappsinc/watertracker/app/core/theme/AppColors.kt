@@ -90,4 +90,8 @@ object AppColors {
     val WeighDetailHeroEditIcon = WeighHistoryAccent
     val WeighTodayStepperSurface = Color(0xFFE8EDF6)
     val WeighTodayStepperGlyph = WeighHistoryAccent
+
+    /** Nút CTA sheet Rate Us khi chưa chọn sao (mock nhạt). */
+    val RateUsCtaDisabledBg = GenderUnselectedBackground
+    val RateUsCtaDisabledContent = HomeMuted
 }
