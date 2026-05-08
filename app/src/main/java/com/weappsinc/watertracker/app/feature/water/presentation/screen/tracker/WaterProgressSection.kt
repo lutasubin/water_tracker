@@ -7,16 +7,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.components.CapsuleProgressBar
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -56,16 +54,7 @@ fun WaterProgressSection(
             )
         }
         Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-        LinearProgressIndicator(
-            progress = { progressFraction },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(AppDimens.HomeProgressHeight)
-                .clip(RoundedCornerShape(AppDimens.HomeProgressHeight / 2)),
-            color = AppColors.HomePrimary,
-            trackColor = AppColors.HomeProgressTrack,
-            drawStopIndicator = {}
-        )
+        CapsuleProgressBar(progressFraction = progressFraction)
         Spacer(Modifier.height(AppDimens.WaterTrackerProgressToLabelSpacing))
         RowBetweenLabels(progressPercent = progressPercent, isGoalCompleted = isGoalCompleted)
     }

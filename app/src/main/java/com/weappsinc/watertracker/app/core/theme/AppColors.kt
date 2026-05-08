@@ -30,6 +30,8 @@ object AppColors {
     val HomeMuted = Color(0xFF8D9BB5)
     val HomeCard = Color(0xFFFFFFFF)
     val HomeProgressTrack = Color(0xFFE0E7F5)
+    /** Nền trong thanh capsule tiến độ nước (một khối track trắng + fill xanh như mock). */
+    val HomeWaterProgressBarTrack = Color(0xFFFFFFFF)
     val HomeStreakPillBg = Color(0xFFFFFFFF)
     /** Chữ trong pill streak (xám đậm, không dùng primary). */
     val HomeStreakPillText = Color(0xFF4A5568)
