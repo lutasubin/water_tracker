@@ -112,8 +112,8 @@ fun SplashScreen(
                     bottom = AppDimens.SplashProgressBottomPadding
                 ),
             height = AppDimens.SplashProgressHeight,
-            trackColor = AppColors.SplashProgress,
-            fillColor = AppColors.HomePrimary,
+            trackColor = AppColors.SplashProgressTrack,
+            fillColor = AppColors.SplashProgress,
         )
     }
 }
