@@ -47,6 +47,7 @@ fun WeighGoalHistoryDetailScreen(
             contentColor = AppColors.HomeTitle,
             centerAligned = true,
             titleStyle = AppTypography.ReportTopBarTitle,
+            matchParentHorizontalPadding = false,
         )
         when (val uiState = state) {
             WeighGoalHistoryDetailUiState.Loading -> {

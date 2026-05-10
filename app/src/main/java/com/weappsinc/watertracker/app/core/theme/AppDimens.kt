@@ -14,6 +14,12 @@ object AppDimens {
 
     val GenderScreenHorizontalPadding = 24.dp
     val AppBarTitleSpacing = 16.dp
+    val AppTopBarHeight = 56.dp
+    val AppTopBarSideSlot = 40.dp
+    val AppTopBarIconHitSize = 40.dp
+    val AppTopBarIconSize = 24.dp
+    val AppTopBarStandalonePadding = 8.dp
+    val AppTopBarTitleSpacing = 8.dp
     val GenderHeaderBottom = 28.dp
     val GenderOptionSpacing = 14.dp
     val GenderOptionHeight = 62.dp

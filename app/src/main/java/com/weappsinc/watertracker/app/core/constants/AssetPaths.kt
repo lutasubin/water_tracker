@@ -5,7 +5,7 @@ object AssetPaths {
     private const val FLAGS_PATH = "$ASSET_BASE/flags"
 
     const val SPLASH_BACKGROUND = "$ASSET_BASE/images/splash_background.png"
-    const val SPLASH_ICON = "$ASSET_BASE/svg/icon_splash.svg"
+    const val SPLASH_ICON = "$ASSET_BASE/svg/splash_icon.svg"
     const val MALE_ICON = "$ASSET_BASE/svg/male_icon.svg"
     const val FEMALE_ICON = "$ASSET_BASE/svg/female_icon.svg"
     const val EXERCISE_LOW_ICON = "$ASSET_BASE/svg/icon1.svg"

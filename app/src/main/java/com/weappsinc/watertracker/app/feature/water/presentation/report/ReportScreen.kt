@@ -38,7 +38,8 @@ fun ReportScreen(
             containerColor = AppColors.HomeBackground,
             contentColor = AppColors.HomeTitle,
             centerAligned = true,
-            titleStyle = AppTypography.ReportTopBarTitle
+            titleStyle = AppTypography.ReportTopBarTitle,
+            matchParentHorizontalPadding = false,
         )
         Column(
             Modifier

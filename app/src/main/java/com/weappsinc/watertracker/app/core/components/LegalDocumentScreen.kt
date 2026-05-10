@@ -32,6 +32,7 @@ fun LegalDocumentScreen(
             contentColor = AppColors.HomeTitle,
             centerAligned = true,
             titleStyle = AppTypography.Title3,
+            matchParentHorizontalPadding = false,
         )
         Text(
             text = bodyText,
