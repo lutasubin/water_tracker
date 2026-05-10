@@ -20,16 +20,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
-import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.CapsuleProgressBar
@@ -45,10 +42,6 @@ fun SplashScreen(
     onBootstrap: suspend () -> Unit = {},
     onSplashFinished: () -> Unit = {},
 ) {
-    val context = LocalContext.current
-    val imageLoader = remember {
-        ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }.build()
-    }
     LaunchedEffect(Unit) {
         onBootstrap()
         delay(2000)
@@ -65,7 +58,7 @@ fun SplashScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
         )
-        SplashContent(imageLoader = imageLoader)
+        SplashContent()
         SplashProgressBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -79,15 +72,14 @@ fun SplashScreen(
 }
 
 @Composable
-private fun SplashContent(imageLoader: ImageLoader) {
+private fun SplashContent() {
     val context = LocalContext.current
-    // crossfade(false) + painter cache → icon hiện tức thì, không nhấp nháy.
+    // PNG dùng decoder mặc định Coil; crossfade(false) → không nhấp nháy.
     val iconPainter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(context)
             .data(AssetPaths.SPLASH_ICON)
             .crossfade(false)
             .build(),
-        imageLoader = imageLoader,
     )
     Column(
         modifier = Modifier

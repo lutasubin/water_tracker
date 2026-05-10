@@ -19,7 +19,7 @@ import java.time.LocalDate
 
 /**
  * Pháo hoa + dialog khi cân thân khớp mục tiêu (đã snap 0,5 kg).
- * Mỗi cycle (target, journeyStart) chỉ bắn 1 lần — cycle reset khi target/journey đổi.
+ * Mỗi cycle (target, journeyStart) chỉ bắn 1 lần — cycle reset khi target hoặc journey đổi.
  */
 @Composable
 fun WeighTrackerGoalMetOverlay(
@@ -35,14 +35,19 @@ fun WeighTrackerGoalMetOverlay(
         bodyWeightKg > 0f &&
         MassDisplay.snapTargetKg(bodyWeightKg) == MassDisplay.snapTargetKg(targetWeightKg)
 
-    // armed/archived reset mỗi khi cycle (target, journey) đổi → bảo đảm cycle mới được bắn lại.
-    var armed by remember(targetWeightKg, journeyStartWeightKg) { mutableStateOf(true) }
-    var archivedThisCycle by remember(targetWeightKg, journeyStartWeightKg) { mutableStateOf(false) }
+    var armed by remember { mutableStateOf(true) }
+    var archivedThisCycle by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var showFireworks by remember { mutableStateOf(false) }
     var fireworksSession by remember { mutableIntStateOf(0) }
 
-    LaunchedEffect(isTargetMet, snappedTargetKg, armed) {
+    // Cycle mới (target hoặc journey đổi) → re-arm cho phép pháo hoa bắn lại.
+    LaunchedEffect(targetWeightKg, journeyStartWeightKg) {
+        armed = true
+        archivedThisCycle = false
+    }
+
+    LaunchedEffect(isTargetMet, snappedTargetKg) {
         if (armed && isTargetMet && targetWeightKg != null) {
             armed = false
             fireworksSession++
