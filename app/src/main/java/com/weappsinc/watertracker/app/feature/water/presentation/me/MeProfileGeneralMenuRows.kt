@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 
-/** Các dòng menu trong khối General (Ngôn ngữ, Đánh giá, …). */
+/** Các dòng menu trong khối Support (ngôn ngữ, đánh giá, …). */
 @Composable
 fun MeProfileGeneralMenuRows(
     onLanguage: () -> Unit,

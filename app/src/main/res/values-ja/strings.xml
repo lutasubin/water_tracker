@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">累計摂取量</string>
     <string name="me_streak_section_label">連続日数</string>
     <string name="me_general_section">一般</string>
+    <string name="me_support_section">サポート</string>
+    <string name="me_field_age">年齢</string>
+    <string name="me_field_sex">性別</string>
     <string name="me_menu_language">言語</string>
     <string name="me_menu_rate_us">評価</string>
     <string name="me_menu_share">共有</string>

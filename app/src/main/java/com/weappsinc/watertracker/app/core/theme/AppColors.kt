@@ -58,13 +58,14 @@ object AppColors {
     val BmiBadgeOverText = BmiScaleHigh
 
     val WeighExpectedBmiCardBg = Color(0xFFF0F3F8)
-    val WeighJourneyCta = Color(0xFF5D5FEF)
+    /** CTA sheet / hành trình cân — đồng bộ accent tracker #504AE0. */
+    val WeighJourneyCta = Color(0xFF504AE0)
     val WeighJourneyProgressTrack = Color(0xFFE8EAF0)
-    val WeighJourneyProgressFill = Color(0xFF5D5FEF)
-    /** Nền ô −/+ sheet cân mục tiêu — xanh nhạt (mock). */
-    val WeighSheetStepperBg = Color(0xFFE8EEFC)
-    /** Glyph −/+ trên nền ô stepper — xanh đậm (mock). */
-    val WeighSheetStepperIcon = Color(0xFF1855D8)
+    val WeighJourneyProgressFill = Color(0xFF504AE0)
+    /** Nền ô −/+ sheet mục tiêu — tím nhạt đồng bộ badge. */
+    val WeighSheetStepperBg = Color(0xFFEAE9FC)
+    /** Glyph −/+ trên nền ô stepper — accent tracker. */
+    val WeighSheetStepperIcon = Color(0xFF504AE0)
     /** Nhãn phụ thẻ mục tiêu (CÁCH BIỆT, TIẾN ĐỘ…). */
     val WeighGoalLabelMuted = Color(0xFF8E92A3)
     /** Tiến triển cân: hướng có lợi với mục tiêu (giảm hoặc tăng tùy ngữ cảnh). */

@@ -1,7 +1,9 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.mapper
 
+import com.weappsinc.watertracker.app.feature.gender.domain.model.GenderType
 import com.weappsinc.watertracker.app.feature.water.domain.util.WaterStreakCalculator
 import com.weappsinc.watertracker.app.feature.water.presentation.state.MeProfileUiState
+import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import java.time.LocalDate
 import java.time.ZoneId
 
@@ -24,6 +26,11 @@ object MeProfileUiMapper {
         return MeProfileUiState(
             totalDrinkingMl = totalMl,
             streakDays = streak,
+            heightValueText = "--",
+            weightValueText = "--",
+            ageValueText = "--",
+            sex = GenderType.MALE,
+            displayMassUnit = MassUnit.KG,
         )
     }
 }

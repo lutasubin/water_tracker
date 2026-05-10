@@ -30,8 +30,6 @@ import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.Weigh
 fun WeighTrackerScreen(
     factory: WeighTrackerViewModelFactory,
     imageLoader: ImageLoader,
-    onEditTall: () -> Unit,
-    onEditWeight: () -> Unit,
     onOpenWeighGoalDetail: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,8 +57,6 @@ fun WeighTrackerScreen(
                 weightValue = state.weightValueText,
                 massUnit = state.displayMassUnit,
                 imageLoader = imageLoader,
-                onEditHeight = onEditTall,
-                onEditWeight = onEditWeight,
                 modifier = Modifier.padding(bottom = WeighDimens.BmiCardTopSpacing)
             )
             WeighBmiCard(

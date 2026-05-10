@@ -46,8 +46,12 @@ object AssetPaths {
         else -> RATE_5_SVG
     }
 
-    const val HEIGHT_ICON = "$ASSET_BASE/svg/height_icon.svg"
-    const val WEIGHT_ICON = "$ASSET_BASE/svg/weight_icon.svg"
+    /** Icon chiều cao (tab Weight + tab Me). */
+    const val HEIGHT_ICON = "$ASSET_BASE/svg/hight_icon.svg"
+    /** Icon cân nặng (tab Weight + tab Me). */
+    const val WEIGHT_ICON = "$ASSET_BASE/svg/weight_icon_setting.svg"
+    const val AGE_ICON = "$ASSET_BASE/svg/age_icon.svg"
+    const val SEX_ICON = "$ASSET_BASE/svg/sex_icon.svg"
     const val NO_GOAL_ICON = "$ASSET_BASE/svg/no_goal_icon.svg"
 
     /** Cờ ngôn ngữ: tên file trong thư mục assets/flags (vd. vn.png). */

@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">कुल पानी</string>
     <string name="me_streak_section_label">लगातार दिन</string>
     <string name="me_general_section">सामान्य</string>
+    <string name="me_support_section">सहायता</string>
+    <string name="me_field_age">उम्र</string>
+    <string name="me_field_sex">लिंग</string>
     <string name="me_menu_language">भाषा</string>
     <string name="me_menu_rate_us">रेटिंग</string>
     <string name="me_menu_share">साझा करें</string>

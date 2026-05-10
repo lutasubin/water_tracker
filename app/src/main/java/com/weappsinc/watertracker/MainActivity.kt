@@ -177,10 +177,16 @@ class MainActivity : AppCompatActivity() {
             visits = visitRepository,
             addWaterIntake = addWaterIntakeUseCase,
         )
+        val weighPrefs = WeighPreferencesRepositoryImpl(applicationContext)
         val meProfileFactory = MeProfileViewModelFactory(
             prefs = waterPrefs,
             intake = intakeRepository,
             visits = visitRepository,
+            observeTall = ObserveTallUseCase(tallRepository),
+            observeWeight = ObserveWeightUseCase(weightRepository),
+            observeAge = ObserveAgeUseCase(ageRepository),
+            observeSelectedGender = ObserveSelectedGenderUseCase(genderRepository),
+            observeMassUnit = ObserveWeighMassUnitUseCase(weighPrefs),
         )
         val rateUsFactory = RateUsViewModelFactory()
         val buildDayBuckets = BuildDayChartBucketsFromLogsUseCase()
@@ -191,7 +197,6 @@ class MainActivity : AppCompatActivity() {
             reportDayBucketLabels = reportDayBucketLabels,
         )
 
-        val weighPrefs = WeighPreferencesRepositoryImpl(applicationContext)
         val observeWeighLatestLog = ObserveWeighLatestLogUseCase(weighLogRepository)
         val weighTrackerFactory = WeighTrackerViewModelFactory(
             observeTall = ObserveTallUseCase(tallRepository),

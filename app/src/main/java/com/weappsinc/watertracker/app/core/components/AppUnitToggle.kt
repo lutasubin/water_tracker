@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -26,7 +27,9 @@ fun AppUnitToggle(
     isLeftSelected: Boolean,
     onLeftClick: () -> Unit,
     onRightClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    /** Nền chip đang chọn (mặc định onboarding giới tính). */
+    selectedChipBackground: Color = AppColors.GenderPrimary,
 ) {
     Row(
         modifier = modifier
@@ -34,15 +37,20 @@ fun AppUnitToggle(
             .border(1.dp, AppColors.GenderUnselectedBackground, RoundedCornerShape(AppDimens.AgeHighlightCorner))
             .padding(2.dp)
     ) {
-        UnitChip(text = leftText, selected = isLeftSelected, onClick = onLeftClick)
+        UnitChip(text = leftText, selected = isLeftSelected, selectedBg = selectedChipBackground, onClick = onLeftClick)
         Spacer(Modifier.width(4.dp))
-        UnitChip(text = rightText, selected = !isLeftSelected, onClick = onRightClick)
+        UnitChip(text = rightText, selected = !isLeftSelected, selectedBg = selectedChipBackground, onClick = onRightClick)
     }
 }
 
 @Composable
-private fun UnitChip(text: String, selected: Boolean, onClick: () -> Unit) {
-    val bg = if (selected) AppColors.GenderPrimary else AppColors.GenderScreenBackground
+private fun UnitChip(
+    text: String,
+    selected: Boolean,
+    selectedBg: Color,
+    onClick: () -> Unit,
+) {
+    val bg = if (selected) selectedBg else AppColors.GenderScreenBackground
     val fg = if (selected) AppColors.GenderSelectedContent else AppColors.GenderUnselectedContent
     Box(
         modifier = Modifier

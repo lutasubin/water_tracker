@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">Total drunk</string>
     <string name="me_streak_section_label">Streak</string>
     <string name="me_general_section">General</string>
+    <string name="me_support_section">Support</string>
+    <string name="me_field_age">Age</string>
+    <string name="me_field_sex">Sex</string>
     <string name="me_menu_language">Language</string>
     <string name="me_menu_rate_us">Rate us</string>
     <string name="me_menu_share">Share</string>

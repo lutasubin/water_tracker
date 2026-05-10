@@ -37,7 +37,7 @@ fun WeighStatCard(
     primary: String,
     unit: String,
     imageLoader: ImageLoader,
-    onEdit: () -> Unit,
+    onEdit: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -62,20 +62,22 @@ fun WeighStatCard(
                 color = AppColors.HomeMuted,
                 style = AppTypography.BodyMedium
             )
-            Box(
-                modifier = Modifier
-                    .size(AppDimens.HomeStatEditButtonSize)
-                    .clip(RoundedCornerShape(AppDimens.HomeStatEditButtonCorner))
-                    .background(AppColors.HomeStatEditButtonBg)
-                    .clickable(onClick = onEdit),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Edit,
-                    contentDescription = label,
-                    tint = AppColors.HomePrimary,
-                    modifier = Modifier.size(AppDimens.HomeStatEditIconSize)
-                )
+            if (onEdit != null) {
+                Box(
+                    modifier = Modifier
+                        .size(AppDimens.HomeStatEditButtonSize)
+                        .clip(RoundedCornerShape(AppDimens.HomeStatEditButtonCorner))
+                        .background(AppColors.WeighHistoryBadgeBg)
+                        .clickable(onClick = onEdit),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Edit,
+                        contentDescription = label,
+                        tint = AppColors.WeighHistoryAccent,
+                        modifier = Modifier.size(AppDimens.HomeStatEditIconSize)
+                    )
+                }
             }
         }
         Spacer(Modifier.height(AppDimens.HomeStatValueSpacing))

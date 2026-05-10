@@ -22,11 +22,15 @@ import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModel
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 
-/** Màn tab Me: Personal Data + General. */
+/** Màn tab Me: Personal Data + General + Support. */
 @Composable
 fun MeProfileScreen(
     factory: MeProfileViewModelFactory,
     imageLoader: ImageLoader,
+    onEditTall: () -> Unit,
+    onEditWeight: () -> Unit,
+    onEditAge: () -> Unit,
+    onEditGender: () -> Unit,
     onLanguage: () -> Unit = {},
     onRateUs: () -> Unit = {},
     onShare: () -> Unit = {},
@@ -53,6 +57,12 @@ fun MeProfileScreen(
             modifier = Modifier.padding(top = 16.dp),
         )
         MeProfileGeneralSection(
+            state = state,
+            imageLoader = imageLoader,
+            onEditTall = onEditTall,
+            onEditWeight = onEditWeight,
+            onEditAge = onEditAge,
+            onEditGender = onEditGender,
             onLanguage = onLanguage,
             onRateUs = onRateUs,
             onShare = onShare,

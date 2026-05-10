@@ -43,7 +43,12 @@ import com.weappsinc.watertracker.app.feature.gender.presentation.viewmodel.Gend
 import com.weappsinc.watertracker.app.feature.gender.presentation.viewmodel.GenderViewModelFactory
 
 @Composable
-fun GenderSelectionScreen(modifier: Modifier = Modifier, factory: GenderViewModelFactory, onNext: () -> Unit) {
+fun GenderSelectionScreen(
+    modifier: Modifier = Modifier,
+    factory: GenderViewModelFactory,
+    onBack: () -> Unit = {},
+    onNext: () -> Unit,
+) {
     val vm: GenderViewModel = viewModel(factory = factory)
     val selectedGender by vm.selectedGender.collectAsState()
     val context = LocalContext.current
@@ -55,7 +60,7 @@ fun GenderSelectionScreen(modifier: Modifier = Modifier, factory: GenderViewMode
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            AppTopBar(onBack = {}, showBack = true)
+            AppTopBar(onBack = onBack, showBack = true)
             Spacer(Modifier.height(AppDimens.AppBarTitleSpacing))
             Text(
                 text = stringResource(R.string.select_gender_title),

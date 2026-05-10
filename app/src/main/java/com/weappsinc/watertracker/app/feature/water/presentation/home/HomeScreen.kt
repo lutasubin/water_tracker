@@ -12,8 +12,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import android.content.Intent
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.me.MeProfileScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsBottomSheet
@@ -34,6 +36,8 @@ fun HomeScreen(
     onOpenReport: () -> Unit,
     onEditTall: () -> Unit,
     onEditWeight: () -> Unit,
+    onEditAge: () -> Unit,
+    onEditGender: () -> Unit,
     onOpenWeighGoalDetail: () -> Unit,
     onOpenLanguage: () -> Unit,
     onOpenPrivacyPolicy: () -> Unit,
@@ -64,16 +68,25 @@ fun HomeScreen(
                 HomeTab.Bmi -> WeighTrackerScreen(
                     factory = weighTrackerFactory,
                     imageLoader = imageLoader,
-                    onEditTall = onEditTall,
-                    onEditWeight = onEditWeight,
                     onOpenWeighGoalDetail = onOpenWeighGoalDetail,
                     modifier = Modifier.weight(1f),
                 )
                 HomeTab.Me -> MeProfileScreen(
                     factory = meProfileFactory,
                     imageLoader = imageLoader,
+                    onEditTall = onEditTall,
+                    onEditWeight = onEditWeight,
+                    onEditAge = onEditAge,
+                    onEditGender = onEditGender,
                     onLanguage = onOpenLanguage,
                     onRateUs = { showRateSheet = true },
+                    onShare = {
+                        val send = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, context.getString(R.string.app_name))
+                        }
+                        context.startActivity(Intent.createChooser(send, null))
+                    },
                     onPrivacyPolicy = onOpenPrivacyPolicy,
                     modifier = Modifier.weight(1f),
                 )

@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">Total bebido</string>
     <string name="me_streak_section_label">Racha</string>
     <string name="me_general_section">General</string>
+    <string name="me_support_section">Soporte</string>
+    <string name="me_field_age">Edad</string>
+    <string name="me_field_sex">Sexo</string>
     <string name="me_menu_language">Idioma</string>
     <string name="me_menu_rate_us">Valóranos</string>
     <string name="me_menu_share">Compartir</string>

@@ -87,7 +87,7 @@ fun WeighTargetSection(
                 Spacer(Modifier.height(WeighDimens.TargetCtaTopSpacing))
                 Button(
                     onClick = onOpenTargetSheet,
-                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.HomePrimary)
+                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.WeighHistoryAccent)
                 ) {
                     Text(stringResource(R.string.create_target), color = AppColors.GenderSelectedContent)
                 }

@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">Tổng đã uống</string>
     <string name="me_streak_section_label">Chuỗi ngày</string>
     <string name="me_general_section">Chung</string>
+    <string name="me_support_section">Hỗ trợ</string>
+    <string name="me_field_age">Tuổi</string>
+    <string name="me_field_sex">Giới tính</string>
     <string name="me_menu_language">Ngôn ngữ</string>
     <string name="me_menu_rate_us">Đánh giá</string>
     <string name="me_menu_share">Chia sẻ</string>

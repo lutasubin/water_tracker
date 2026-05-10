@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">총 섭취량</string>
     <string name="me_streak_section_label">연속 기록</string>
     <string name="me_general_section">일반</string>
+    <string name="me_support_section">지원</string>
+    <string name="me_field_age">나이</string>
+    <string name="me_field_sex">성별</string>
     <string name="me_menu_language">언어</string>
     <string name="me_menu_rate_us">평가하기</string>
     <string name="me_menu_share">공유</string>

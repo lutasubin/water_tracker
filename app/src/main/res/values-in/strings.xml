@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">Total minum</string>
     <string name="me_streak_section_label">Rangkaian hari</string>
     <string name="me_general_section">Umum</string>
+    <string name="me_support_section">Dukungan</string>
+    <string name="me_field_age">Usia</string>
+    <string name="me_field_sex">Jenis kelamin</string>
     <string name="me_menu_language">Bahasa</string>
     <string name="me_menu_rate_us">Beri nilai</string>
     <string name="me_menu_share">Bagikan</string>

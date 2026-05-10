@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">Gesamt getrunken</string>
     <string name="me_streak_section_label">Serie</string>
     <string name="me_general_section">Allgemein</string>
+    <string name="me_support_section">Support</string>
+    <string name="me_field_age">Alter</string>
+    <string name="me_field_sex">Geschlecht</string>
     <string name="me_menu_language">Sprache</string>
     <string name="me_menu_rate_us">Bewerten</string>
     <string name="me_menu_share">Teilen</string>

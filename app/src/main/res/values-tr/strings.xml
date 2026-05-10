@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">Toplam içilen</string>
     <string name="me_streak_section_label">Seri</string>
     <string name="me_general_section">Genel</string>
+    <string name="me_support_section">Destek</string>
+    <string name="me_field_age">Yaş</string>
+    <string name="me_field_sex">Cinsiyet</string>
     <string name="me_menu_language">Dil</string>
     <string name="me_menu_rate_us">Bize puan verin</string>
     <string name="me_menu_share">Paylaş</string>

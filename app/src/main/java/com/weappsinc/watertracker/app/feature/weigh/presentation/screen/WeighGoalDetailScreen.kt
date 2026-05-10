@@ -74,7 +74,8 @@ fun WeighGoalDetailScreen(
                 rightText = stringResource(R.string.unit_mass_lb),
                 isLeftSelected = state.displayMassUnit == MassUnit.KG,
                 onLeftClick = { vm.onMassUnitSelected(MassUnit.KG) },
-                onRightClick = { vm.onMassUnitSelected(MassUnit.LB) }
+                onRightClick = { vm.onMassUnitSelected(MassUnit.LB) },
+                selectedChipBackground = AppColors.WeighHistoryAccent,
             )
             IconButton(onClick = onClose) {
                 Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.close), tint = AppColors.HomeTitle)

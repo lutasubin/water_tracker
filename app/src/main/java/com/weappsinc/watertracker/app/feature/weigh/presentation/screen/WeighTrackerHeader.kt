@@ -39,7 +39,8 @@ fun WeighTrackerHeader(
             rightText = stringResource(R.string.unit_mass_lb),
             isLeftSelected = massUnit == MassUnit.KG,
             onLeftClick = { onMassUnitSelected(MassUnit.KG) },
-            onRightClick = { onMassUnitSelected(MassUnit.LB) }
+            onRightClick = { onMassUnitSelected(MassUnit.LB) },
+            selectedChipBackground = AppColors.WeighHistoryAccent,
         )
     }
 }

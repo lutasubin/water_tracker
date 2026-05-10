@@ -48,6 +48,9 @@
     <string name="me_total_drinking_label">إجمالي الشرب</string>
     <string name="me_streak_section_label">سلسلة الأيام</string>
     <string name="me_general_section">عام</string>
+    <string name="me_support_section">الدعم</string>
+    <string name="me_field_age">العمر</string>
+    <string name="me_field_sex">الجنس</string>
     <string name="me_menu_language">اللغة</string>
     <string name="me_menu_rate_us">قيّمنا</string>
     <string name="me_menu_share">مشاركة</string>

@@ -116,11 +116,15 @@ fun AppNavHost(
                     markLocaleOnboardingCompletedUseCase()
                 }
             }
-            GenderSelectionScreen(factory = genderFactory) {
-                navGate.run {
-                    navController.navigate(AppRoute.Age.route) { launchSingleTop = true }
-                }
-            }
+            GenderSelectionScreen(
+                factory = genderFactory,
+                onBack = {},
+                onNext = {
+                    navGate.run {
+                        navController.navigate(AppRoute.Age.route) { launchSingleTop = true }
+                    }
+                },
+            )
         }
         composable(AppRoute.Age.route) {
             AgeSelectionScreen(
@@ -206,6 +210,16 @@ fun AppNavHost(
                 onEditWeight = {
                     navGate.run {
                         navController.navigate(AppRoute.WeightEdit.route) { launchSingleTop = true }
+                    }
+                },
+                onEditAge = {
+                    navGate.run {
+                        navController.navigate(AppRoute.AgeEdit.route) { launchSingleTop = true }
+                    }
+                },
+                onEditGender = {
+                    navGate.run {
+                        navController.navigate(AppRoute.GenderEdit.route) { launchSingleTop = true }
                     }
                 },
                 onOpenWeighGoalDetail = {
@@ -302,6 +316,36 @@ fun AppNavHost(
                         navController.popBackStack(AppRoute.WeightEdit.route, inclusive = true)
                     }
                 }
+            )
+        }
+        composable(AppRoute.AgeEdit.route) {
+            AgeSelectionScreen(
+                factory = ageFactory,
+                onBack = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.AgeEdit.route, inclusive = true)
+                    }
+                },
+                onNext = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.AgeEdit.route, inclusive = true)
+                    }
+                }
+            )
+        }
+        composable(AppRoute.GenderEdit.route) {
+            GenderSelectionScreen(
+                factory = genderFactory,
+                onBack = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.GenderEdit.route, inclusive = true)
+                    }
+                },
+                onNext = {
+                    navGate.run {
+                        navController.popBackStack(AppRoute.GenderEdit.route, inclusive = true)
+                    }
+                },
             )
         }
         composable(AppRoute.Report.route) {
