@@ -6,11 +6,13 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighCompletedG
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeightGoalCompletionSnapshot
 import com.weappsinc.watertracker.app.feature.weigh.domain.repository.WeighCompletedGoalRepository
 import com.weappsinc.watertracker.app.feature.weigh.domain.repository.WeighLogRepository
+import com.weappsinc.watertracker.app.feature.weigh.domain.repository.WeighPreferencesRepository
 
 /** Ghi hành trình hoàn thành vào Room rồi xóa mục tiêu/hành trình trong DataStore. */
 class ArchiveCompletedWeightGoalUseCase(
     private val completedGoalRepository: WeighCompletedGoalRepository,
     private val weighLogRepository: WeighLogRepository,
+    private val weighPreferencesRepository: WeighPreferencesRepository,
     private val saveTargetWeightKg: SaveWeighTargetWeightKgUseCase,
     private val saveJourneyStartWeightKg: SaveWeighJourneyStartWeightKgUseCase,
 ) {
@@ -48,6 +50,7 @@ class ArchiveCompletedWeightGoalUseCase(
         val prefsCleared = runCatching {
             saveTargetWeightKg(null)
             saveJourneyStartWeightKg(null)
+            weighPreferencesRepository.clearWeightGoalMetDialogShownMarker()
             true
         }.getOrDefault(false)
         return Result.success(

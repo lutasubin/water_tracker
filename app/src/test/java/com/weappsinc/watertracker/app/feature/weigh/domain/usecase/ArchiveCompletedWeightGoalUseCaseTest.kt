@@ -25,6 +25,7 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         val uc = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = completed,
             weighLogRepository = FakeLogRepo(),
+            weighPreferencesRepository = prefs,
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(prefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(prefs),
         )
@@ -41,6 +42,7 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         val uc = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = completed,
             weighLogRepository = FakeLogRepo(),
+            weighPreferencesRepository = prefs,
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(prefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(prefs),
         )
@@ -56,6 +58,7 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         val uc = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = completed,
             weighLogRepository = FakeLogRepo(),
+            weighPreferencesRepository = FailingPrefsRepo(),
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(FailingPrefsRepo()),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(FailingPrefsRepo()),
         )
@@ -146,6 +149,7 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {}
         override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> = flowOf(null)
         override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {}
+        override suspend fun clearWeightGoalMetDialogShownMarker() {}
     }
 
     private class FailingPrefsRepo : WeighPreferencesRepository {
@@ -165,5 +169,8 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {}
         override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> = flowOf(null)
         override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {}
+        override suspend fun clearWeightGoalMetDialogShownMarker() {
+            error("prefs error")
+        }
     }
 }

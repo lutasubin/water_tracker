@@ -17,4 +17,5 @@ interface WeighPreferencesRepository {
     /** Mục tiêu (kg) đã hiện popup gần nhất; null = chưa từng. */
     fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?>
     suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?)
+    suspend fun clearWeightGoalMetDialogShownMarker()
 }

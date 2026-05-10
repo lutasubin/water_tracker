@@ -26,6 +26,7 @@ fun WeighTrackerGoalMetOverlay(
     journeyStartWeightKg: Float?,
     targetValueText: String?,
 ) {
+    val snappedTargetKg = targetWeightKg?.let { MassDisplay.snapTargetKg(it) }
     val isTargetMet =
         targetWeightKg != null &&
             targetWeightKg > 0f &&
@@ -36,11 +37,12 @@ fun WeighTrackerGoalMetOverlay(
     var fireworksSession by remember { mutableIntStateOf(0) }
     var archivedThisMetSession by remember { mutableStateOf(false) }
 
-    LaunchedEffect(isTargetMet) {
+    LaunchedEffect(isTargetMet, snappedTargetKg) {
         if (!isTargetMet) archivedThisMetSession = false
+        if (isTargetMet) archivedThisMetSession = false
     }
 
-    LaunchedEffect(isTargetMet) {
+    LaunchedEffect(isTargetMet, snappedTargetKg) {
         val today = LocalDate.now().toEpochDay()
         if (
             vm.shouldShowWeightTargetMetDialog(

@@ -217,6 +217,7 @@ class MainActivity : AppCompatActivity() {
         val archiveCompletedWeightGoal = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = weighCompletedGoalRepository,
             weighLogRepository = weighLogRepository,
+            weighPreferencesRepository = weighPrefs,
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(weighPrefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(weighPrefs),
         )

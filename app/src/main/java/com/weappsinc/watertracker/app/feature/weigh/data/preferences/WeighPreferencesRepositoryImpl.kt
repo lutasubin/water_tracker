@@ -90,4 +90,11 @@ class WeighPreferencesRepositoryImpl(
             else prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG] = targetKg
         }
     }
+
+    override suspend fun clearWeightGoalMetDialogShownMarker() {
+        ds.edit { prefs ->
+            prefs.remove(WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY)
+            prefs.remove(WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG)
+        }
+    }
 }
