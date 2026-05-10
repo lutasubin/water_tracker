@@ -1,9 +1,12 @@
 package com.weappsinc.watertracker.app.feature.weigh.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.TextButton
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -38,6 +41,7 @@ fun WeighTargetSection(
     imageLoader: ImageLoader,
     onOpenTargetSheet: () -> Unit,
     onOpenGoalDetail: () -> Unit,
+    onOpenGoalHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -45,11 +49,29 @@ fun WeighTargetSection(
             .fillMaxWidth()
             .padding(horizontal = WeighDimens.ScreenHorizontalPadding)
     ) {
-        Text(
-            text = stringResource(R.string.target_weight_section_title),
-            color = AppColors.HomeTitle,
-            style = AppTypography.Title2
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                text = stringResource(R.string.target_weight_section_title),
+                color = AppColors.HomeTitle,
+                style = AppTypography.Title2,
+                modifier = Modifier.weight(1f),
+            )
+            TextButton(
+                onClick = onOpenGoalHistory,
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = AppColors.WeighHistoryAccent,
+                ),
+            ) {
+                Text(
+                    text = stringResource(R.string.weigh_goal_history_link),
+                    style = AppTypography.BodyMedium,
+                )
+            }
+        }
         Spacer(Modifier.height(WeighDimens.TargetSectionTopSpacing))
         if (hasTarget && targetValueText != null) {
             WeighGoalCard(

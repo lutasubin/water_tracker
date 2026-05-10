@@ -1,5 +1,6 @@
 package com.weappsinc.watertracker.app.feature.water.domain.repository
 
+import com.weappsinc.watertracker.app.feature.water.domain.model.WaterIntakeDisplayBaseline
 import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
 import kotlinx.coroutines.flow.Flow
 
@@ -12,4 +13,6 @@ interface WaterPreferencesRepository {
     fun observeSavedUnit(): Flow<WaterUnit?>
     fun observeGoalDoneDialogShownEpochDay(): Flow<Long?>
     suspend fun saveGoalDoneDialogShownEpochDay(epochDay: Long)
+    fun observeIntakeDisplayBaseline(): Flow<WaterIntakeDisplayBaseline?>
+    suspend fun saveIntakeDisplayBaseline(baseline: WaterIntakeDisplayBaseline)
 }

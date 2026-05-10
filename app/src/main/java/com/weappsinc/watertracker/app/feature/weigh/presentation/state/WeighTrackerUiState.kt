@@ -19,4 +19,5 @@ data class WeighTrackerUiState(
     val gapValueText: String,
     val journeyProgressFraction: Float,
     val journeyProgressPercent: Int,
+    val journeyStartWeightKg: Float?,
 )

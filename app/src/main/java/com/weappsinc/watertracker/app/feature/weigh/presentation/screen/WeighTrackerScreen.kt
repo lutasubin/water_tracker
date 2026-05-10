@@ -1,6 +1,7 @@
 package com.weappsinc.watertracker.app.feature.weigh.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,56 +32,67 @@ fun WeighTrackerScreen(
     factory: WeighTrackerViewModelFactory,
     imageLoader: ImageLoader,
     onOpenWeighGoalDetail: () -> Unit,
-    modifier: Modifier = Modifier
+    onOpenWeighGoalHistory: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val vm: WeighTrackerViewModel = viewModel(factory = factory)
     val state by vm.uiState.collectAsState()
     var showTargetSheet by remember { mutableStateOf(false) }
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(AppColors.HomeBackground)
-    ) {
-        Spacer(Modifier.padding(top = AppDimens.HomeSectionSpacing))
-        WeighTrackerHeader(
-            massUnit = state.displayMassUnit,
-            onMassUnitSelected = vm::onMassUnitSelected,
-            modifier = Modifier.padding(bottom = WeighDimens.HeaderBottomSpacing)
-        )
+    Box(modifier = modifier.fillMaxSize()) {
         Column(
-            Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppColors.HomeBackground),
         ) {
-            WeighHeightWeightCards(
-                heightValue = state.heightValueText,
-                weightValue = state.weightValueText,
+            Spacer(Modifier.padding(top = AppDimens.HomeSectionSpacing))
+            WeighTrackerHeader(
                 massUnit = state.displayMassUnit,
-                imageLoader = imageLoader,
-                modifier = Modifier.padding(bottom = WeighDimens.BmiCardTopSpacing)
+                onMassUnitSelected = vm::onMassUnitSelected,
+                modifier = Modifier.padding(bottom = WeighDimens.HeaderBottomSpacing),
             )
-            WeighBmiCard(
-                bmiValueText = state.bmiValueText,
-                category = state.bmiCategory,
-                lowEndFraction = state.scaleLowEndFraction,
-                normalEndFraction = state.scaleNormalEndFraction,
-                indicatorFraction = state.bmiIndicatorFraction,
-                modifier = Modifier.padding(horizontal = WeighDimens.ScreenHorizontalPadding)
-            )
-            WeighTargetSection(
-                hasTarget = state.targetWeightKg != null && state.targetWeightKg!! > 0f,
-                targetValueText = state.targetValueText,
-                massUnitLabel = massUnitShortLabel(state.displayMassUnit),
-                gapValueText = state.gapValueText,
-                journeyProgressFraction = state.journeyProgressFraction,
-                journeyProgressPercent = state.journeyProgressPercent,
-                imageLoader = imageLoader,
-                onOpenTargetSheet = { showTargetSheet = true },
-                onOpenGoalDetail = onOpenWeighGoalDetail,
-                modifier = Modifier.padding(top = WeighDimens.TargetSectionTopSpacing)
-            )
-            Spacer(Modifier.padding(bottom = AppDimens.HomeBottomNavHeight))
+            Column(
+                Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                WeighHeightWeightCards(
+                    heightValue = state.heightValueText,
+                    weightValue = state.weightValueText,
+                    massUnit = state.displayMassUnit,
+                    imageLoader = imageLoader,
+                    modifier = Modifier.padding(bottom = WeighDimens.BmiCardTopSpacing),
+                )
+                WeighBmiCard(
+                    bmiValueText = state.bmiValueText,
+                    category = state.bmiCategory,
+                    lowEndFraction = state.scaleLowEndFraction,
+                    normalEndFraction = state.scaleNormalEndFraction,
+                    indicatorFraction = state.bmiIndicatorFraction,
+                    modifier = Modifier.padding(horizontal = WeighDimens.ScreenHorizontalPadding),
+                )
+                WeighTargetSection(
+                    hasTarget = state.targetWeightKg != null && state.targetWeightKg!! > 0f,
+                    targetValueText = state.targetValueText,
+                    massUnitLabel = massUnitShortLabel(state.displayMassUnit),
+                    gapValueText = state.gapValueText,
+                    journeyProgressFraction = state.journeyProgressFraction,
+                    journeyProgressPercent = state.journeyProgressPercent,
+                    imageLoader = imageLoader,
+                    onOpenTargetSheet = { showTargetSheet = true },
+                    onOpenGoalDetail = onOpenWeighGoalDetail,
+                    onOpenGoalHistory = onOpenWeighGoalHistory,
+                    modifier = Modifier.padding(top = WeighDimens.TargetSectionTopSpacing),
+                )
+                Spacer(Modifier.padding(bottom = AppDimens.HomeBottomNavHeight))
+            }
         }
+        WeighTrackerGoalMetOverlay(
+            vm = vm,
+            bodyWeightKg = state.bodyWeightKg,
+            targetWeightKg = state.targetWeightKg,
+            journeyStartWeightKg = state.journeyStartWeightKg,
+            targetValueText = state.targetValueText,
+        )
     }
     if (showTargetSheet) {
         WeighTargetWeightSheet(
@@ -93,7 +105,7 @@ fun WeighTrackerScreen(
             onStartJourney = { kg ->
                 vm.onConfirmTargetJourney(kg, state.bodyWeightKg)
                 showTargetSheet = false
-            }
+            },
         )
     }
 }

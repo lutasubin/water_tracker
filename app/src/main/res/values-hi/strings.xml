@@ -87,6 +87,9 @@
     <string name="bmi_normal">सामान्य</string>
     <string name="bmi_overweight">अधिक वजन</string>
     <string name="target_weight_section_title">लक्ष्य वजन</string>
+    <string name="weigh_goal_history_link">इतिहास</string>
+    <string name="weigh_goal_history_title">लक्ष्य इतिहास</string>
+    <string name="weigh_goal_history_empty">अभी कोई पूरा लक्ष्य नहीं।</string>
     <string name="target_weight_empty">अभी कोई लक्ष्य नहीं!</string>
     <string name="create_target">लक्ष्य बनाएं</string>
     <string name="target_sheet_header_title">लक्ष्य वजन</string>
@@ -117,6 +120,8 @@
     <string name="report_inline_title">रिपोर्ट</string>
     <string name="report_details">विवरण</string>
     <string name="report_screen_title">रिपोर्ट</string>
+    <string name="report_day_goal_completed_title">लक्ष्य पूरा</string>
+    <string name="report_day_goal_completed_percent">100%</string>
     <string name="report_tab_day">दिन</string>
     <string name="report_tab_week">सप्ताह</string>
     <string name="report_tab_month">महीना</string>

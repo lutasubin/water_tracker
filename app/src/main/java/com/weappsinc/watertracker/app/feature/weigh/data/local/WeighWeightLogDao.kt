@@ -47,4 +47,13 @@ interface WeighWeightLogDao {
         """
     )
     fun observeLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): Flow<List<WeighWeightLogEntity>>
+
+    @Query(
+        """
+        SELECT * FROM weigh_weight_log
+        WHERE epochDay >= :startEpochDay AND epochDay <= :endEpochDay
+        ORDER BY recordedAtMs ASC
+        """
+    )
+    suspend fun listLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): List<WeighWeightLogEntity>
 }

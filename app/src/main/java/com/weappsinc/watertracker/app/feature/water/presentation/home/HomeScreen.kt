@@ -39,6 +39,7 @@ fun HomeScreen(
     onEditAge: () -> Unit,
     onEditGender: () -> Unit,
     onOpenWeighGoalDetail: () -> Unit,
+    onOpenWeighGoalHistory: () -> Unit,
     onOpenLanguage: () -> Unit,
     onOpenPrivacyPolicy: () -> Unit,
     modifier: Modifier = Modifier
@@ -69,6 +70,7 @@ fun HomeScreen(
                     factory = weighTrackerFactory,
                     imageLoader = imageLoader,
                     onOpenWeighGoalDetail = onOpenWeighGoalDetail,
+                    onOpenWeighGoalHistory = onOpenWeighGoalHistory,
                     modifier = Modifier.weight(1f),
                 )
                 HomeTab.Me -> MeProfileScreen(

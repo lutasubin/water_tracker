@@ -86,6 +86,9 @@
     <string name="bmi_normal">Normal</string>
     <string name="bmi_overweight">Sobrepeso</string>
     <string name="target_weight_section_title">Peso objetivo</string>
+    <string name="weigh_goal_history_link">Historial</string>
+    <string name="weigh_goal_history_title">Historial de objetivos</string>
+    <string name="weigh_goal_history_empty">Aún no hay objetivos completados.</string>
     <string name="target_weight_empty">¡Aún sin objetivo!</string>
     <string name="create_target">Crear objetivo</string>
     <string name="target_sheet_header_title">PESO OBJETIVO</string>
@@ -116,6 +119,8 @@
     <string name="report_inline_title">Informe</string>
     <string name="report_details">Detalles</string>
     <string name="report_screen_title">Informe</string>
+    <string name="report_day_goal_completed_title">Objetivo completado</string>
+    <string name="report_day_goal_completed_percent">100%</string>
     <string name="report_tab_day">Día</string>
     <string name="report_tab_week">Semana</string>
     <string name="report_tab_month">Mes</string>

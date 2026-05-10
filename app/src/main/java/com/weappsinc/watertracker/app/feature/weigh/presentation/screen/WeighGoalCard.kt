@@ -39,12 +39,12 @@ fun WeighGoalCard(
     journeyProgressFraction: Float,
     journeyProgressPercent: Int,
     imageLoader: ImageLoader,
-    onClick: () -> Unit,
+    onClick: (() -> Unit)?,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
-            .clickable(onClick = onClick)
+            .let { m -> if (onClick != null) m.clickable(onClick = onClick) else m }
             .defaultMinSize(minHeight = AppDimens.HomeStatCardMinHeight)
             .clip(RoundedCornerShape(AppDimens.HomeCardCorner))
             .background(AppColors.HomeCard)

@@ -87,6 +87,9 @@
     <string name="bmi_normal">Normal</string>
     <string name="bmi_overweight">Berlebih</string>
     <string name="target_weight_section_title">Berat target</string>
+    <string name="weigh_goal_history_link">Riwayat</string>
+    <string name="weigh_goal_history_title">Riwayat target</string>
+    <string name="weigh_goal_history_empty">Belum ada target yang selesai.</string>
     <string name="target_weight_empty">Belum ada target!</string>
     <string name="create_target">Buat target</string>
     <string name="target_sheet_header_title">BERAT TARGET</string>
@@ -117,6 +120,8 @@
     <string name="report_inline_title">Laporan</string>
     <string name="report_details">Detail</string>
     <string name="report_screen_title">Laporan</string>
+    <string name="report_day_goal_completed_title">Target tercapai</string>
+    <string name="report_day_goal_completed_percent">100%</string>
     <string name="report_tab_day">Hari</string>
     <string name="report_tab_week">Minggu</string>
     <string name="report_tab_month">Bulan</string>

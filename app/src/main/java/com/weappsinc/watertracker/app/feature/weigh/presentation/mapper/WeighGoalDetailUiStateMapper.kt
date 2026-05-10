@@ -34,6 +34,7 @@ object WeighGoalDetailUiStateMapper {
         savedAtMs: Long?,
         recordError: Boolean,
         isRecording: Boolean,
+        suppressRecordCtaAfterSave: Boolean,
         computeDelta: ComputeWeightProgressDeltaUseCase,
         classifyBmi: (Float) -> BmiCategory,
         mapBmiFraction: (Float) -> Float
@@ -70,6 +71,7 @@ object WeighGoalDetailUiStateMapper {
         val (segLow, segNorm) = BmiScaleGeometry.segmentThresholds()
         // Hướng B: luôn cho chỉnh stepper trong ngày.
         val canEditTodayWeight = true
+        val showWeighRecordCta = !suppressRecordCtaAfterSave
         val savedBannerTime = todayLog?.let { tl ->
             val ms = maxOf(tl.recordedAtMs, savedAtMs ?: 0L)
             savedFmt.format(Instant.ofEpochMilli(ms))
@@ -93,6 +95,7 @@ object WeighGoalDetailUiStateMapper {
             scaleNormalEndFraction = segNorm,
             bmiIndicatorFraction = if (hasDims) mapBmiFraction(bmi) else 0.5f,
             canEditTodayWeight = canEditTodayWeight,
+            showWeighRecordCta = showWeighRecordCta,
             savedBannerTime = savedBannerTime,
             lastRecordSuccessMs = savedAtMs,
             recordError = recordError,

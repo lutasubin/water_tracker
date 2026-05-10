@@ -11,4 +11,7 @@ interface WeighPreferencesRepository {
     suspend fun saveTargetWeightKg(weightKg: Float?)
     fun observeJourneyStartWeightKg(): Flow<Float?>
     suspend fun saveJourneyStartWeightKg(weightKg: Float?)
+    /** Ngày (epoch day) đã hiện popup đạt mục tiêu cân; null = chưa từng. */
+    fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?>
+    suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long)
 }

@@ -87,6 +87,9 @@
     <string name="bmi_normal">Bình thường</string>
     <string name="bmi_overweight">Thừa cân</string>
     <string name="target_weight_section_title">Cân nặng mục tiêu</string>
+    <string name="weigh_goal_history_link">Lịch sử</string>
+    <string name="weigh_goal_history_title">Lịch sử mục tiêu</string>
+    <string name="weigh_goal_history_empty">Chưa có mục tiêu đã hoàn thành.</string>
     <string name="target_weight_empty">Chưa có mục tiêu nào!</string>
     <string name="create_target">Tạo mục tiêu</string>
     <string name="target_sheet_header_title">MỤC TIÊU CÂN</string>
@@ -117,6 +120,8 @@
     <string name="report_inline_title">Báo cáo</string>
     <string name="report_details">Chi tiết</string>
     <string name="report_screen_title">Báo cáo</string>
+    <string name="report_day_goal_completed_title">Hoàn thành mục tiêu</string>
+    <string name="report_day_goal_completed_percent">100%</string>
     <string name="report_tab_day">Ngày</string>
     <string name="report_tab_week">Tuần</string>
     <string name="report_tab_month">Tháng</string>
@@ -125,6 +130,8 @@
     <string name="drink_amount_title">Lượng nước</string>
     <string name="close">Đóng</string>
     <string name="goal_done_dialog_title">Chúc mừng!\nBạn đã đạt mục tiêu hôm nay</string>
+    <string name="weigh_target_met_dialog_line1">Chúc mừng!</string>
+    <string name="weigh_target_met_dialog_line2_prefix">Mục tiêu cân </string>
 
     <string name="report_summary_today">HÔM NAY</string>
     <string name="report_summary_goal">MỤC TIÊU</string>

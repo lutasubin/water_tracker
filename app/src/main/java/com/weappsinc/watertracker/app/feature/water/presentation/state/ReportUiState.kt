@@ -48,5 +48,7 @@ data class ReportUiState(
     val chartMaxMl: Int,
     val selectedBarIndex: Int?,
     val records: List<ReportRecordUi>,
-    val monthPager: ReportMonthPagerUi? = null
+    val monthPager: ReportMonthPagerUi? = null,
+    /** Tab Ngày: ngày được chọn đã đạt/ vượt mục tiêu — hiện thẻ 100%. */
+    val showDayGoalCompleted: Boolean = false,
 )

@@ -47,9 +47,9 @@ object AssetPaths {
     }
 
     /** Icon chiều cao (tab Weight + tab Me). */
-    const val HEIGHT_ICON = "$ASSET_BASE/svg/hight_icon.svg"
+    const val HEIGHT_ICON = "$ASSET_BASE/svg/height_icon.svg"
     /** Icon cân nặng (tab Weight + tab Me). */
-    const val WEIGHT_ICON = "$ASSET_BASE/svg/weight_icon_setting.svg"
+    const val WEIGHT_ICON = "$ASSET_BASE/svg/weight_icon.svg"
     const val AGE_ICON = "$ASSET_BASE/svg/age_icon.svg"
     const val SEX_ICON = "$ASSET_BASE/svg/sex_icon.svg"
     const val NO_GOAL_ICON = "$ASSET_BASE/svg/no_goal_icon.svg"

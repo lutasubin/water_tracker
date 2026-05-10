@@ -86,6 +86,9 @@
     <string name="bmi_normal">Normal</string>
     <string name="bmi_overweight">Kilolu</string>
     <string name="target_weight_section_title">Hedef kilo</string>
+    <string name="weigh_goal_history_link">Geçmiş</string>
+    <string name="weigh_goal_history_title">Hedef geçmişi</string>
+    <string name="weigh_goal_history_empty">Henüz tamamlanan hedef yok.</string>
     <string name="target_weight_empty">Henüz hedef yok!</string>
     <string name="create_target">Hedef oluştur</string>
     <string name="target_sheet_header_title">HEDEF KİLO</string>
@@ -116,6 +119,8 @@
     <string name="report_inline_title">Rapor</string>
     <string name="report_details">Ayrıntılar</string>
     <string name="report_screen_title">Rapor</string>
+    <string name="report_day_goal_completed_title">Hedef tamamlandı</string>
+    <string name="report_day_goal_completed_percent">%100</string>
     <string name="report_tab_day">Gün</string>
     <string name="report_tab_week">Hafta</string>
     <string name="report_tab_month">Ay</string>

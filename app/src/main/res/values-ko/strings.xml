@@ -86,6 +86,9 @@
     <string name="bmi_normal">정상</string>
     <string name="bmi_overweight">과체중</string>
     <string name="target_weight_section_title">목표 체중</string>
+    <string name="weigh_goal_history_link">기록</string>
+    <string name="weigh_goal_history_title">목표 기록</string>
+    <string name="weigh_goal_history_empty">완료된 목표가 없습니다.</string>
     <string name="target_weight_empty">아직 목표가 없습니다!</string>
     <string name="create_target">목표 만들기</string>
     <string name="target_sheet_header_title">목표 체중</string>
@@ -116,6 +119,8 @@
     <string name="report_inline_title">리포트</string>
     <string name="report_details">자세히</string>
     <string name="report_screen_title">리포트</string>
+    <string name="report_day_goal_completed_title">목표 달성</string>
+    <string name="report_day_goal_completed_percent">100%</string>
     <string name="report_tab_day">일</string>
     <string name="report_tab_week">주</string>
     <string name="report_tab_month">월</string>

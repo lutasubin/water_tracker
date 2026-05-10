@@ -69,7 +69,8 @@ object ReportUiMapper {
             chartBars = bars,
             chartMaxMl = max,
             selectedBarIndex = selectedBarIndex,
-            records = records
+            records = records,
+            showDayGoalCompleted = goalMl > 0 && dayTotalMl >= goalMl,
         )
     }
 }

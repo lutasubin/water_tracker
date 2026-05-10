@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import coil.ImageLoader
 import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
+import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.feature.gender.domain.model.GenderType
 import com.weappsinc.watertracker.app.feature.water.presentation.state.MeProfileUiState
@@ -41,6 +42,7 @@ fun MeProfilePhysicalRows(
             valueText = heightRight,
             imageLoader = imageLoader,
             onClick = onEditTall,
+            iconTint = AppColors.HomePrimary,
         )
         MeProfileNavRow(
             iconPath = AssetPaths.WEIGHT_ICON,
@@ -48,6 +50,7 @@ fun MeProfilePhysicalRows(
             valueText = weightRight,
             imageLoader = imageLoader,
             onClick = onEditWeight,
+            iconTint = AppColors.HomePrimary,
         )
         MeProfileNavRow(
             iconPath = AssetPaths.AGE_ICON,

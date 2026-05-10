@@ -45,6 +45,8 @@ class WeighGoalDetailViewModel(
     private val savedAtMs = MutableStateFlow<Long?>(null)
     private val recordError = MutableStateFlow(false)
     private val isRecording = MutableStateFlow(false)
+    /** true → ẩn nút Ghi nhận cho tới khi user bấm tăng/giảm. */
+    private val suppressRecordCtaAfterSave = MutableStateFlow(false)
 
     private val profileInputs = combine(
         observeTall(),
@@ -77,20 +79,23 @@ class WeighGoalDetailViewModel(
         draftOverride,
         savedAtMs,
         recordError,
-        isRecording
+        isRecording,
     ) { core, draftO, saved, err, rec ->
+        GoalDetailUiSlice(core, draftO, saved, err, rec)
+    }.combine(suppressRecordCtaAfterSave) { slice, suppressCta ->
         WeighGoalDetailUiStateMapper.map(
-            tallCm = core.tall,
-            profileWeightKg = core.profile,
-            unit = core.unit,
-            targetKg = core.target,
-            journeyStartKg = core.journey,
-            latestTwo = core.latestTwo,
-            todayLog = core.todayLog,
-            draftOverride = draftO,
-            savedAtMs = saved,
-            recordError = err,
-            isRecording = rec,
+            tallCm = slice.core.tall,
+            profileWeightKg = slice.core.profile,
+            unit = slice.core.unit,
+            targetKg = slice.core.target,
+            journeyStartKg = slice.core.journey,
+            latestTwo = slice.core.latestTwo,
+            todayLog = slice.core.todayLog,
+            draftOverride = slice.draftOverride,
+            savedAtMs = slice.savedAtMs,
+            recordError = slice.recordError,
+            isRecording = slice.isRecording,
+            suppressRecordCtaAfterSave = suppressCta,
             computeDelta = computeDelta,
             classifyBmi = classifyBmi::invoke,
             mapBmiFraction = mapBmiFraction::invoke
@@ -100,7 +105,7 @@ class WeighGoalDetailViewModel(
         SharingStarted.WhileSubscribed(5_000),
         WeighGoalDetailUiStateMapper.map(
             0, 0, MassUnit.KG, null, null,
-            emptyList(), null, null, null, false, false,
+            emptyList(), null, null, null, false, false, false,
             computeDelta, classifyBmi::invoke, mapBmiFraction::invoke
         )
     )
@@ -111,6 +116,7 @@ class WeighGoalDetailViewModel(
 
     fun onDraftStep(stepKg: Float) {
         recordError.value = false
+        suppressRecordCtaAfterSave.value = false
         val cur = draftOverride.value ?: uiState.value.displayDraftKg
         draftOverride.value =
             MassDisplay.snapTargetKg(cur + stepKg).coerceIn(30f, 250f)
@@ -125,6 +131,7 @@ class WeighGoalDetailViewModel(
                 saveWeightProfileAndWeighLog(kg).getOrThrow()
                 savedAtMs.value = System.currentTimeMillis()
                 draftOverride.value = null
+                suppressRecordCtaAfterSave.value = true
             } catch (_: Exception) {
                 recordError.value = true
             } finally {
@@ -160,5 +167,13 @@ class WeighGoalDetailViewModel(
         val journey: Float?,
         val latestTwo: List<WeighLogEntry>,
         val todayLog: WeighLogEntry?
+    )
+
+    private data class GoalDetailUiSlice(
+        val core: WeighGoalDetailCore,
+        val draftOverride: Float?,
+        val savedAtMs: Long?,
+        val recordError: Boolean,
+        val isRecording: Boolean,
     )
 }

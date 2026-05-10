@@ -23,6 +23,8 @@ data class WeighGoalDetailUiState(
     val bmiIndicatorFraction: Float,
     /** Stepper luôn bật (hướng B — có thể chỉnh nhiều lần trong ngày). */
     val canEditTodayWeight: Boolean,
+    /** false ngay sau khi ghi nhận thành công; true lại sau khi chỉnh stepper. */
+    val showWeighRecordCta: Boolean,
     val savedBannerTime: String?,
     /** Mốc thời gian lần ghi nhận thành công gần nhất (epoch ms); null nếu chưa có. */
     val lastRecordSuccessMs: Long?,

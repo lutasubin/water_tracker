@@ -6,12 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [WeighWeightLogEntity::class],
-    version = 1,
+    entities = [
+        WeighWeightLogEntity::class,
+        WeighCompletedGoalEntity::class,
+        WeighCompletedGoalLogEntity::class,
+    ],
+    version = 3,
     exportSchema = false
 )
 abstract class WeighWeightLogDatabase : RoomDatabase() {
     abstract fun weighWeightLogDao(): WeighWeightLogDao
+    abstract fun weighCompletedGoalDao(): WeighCompletedGoalDao
 
     companion object {
         private const val DB_NAME = "weigh_weight_log.db"
@@ -21,6 +26,9 @@ abstract class WeighWeightLogDatabase : RoomDatabase() {
                 context.applicationContext,
                 WeighWeightLogDatabase::class.java,
                 DB_NAME
-            ).build()
+            )
+                .addMigrations(WeighWeightLogDatabaseMigrations.MIGRATION_1_2)
+                .addMigrations(WeighWeightLogDatabaseMigrations.MIGRATION_2_3)
+                .build()
     }
 }

@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.weappsinc.watertracker.app.feature.water.domain.model.WaterIntakeDisplayBaseline
 import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
 import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterPreferencesRepository
 import kotlinx.coroutines.flow.Flow
@@ -22,6 +23,9 @@ private object Keys {
     val SAVED_GOAL_ML = intPreferencesKey("saved_goal_ml")
     val WATER_UNIT = stringPreferencesKey("water_unit")
     val GOAL_DONE_DIALOG_SHOWN_EPOCH_DAY = longPreferencesKey("goal_done_dialog_shown_epoch_day")
+    val INTAKE_DISPLAY_BASELINE_EPOCH_DAY =
+        longPreferencesKey("water_intake_display_baseline_epoch_day")
+    val INTAKE_DISPLAY_BASELINE_ML = intPreferencesKey("water_intake_display_baseline_ml")
 }
 
 class WaterPreferencesRepositoryImpl(
@@ -66,6 +70,21 @@ class WaterPreferencesRepositoryImpl(
     override suspend fun saveGoalDoneDialogShownEpochDay(epochDay: Long) {
         ds.edit { prefs ->
             prefs[Keys.GOAL_DONE_DIALOG_SHOWN_EPOCH_DAY] = epochDay
+        }
+    }
+
+    override fun observeIntakeDisplayBaseline(): Flow<WaterIntakeDisplayBaseline?> =
+        ds.data.map { prefs ->
+            val ep = prefs[Keys.INTAKE_DISPLAY_BASELINE_EPOCH_DAY]
+            val ml = prefs[Keys.INTAKE_DISPLAY_BASELINE_ML]
+            if (ep != null && ml != null) WaterIntakeDisplayBaseline(ep, ml)
+            else null
+        }
+
+    override suspend fun saveIntakeDisplayBaseline(baseline: WaterIntakeDisplayBaseline) {
+        ds.edit { prefs ->
+            prefs[Keys.INTAKE_DISPLAY_BASELINE_EPOCH_DAY] = baseline.epochDay
+            prefs[Keys.INTAKE_DISPLAY_BASELINE_ML] = baseline.totalMlAtReset
         }
     }
 }

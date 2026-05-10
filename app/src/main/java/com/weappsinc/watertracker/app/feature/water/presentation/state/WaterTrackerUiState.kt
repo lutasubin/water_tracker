@@ -14,6 +14,9 @@ data class WeekDayRingUi(
 data class WaterTrackerUiState(
     val goalMl: Int,
     val unit: WaterUnit,
+    /** Tổng ml trong ngày (DB) — dùng cho pháo hoa / baseline. */
+    val todayTotalIntakeMl: Int,
+    /** ml hiển thị tiến độ (sau trừ baseline khi đã đóng popup đạt mục tiêu). */
     val todayIntakeMl: Int,
     val progressFraction: Float,
     val progressPercent: Int,

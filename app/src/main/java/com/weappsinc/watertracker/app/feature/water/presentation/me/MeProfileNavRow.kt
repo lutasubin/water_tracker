@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -27,7 +29,7 @@ import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 
-/** Một hàng tab Me: icon SVG, nhãn, giá trị; [onClick] null = chỉ xem (không chevron). */
+/** @param iconTint null = giữ màu gốc SVG; có giá trị = tint (vd. xanh tab Me). */
 @Composable
 internal fun MeProfileNavRow(
     iconPath: String,
@@ -35,6 +37,7 @@ internal fun MeProfileNavRow(
     valueText: String,
     imageLoader: ImageLoader,
     onClick: (() -> Unit)?,
+    iconTint: Color? = null,
 ) {
     val rowModifier = Modifier
         .fillMaxWidth()
@@ -60,6 +63,7 @@ internal fun MeProfileNavRow(
             imageLoader = imageLoader,
             modifier = Modifier.size(22.dp),
             contentScale = ContentScale.Fit,
+            colorFilter = iconTint?.let { ColorFilter.tint(it) },
         )
         Text(
             text = label,

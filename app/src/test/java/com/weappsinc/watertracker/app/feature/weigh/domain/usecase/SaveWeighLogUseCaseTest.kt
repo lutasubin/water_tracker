@@ -32,6 +32,11 @@ class SaveWeighLogUseCaseTest {
         override fun observeLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): Flow<List<WeighLogEntry>> =
             flowOf(emptyList())
 
+        override suspend fun listLogsBetweenEpochDays(
+            startEpochDay: Long,
+            endEpochDay: Long,
+        ): Result<List<WeighLogEntry>> = Result.success(emptyList())
+
         override suspend fun insertLog(epochDay: Long, weightKg: Double, recordedAtMs: Long): Result<Unit> {
             insertCount++
             return Result.success(Unit)

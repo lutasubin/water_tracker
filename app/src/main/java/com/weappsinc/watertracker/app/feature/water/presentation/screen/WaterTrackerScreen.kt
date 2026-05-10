@@ -76,11 +76,18 @@ fun WaterTrackerScreen(
         WaterUnit.ML -> "${WaterAmountFormat.format(state.goalMl, state.unit)}$unitMl"
         WaterUnit.L -> "${WaterAmountFormat.format(state.goalMl, state.unit)} $unitL"
     }
-    val isGoalCompleted = state.goalMl > 0 && displayedIntakeMl >= state.goalMl
+    val isGoalCompletedForCelebration =
+        state.goalMl > 0 && state.todayTotalIntakeMl >= state.goalMl
+    val isGoalCompletedForProgress =
+        state.goalMl > 0 && displayedIntakeMl >= state.goalMl
 
-    LaunchedEffect(isGoalCompleted) {
+    LaunchedEffect(isGoalCompletedForCelebration) {
         val todayEpoch = LocalDate.now().toEpochDay()
-        if (vm.shouldShowGoalDoneDialog(todayEpoch = todayEpoch, isGoalCompleted = isGoalCompleted)) {
+        if (vm.shouldShowGoalDoneDialog(
+                todayEpoch = todayEpoch,
+                isGoalCompleted = isGoalCompletedForCelebration,
+            )
+        ) {
             vm.markGoalDoneDialogShown(todayEpoch)
             goalFireworksSession++
             showGoalFireworks = true
@@ -102,7 +109,7 @@ fun WaterTrackerScreen(
                 displayUnit = state.unit,
                 progressFraction = displayFraction,
                 progressPercent = displayPercent,
-                isGoalCompleted = isGoalCompleted
+                isGoalCompleted = isGoalCompletedForProgress
             )
             Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
             WaterGoalReminderCards(
@@ -147,7 +154,10 @@ fun WaterTrackerScreen(
         if (showGoalDoneDialog) {
             GoalCompletedDialog(
                 goalDisplayCompact = goalDisplayCompact,
-                onDismiss = { showGoalDoneDialog = false }
+                onDismiss = {
+                    showGoalDoneDialog = false
+                    vm.onGoalCompleteDialogDismissed(state.todayTotalIntakeMl)
+                }
             )
         }
         if (showGoalFireworks) {

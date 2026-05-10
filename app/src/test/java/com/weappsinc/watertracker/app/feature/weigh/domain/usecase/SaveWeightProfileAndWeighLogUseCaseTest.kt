@@ -46,6 +46,11 @@ class SaveWeightProfileAndWeighLogUseCaseTest {
         override fun observeLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): Flow<List<WeighLogEntry>> =
             flowOf(emptyList())
 
+        override suspend fun listLogsBetweenEpochDays(
+            startEpochDay: Long,
+            endEpochDay: Long,
+        ): Result<List<WeighLogEntry>> = Result.success(emptyList())
+
         override suspend fun insertLog(epochDay: Long, weightKg: Double, recordedAtMs: Long): Result<Unit> =
             Result.failure(RuntimeException("db"))
     }
@@ -57,6 +62,11 @@ class SaveWeightProfileAndWeighLogUseCaseTest {
         override fun observeLatestForEpochDay(epochDay: Long): Flow<WeighLogEntry?> = flowOf(null)
         override fun observeLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): Flow<List<WeighLogEntry>> =
             flowOf(emptyList())
+
+        override suspend fun listLogsBetweenEpochDays(
+            startEpochDay: Long,
+            endEpochDay: Long,
+        ): Result<List<WeighLogEntry>> = Result.success(emptyList())
 
         override suspend fun insertLog(epochDay: Long, weightKg: Double, recordedAtMs: Long): Result<Unit> {
             insertCount++

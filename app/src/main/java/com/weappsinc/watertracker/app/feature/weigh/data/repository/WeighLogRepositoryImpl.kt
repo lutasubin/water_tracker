@@ -25,6 +25,13 @@ class WeighLogRepositoryImpl(
             list.map { it.toDomain() }
         }
 
+    override suspend fun listLogsBetweenEpochDays(
+        startEpochDay: Long,
+        endEpochDay: Long,
+    ): Result<List<WeighLogEntry>> = runCatching {
+        dao.listLogsBetweenEpochDays(startEpochDay, endEpochDay).map { it.toDomain() }
+    }
+
     override suspend fun insertLog(epochDay: Long, weightKg: Double, recordedAtMs: Long): Result<Unit> =
         runCatching {
             dao.insert(

@@ -1,5 +1,6 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.mapper
 
+import com.weappsinc.watertracker.app.feature.water.domain.model.WaterIntakeDisplayBaseline
 import com.weappsinc.watertracker.app.feature.water.domain.model.WaterUnit
 import com.weappsinc.watertracker.app.feature.water.domain.util.WaterStreakCalculator
 import com.weappsinc.watertracker.app.feature.water.presentation.state.WaterTrackerUiState
@@ -19,14 +20,20 @@ object WaterTrackerUiMapper {
         intakeByEpochDay: Map<Long, Int>,
         openEpochDays: Set<Long>,
         locale: Locale,
+        intakeDisplayBaseline: WaterIntakeDisplayBaseline? = null,
     ): WaterTrackerUiState {
         val today = LocalDate.now(zone)
         val todayEpoch = today.toEpochDay()
         val installEpoch = firstInstallEpochDay ?: todayEpoch
         val goal = goalMl?.coerceAtLeast(0) ?: 0
         val u = unit ?: WaterUnit.ML
-        val todayIntake = intakeByEpochDay[todayEpoch] ?: 0
-        val fraction = if (goal > 0) (todayIntake.toFloat() / goal).coerceIn(0f, 1f) else 0f
+        val rawTodayIntake = intakeByEpochDay[todayEpoch] ?: 0
+        val baselineTotal =
+            if (intakeDisplayBaseline?.epochDay == todayEpoch) intakeDisplayBaseline.totalMlAtReset
+            else 0
+        val sessionIntake = (rawTodayIntake - baselineTotal).coerceAtLeast(0)
+        val fraction =
+            if (goal > 0) (sessionIntake.toFloat() / goal).coerceIn(0f, 1f) else 0f
         val percent = (fraction * 100f).toInt().coerceIn(0, 100)
 
         val lookup: (Long) -> Int = { intakeByEpochDay[it] ?: 0 }
@@ -54,7 +61,8 @@ object WaterTrackerUiMapper {
         return WaterTrackerUiState(
             goalMl = goal,
             unit = u,
-            todayIntakeMl = todayIntake,
+            todayTotalIntakeMl = rawTodayIntake,
+            todayIntakeMl = sessionIntake,
             progressFraction = fraction,
             progressPercent = percent,
             streakDays = streak,

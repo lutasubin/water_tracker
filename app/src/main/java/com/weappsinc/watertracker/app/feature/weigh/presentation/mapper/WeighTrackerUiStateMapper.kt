@@ -56,7 +56,8 @@ object WeighTrackerUiStateMapper {
             targetValueText = targetKg?.let { MassDisplay.formatTargetKg(it, unit) },
             gapValueText = MassDisplay.formatAbsKgDelta(gapAbs, unit),
             journeyProgressFraction = journeyFrac,
-            journeyProgressPercent = (journeyFrac * 100f).roundToInt().coerceIn(0, 100)
+            journeyProgressPercent = (journeyFrac * 100f).roundToInt().coerceIn(0, 100),
+            journeyStartWeightKg = journeyStartKg,
         )
     }
 }

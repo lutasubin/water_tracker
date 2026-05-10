@@ -67,16 +67,22 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighJour
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighMassUnitUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighTargetWeightKgUseCase
 import com.weappsinc.watertracker.app.feature.weigh.data.local.WeighWeightLogDatabase
+import com.weappsinc.watertracker.app.feature.weigh.data.repository.WeighCompletedGoalRepositoryImpl
 import com.weappsinc.watertracker.app.feature.weigh.data.repository.WeighLogRepositoryImpl
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ArchiveCompletedWeightGoalUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ComputeWeightProgressDeltaUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.BuildWeighHistorySevenDayChartUseCase
-import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestLogForTodayUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestLogUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestLogForTodayUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveCompletedWeightGoalsUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveCompletedGoalDetailUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestTwoLogsUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLogsLast7DaysUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeightProfileAndWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalHistoryDetailViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
 import kotlinx.coroutines.launch
@@ -202,7 +208,31 @@ class MainActivity : AppCompatActivity() {
         )
 
         val observeWeighLatestLog = ObserveWeighLatestLogUseCase(weighLogRepository)
+        val weighCompletedGoalRepository =
+            WeighCompletedGoalRepositoryImpl(weighLogDb.weighCompletedGoalDao())
+        val observeCompletedWeightGoals =
+            ObserveCompletedWeightGoalsUseCase(weighCompletedGoalRepository)
+        val observeCompletedGoalDetail =
+            ObserveCompletedGoalDetailUseCase(weighCompletedGoalRepository)
+        val archiveCompletedWeightGoal = ArchiveCompletedWeightGoalUseCase(
+            completedGoalRepository = weighCompletedGoalRepository,
+            weighLogRepository = weighLogRepository,
+            saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(weighPrefs),
+            saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(weighPrefs),
+        )
+        val weighGoalHistoryFactory = WeighGoalHistoryViewModelFactory(
+            observeCompleted = observeCompletedWeightGoals,
+            observeMassUnit = ObserveWeighMassUnitUseCase(weighPrefs),
+        )
+        val weighGoalHistoryDetailFactory = { goalId: Long ->
+            WeighGoalHistoryDetailViewModelFactory(
+                observeCompletedDetail = observeCompletedGoalDetail,
+                observeMassUnit = ObserveWeighMassUnitUseCase(weighPrefs),
+                goalId = goalId,
+            )
+        }
         val weighTrackerFactory = WeighTrackerViewModelFactory(
+            weighPrefs = weighPrefs,
             observeTall = ObserveTallUseCase(tallRepository),
             observeWeight = ObserveWeightUseCase(weightRepository),
             observeLatestLog = observeWeighLatestLog,
@@ -213,7 +243,8 @@ class MainActivity : AppCompatActivity() {
             observeJourneyStartWeightKg = ObserveWeighJourneyStartWeightKgUseCase(weighPrefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(weighPrefs),
             classifyBmi = ClassifyBmiUseCase(),
-            mapBmiFraction = MapBmiToScaleFractionUseCase()
+            mapBmiFraction = MapBmiToScaleFractionUseCase(),
+            archiveCompletedWeightGoal = archiveCompletedWeightGoal,
         )
 
         val observeWeighLatestTwoLogs = ObserveWeighLatestTwoLogsUseCase(weighLogRepository)
@@ -263,6 +294,8 @@ class MainActivity : AppCompatActivity() {
                     rateUsFactory = rateUsFactory,
                     weighGoalDetailFactory = weighGoalDetailFactory,
                     weighHistoryFactory = weighHistoryFactory,
+                    weighGoalHistoryFactory = weighGoalHistoryFactory,
+                    weighGoalHistoryDetailFactory = weighGoalHistoryDetailFactory,
                     reportViewModelFactory = reportViewModelFactory,
                     ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
                     recordWaterAppOpenDayUseCase = recordWaterAppOpenDayUseCase,

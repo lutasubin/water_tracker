@@ -27,6 +27,7 @@ fun WeighGoalDetailTodayCard(
     massUnit: MassUnit,
     massUnitLabel: String,
     canEditTodayWeight: Boolean,
+    showWeighRecordCta: Boolean,
     savedBannerTime: String?,
     recordError: Boolean,
     isRecording: Boolean,
@@ -51,14 +52,17 @@ fun WeighGoalDetailTodayCard(
             onStepPlus = { onStepKg(STEP_KG) }
         )
         Spacer(Modifier.height(16.dp))
-        if (savedBannerTime != null) {
+        // Có nút ghi nhận → ẩn card đã lưu; sau khi ẩn nút (vừa lưu) mới hiện banner.
+        if (savedBannerTime != null && !showWeighRecordCta) {
             WeighTodaySavedBanner(timeText = savedBannerTime)
             Spacer(Modifier.height(12.dp))
         }
-        WeighTodayRecordPillButton(
-            onClick = onRecord,
-            enabled = !isRecording,
-        )
+        if (showWeighRecordCta) {
+            WeighTodayRecordPillButton(
+                onClick = onRecord,
+                enabled = !isRecording,
+            )
+        }
         if (recordError) {
             Text(
                 text = stringResource(R.string.weigh_goal_detail_record_error),

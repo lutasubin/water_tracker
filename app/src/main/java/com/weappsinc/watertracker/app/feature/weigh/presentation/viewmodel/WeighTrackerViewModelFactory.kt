@@ -3,6 +3,8 @@ package com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.weappsinc.watertracker.app.feature.tall.domain.usecase.ObserveTallUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.repository.WeighPreferencesRepository
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ArchiveCompletedWeightGoalUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ClassifyBmiUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.MapBmiToScaleFractionUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighJourneyStartWeightKgUseCase
@@ -15,6 +17,7 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighTarg
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
 
 class WeighTrackerViewModelFactory(
+    private val weighPrefs: WeighPreferencesRepository,
     private val observeTall: ObserveTallUseCase,
     private val observeWeight: ObserveWeightUseCase,
     private val observeLatestLog: ObserveWeighLatestLogUseCase,
@@ -25,11 +28,13 @@ class WeighTrackerViewModelFactory(
     private val observeJourneyStartWeightKg: ObserveWeighJourneyStartWeightKgUseCase,
     private val saveJourneyStartWeightKg: SaveWeighJourneyStartWeightKgUseCase,
     private val classifyBmi: ClassifyBmiUseCase,
-    private val mapBmiFraction: MapBmiToScaleFractionUseCase
+    private val mapBmiFraction: MapBmiToScaleFractionUseCase,
+    private val archiveCompletedWeightGoal: ArchiveCompletedWeightGoalUseCase,
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         WeighTrackerViewModel(
+            weighPrefs = weighPrefs,
             observeTall = observeTall,
             observeWeight = observeWeight,
             observeLatestLog = observeLatestLog,
@@ -40,6 +45,7 @@ class WeighTrackerViewModelFactory(
             observeJourneyStartWeightKg = observeJourneyStartWeightKg,
             saveJourneyStartWeightKg = saveJourneyStartWeightKg,
             classifyBmi = classifyBmi,
-            mapBmiFraction = mapBmiFraction
+            mapBmiFraction = mapBmiFraction,
+            archiveCompletedWeightGoal = archiveCompletedWeightGoal,
         ) as T
 }

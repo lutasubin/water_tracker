@@ -95,6 +95,9 @@
     <string name="bmi_normal">طبيعي</string>
     <string name="bmi_overweight">زيادة وزن</string>
     <string name="target_weight_section_title">الوزن المستهدف</string>
+    <string name="weigh_goal_history_link">السجل</string>
+    <string name="weigh_goal_history_title">سجل الأهداف</string>
+    <string name="weigh_goal_history_empty">لا توجد أهداف مكتملة بعد.</string>
     <string name="target_weight_empty">لا يوجد هدف بعد!</string>
     <string name="create_target">إنشاء هدف</string>
     <string name="target_sheet_header_title">هدف الوزن</string>
@@ -125,6 +128,8 @@
     <string name="report_inline_title">تقرير</string>
     <string name="report_details">التفاصيل</string>
     <string name="report_screen_title">تقرير</string>
+    <string name="report_day_goal_completed_title">اكتمل الهدف</string>
+    <string name="report_day_goal_completed_percent">100٪</string>
     <string name="report_tab_day">يوم</string>
     <string name="report_tab_week">أسبوع</string>
     <string name="report_tab_month">شهر</string>
@@ -133,6 +138,8 @@
     <string name="drink_amount_title">كمية الماء</string>
     <string name="close">إغلاق</string>
     <string name="goal_done_dialog_title">تهانينا!\nلقد حققت هدف اليوم</string>
+    <string name="weigh_target_met_dialog_line1">تهانينا!</string>
+    <string name="weigh_target_met_dialog_line2_prefix">وزنك المستهدف </string>
 
     <string name="report_summary_today">اليوم</string>
     <string name="report_summary_goal">الهدف</string>

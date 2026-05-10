@@ -10,6 +10,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -36,6 +38,10 @@ import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.Water
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
 import com.weappsinc.watertracker.app.feature.settings.presentation.screen.LanguageScreen
 import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighGoalDetailScreen
+import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighGoalHistoryDetailScreen
+import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighGoalHistoryScreen
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalHistoryDetailViewModelFactory
+import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.screen.WeighHistoryScreen
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
@@ -66,6 +72,8 @@ fun AppNavHost(
     rateUsFactory: RateUsViewModelFactory,
     weighGoalDetailFactory: WeighGoalDetailViewModelFactory,
     weighHistoryFactory: WeighHistoryViewModelFactory,
+    weighGoalHistoryFactory: WeighGoalHistoryViewModelFactory,
+    weighGoalHistoryDetailFactory: (Long) -> WeighGoalHistoryDetailViewModelFactory,
     reportViewModelFactory: ReportViewModelFactory,
     ensureFirstInstallDayUseCase: EnsureFirstInstallDayUseCase,
     recordWaterAppOpenDayUseCase: RecordWaterAppOpenDayUseCase,
@@ -227,6 +235,11 @@ fun AppNavHost(
                         navController.navigate(AppRoute.WeighGoalDetail.route) { launchSingleTop = true }
                     }
                 },
+                onOpenWeighGoalHistory = {
+                    navGate.run {
+                        navController.navigate(AppRoute.WeighGoalHistory.route) { launchSingleTop = true }
+                    }
+                },
                 onOpenLanguage = {
                     navGate.run {
                         navController.navigate(AppRoute.Language.route) { launchSingleTop = true }
@@ -279,6 +292,33 @@ fun AppNavHost(
                         navController.navigate(AppRoute.WeighHistory.route) { launchSingleTop = true }
                     }
                 }
+            )
+        }
+        composable(AppRoute.WeighGoalHistory.route) {
+            WeighGoalHistoryScreen(
+                factory = weighGoalHistoryFactory,
+                onBack = { navGate.run { navController.popBackStack() } },
+                onOpenGoalDetail = { goalId ->
+                    navGate.run {
+                        navController.navigate(AppRoute.WeighGoalHistoryDetail.create(goalId)) {
+                            launchSingleTop = true
+                        }
+                    }
+                },
+            )
+        }
+        composable(
+            route = AppRoute.WeighGoalHistoryDetail.route,
+            arguments = listOf(navArgument("goalId") { type = NavType.LongType }),
+        ) { backStackEntry ->
+            val goalId = backStackEntry.arguments?.getLong("goalId") ?: 0L
+            if (goalId <= 0L) {
+                LaunchedEffect(Unit) { navGate.run { navController.popBackStack() } }
+                return@composable
+            }
+            WeighGoalHistoryDetailScreen(
+                factory = weighGoalHistoryDetailFactory(goalId),
+                onBack = { navGate.run { navController.popBackStack() } },
             )
         }
         composable(AppRoute.WeighHistory.route) {

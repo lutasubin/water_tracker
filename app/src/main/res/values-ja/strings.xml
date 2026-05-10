@@ -86,6 +86,9 @@
     <string name="bmi_normal">普通</string>
     <string name="bmi_overweight">過体重</string>
     <string name="target_weight_section_title">目標体重</string>
+    <string name="weigh_goal_history_link">履歴</string>
+    <string name="weigh_goal_history_title">目標の履歴</string>
+    <string name="weigh_goal_history_empty">完了した目標はまだありません。</string>
     <string name="target_weight_empty">目標がまだありません</string>
     <string name="create_target">目標を作成</string>
     <string name="target_sheet_header_title">目標体重</string>
@@ -116,6 +119,8 @@
     <string name="report_inline_title">レポート</string>
     <string name="report_details">詳細</string>
     <string name="report_screen_title">レポート</string>
+    <string name="report_day_goal_completed_title">目標達成</string>
+    <string name="report_day_goal_completed_percent">100%</string>
     <string name="report_tab_day">日</string>
     <string name="report_tab_week">週</string>
     <string name="report_tab_month">月</string>

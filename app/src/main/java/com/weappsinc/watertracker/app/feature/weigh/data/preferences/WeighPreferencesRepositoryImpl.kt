@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
@@ -18,6 +19,8 @@ private object WeighKeys {
     val MASS_UNIT = stringPreferencesKey("mass_unit")
     val TARGET_KG = floatPreferencesKey("target_weight_kg")
     val JOURNEY_START_KG = floatPreferencesKey("journey_start_weight_kg")
+    val WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY =
+        longPreferencesKey("weight_goal_met_dialog_shown_epoch_day")
 }
 
 /** DataStore `weigh_prefs`: đơn vị KG/LB và cân mục tiêu (kg), tách khỏi water prefs. */
@@ -64,5 +67,12 @@ class WeighPreferencesRepositoryImpl(
             if (weightKg == null) prefs.remove(WeighKeys.JOURNEY_START_KG)
             else prefs[WeighKeys.JOURNEY_START_KG] = weightKg
         }
+    }
+
+    override fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?> =
+        ds.data.map { prefs -> prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY] }
+
+    override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {
+        ds.edit { it[WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY] = epochDay }
     }
 }
