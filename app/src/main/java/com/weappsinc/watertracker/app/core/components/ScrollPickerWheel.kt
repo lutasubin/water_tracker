@@ -24,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +35,7 @@ import com.weappsinc.watertracker.app.core.theme.AppTypography
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
 
 /**
@@ -52,6 +54,7 @@ fun ScrollPickerWheel(
     val initialIndex = values.indexOf(selectedValue).takeIf { it >= 0 } ?: 0
     val listState = rememberLazyListState(initialFirstVisibleItemIndex = initialIndex)
     val snapFling = rememberSnapFlingBehavior(lazyListState = listState)
+    val view = LocalView.current
     val inset = (wheelHeight - itemHeight) / 2
     val wheelNumberStyle = remember {
         AppTypography.DisplayNumber.copy(
@@ -81,6 +84,13 @@ fun ScrollPickerWheel(
             .map { idx -> values.getOrElse(idx) { values.first() } }
             .distinctUntilChanged()
             .collectLatest { v -> onSelectedChange(v) }
+    }
+
+    LaunchedEffect(listState, values) {
+        snapshotFlow { centeredIndex(listState, values.lastIndex) }
+            .distinctUntilChanged()
+            .drop(1)
+            .collectLatest { performTickHaptic(view) }
     }
 
     Box(
@@ -130,6 +140,16 @@ fun ScrollPickerWheel(
             }
         }
     }
+}
+
+// Rung tick rất nhẹ mỗi lần số ở giữa đổi; SEGMENT_TICK (API 33+) mượt hơn, fallback CLOCK_TICK.
+private fun performTickHaptic(view: android.view.View) {
+    val constant = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+        android.view.HapticFeedbackConstants.SEGMENT_TICK
+    } else {
+        android.view.HapticFeedbackConstants.CLOCK_TICK
+    }
+    view.performHapticFeedback(constant)
 }
 
 private fun centeredIndex(listState: LazyListState, lastIndex: Int): Int {
