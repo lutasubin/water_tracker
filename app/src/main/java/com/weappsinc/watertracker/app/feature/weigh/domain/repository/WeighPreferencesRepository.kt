@@ -14,4 +14,7 @@ interface WeighPreferencesRepository {
     /** Ngày (epoch day) đã hiện popup đạt mục tiêu cân; null = chưa từng. */
     fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?>
     suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long)
+    /** Mục tiêu (kg) đã hiện popup gần nhất; null = chưa từng. */
+    fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?>
+    suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?)
 }

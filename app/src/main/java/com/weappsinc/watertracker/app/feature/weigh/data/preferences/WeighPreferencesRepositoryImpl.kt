@@ -21,6 +21,8 @@ private object WeighKeys {
     val JOURNEY_START_KG = floatPreferencesKey("journey_start_weight_kg")
     val WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY =
         longPreferencesKey("weight_goal_met_dialog_shown_epoch_day")
+    val WEIGHT_GOAL_MET_DIALOG_TARGET_KG =
+        floatPreferencesKey("weight_goal_met_dialog_shown_target_kg")
 }
 
 /** DataStore `weigh_prefs`: đơn vị KG/LB và cân mục tiêu (kg), tách khỏi water prefs. */
@@ -74,5 +76,18 @@ class WeighPreferencesRepositoryImpl(
 
     override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {
         ds.edit { it[WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY] = epochDay }
+    }
+
+    override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> =
+        ds.data.map { prefs ->
+            if (!prefs.contains(WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG)) null
+            else prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG]
+        }
+
+    override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {
+        ds.edit { prefs ->
+            if (targetKg == null) prefs.remove(WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG)
+            else prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG] = targetKg
+        }
     }
 }

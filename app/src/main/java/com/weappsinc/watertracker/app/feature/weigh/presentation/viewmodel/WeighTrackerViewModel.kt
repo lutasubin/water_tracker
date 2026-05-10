@@ -71,11 +71,14 @@ class WeighTrackerViewModel(
         }
     }
 
-    fun shouldShowWeightTargetMetDialog(todayEpoch: Long, isTargetMet: Boolean): Boolean =
-        goalMet.shouldShowWeightTargetMetDialog(todayEpoch, isTargetMet)
+    fun shouldShowWeightTargetMetDialog(
+        todayEpoch: Long,
+        isTargetMet: Boolean,
+        targetWeightKg: Float?,
+    ): Boolean = goalMet.shouldShowWeightTargetMetDialog(todayEpoch, isTargetMet, targetWeightKg)
 
-    fun markWeightTargetMetDialogShown(todayEpoch: Long) {
-        goalMet.markWeightTargetMetDialogShown(todayEpoch)
+    fun markWeightTargetMetDialogShown(todayEpoch: Long, targetWeightKg: Float?) {
+        goalMet.markWeightTargetMetDialogShown(todayEpoch, targetWeightKg)
     }
 
     fun onWeightGoalMetDialogDismissed(snapshot: WeightGoalCompletionSnapshot) {

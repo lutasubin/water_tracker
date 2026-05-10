@@ -42,8 +42,14 @@ fun WeighTrackerGoalMetOverlay(
 
     LaunchedEffect(isTargetMet) {
         val today = LocalDate.now().toEpochDay()
-        if (vm.shouldShowWeightTargetMetDialog(todayEpoch = today, isTargetMet = isTargetMet)) {
-            vm.markWeightTargetMetDialogShown(todayEpoch = today)
+        if (
+            vm.shouldShowWeightTargetMetDialog(
+                todayEpoch = today,
+                isTargetMet = isTargetMet,
+                targetWeightKg = targetWeightKg,
+            )
+        ) {
+            vm.markWeightTargetMetDialogShown(todayEpoch = today, targetWeightKg = targetWeightKg)
             fireworksSession++
             showFireworks = true
         }

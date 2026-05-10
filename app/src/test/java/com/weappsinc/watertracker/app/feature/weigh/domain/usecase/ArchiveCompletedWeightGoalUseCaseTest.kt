@@ -144,6 +144,8 @@ class ArchiveCompletedWeightGoalUseCaseTest {
 
         override fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?> = flowOf(null)
         override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {}
+        override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> = flowOf(null)
+        override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {}
     }
 
     private class FailingPrefsRepo : WeighPreferencesRepository {
@@ -161,5 +163,7 @@ class ArchiveCompletedWeightGoalUseCaseTest {
 
         override fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?> = flowOf(null)
         override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {}
+        override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> = flowOf(null)
+        override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {}
     }
 }

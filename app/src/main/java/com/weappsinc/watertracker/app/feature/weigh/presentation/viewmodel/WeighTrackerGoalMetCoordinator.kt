@@ -17,6 +17,7 @@ internal class WeighTrackerGoalMetCoordinator(
     private val scope: CoroutineScope,
 ) {
     private var weightGoalMetDialogShownEpoch: Long = Long.MIN_VALUE
+    private var weightGoalMetDialogShownTargetKg: Float? = null
     private val _lastArchiveOutcome = MutableStateFlow<ArchiveCompletedWeightGoalOutcome?>(null)
     private val _lastArchiveFailed = MutableStateFlow(false)
     val lastArchiveOutcome: StateFlow<ArchiveCompletedWeightGoalOutcome?> = _lastArchiveOutcome.asStateFlow()
@@ -28,17 +29,32 @@ internal class WeighTrackerGoalMetCoordinator(
                 weightGoalMetDialogShownEpoch = epoch ?: Long.MIN_VALUE
             }
         }
+        scope.launch {
+            weighPrefs.observeWeightGoalMetDialogShownTargetKg().collect { targetKg ->
+                weightGoalMetDialogShownTargetKg = targetKg
+            }
+        }
     }
 
-    fun shouldShowWeightTargetMetDialog(todayEpoch: Long, isTargetMet: Boolean): Boolean {
+    fun shouldShowWeightTargetMetDialog(
+        todayEpoch: Long,
+        isTargetMet: Boolean,
+        targetWeightKg: Float?,
+    ): Boolean {
         if (!isTargetMet) return false
-        return weightGoalMetDialogShownEpoch != todayEpoch
+        if (targetWeightKg == null) return false
+        val isSameDay = weightGoalMetDialogShownEpoch == todayEpoch
+        val isSameTarget = weightGoalMetDialogShownTargetKg == targetWeightKg
+        return !(isSameDay && isSameTarget)
     }
 
-    fun markWeightTargetMetDialogShown(todayEpoch: Long) {
+    fun markWeightTargetMetDialogShown(todayEpoch: Long, targetWeightKg: Float?) {
+        if (targetWeightKg == null) return
         weightGoalMetDialogShownEpoch = todayEpoch
+        weightGoalMetDialogShownTargetKg = targetWeightKg
         scope.launch {
             weighPrefs.saveWeightGoalMetDialogShownEpochDay(todayEpoch)
+            weighPrefs.saveWeightGoalMetDialogShownTargetKg(targetWeightKg)
         }
     }
 
