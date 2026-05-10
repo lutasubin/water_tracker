@@ -5,7 +5,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
@@ -19,10 +18,6 @@ private object WeighKeys {
     val MASS_UNIT = stringPreferencesKey("mass_unit")
     val TARGET_KG = floatPreferencesKey("target_weight_kg")
     val JOURNEY_START_KG = floatPreferencesKey("journey_start_weight_kg")
-    val WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY =
-        longPreferencesKey("weight_goal_met_dialog_shown_epoch_day")
-    val WEIGHT_GOAL_MET_DIALOG_TARGET_KG =
-        floatPreferencesKey("weight_goal_met_dialog_shown_target_kg")
 }
 
 /** DataStore `weigh_prefs`: đơn vị KG/LB và cân mục tiêu (kg), tách khỏi water prefs. */
@@ -68,33 +63,6 @@ class WeighPreferencesRepositoryImpl(
         ds.edit { prefs ->
             if (weightKg == null) prefs.remove(WeighKeys.JOURNEY_START_KG)
             else prefs[WeighKeys.JOURNEY_START_KG] = weightKg
-        }
-    }
-
-    override fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?> =
-        ds.data.map { prefs -> prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY] }
-
-    override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {
-        ds.edit { it[WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY] = epochDay }
-    }
-
-    override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> =
-        ds.data.map { prefs ->
-            if (!prefs.contains(WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG)) null
-            else prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG]
-        }
-
-    override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {
-        ds.edit { prefs ->
-            if (targetKg == null) prefs.remove(WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG)
-            else prefs[WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG] = targetKg
-        }
-    }
-
-    override suspend fun clearWeightGoalMetDialogShownMarker() {
-        ds.edit { prefs ->
-            prefs.remove(WeighKeys.WEIGHT_GOAL_MET_DIALOG_EPOCH_DAY)
-            prefs.remove(WeighKeys.WEIGHT_GOAL_MET_DIALOG_TARGET_KG)
         }
     }
 }

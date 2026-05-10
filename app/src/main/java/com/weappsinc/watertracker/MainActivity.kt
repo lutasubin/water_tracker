@@ -217,7 +217,6 @@ class MainActivity : AppCompatActivity() {
         val archiveCompletedWeightGoal = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = weighCompletedGoalRepository,
             weighLogRepository = weighLogRepository,
-            weighPreferencesRepository = weighPrefs,
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(weighPrefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(weighPrefs),
         )
@@ -233,7 +232,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
         val weighTrackerFactory = WeighTrackerViewModelFactory(
-            weighPrefs = weighPrefs,
             observeTall = ObserveTallUseCase(tallRepository),
             observeWeight = ObserveWeightUseCase(weightRepository),
             observeLatestLog = observeWeighLatestLog,

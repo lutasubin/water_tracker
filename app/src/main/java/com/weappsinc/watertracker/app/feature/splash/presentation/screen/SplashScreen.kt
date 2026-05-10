@@ -1,5 +1,12 @@
 package com.weappsinc.watertracker.app.feature.splash.presentation.screen
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,110 +17,117 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.Composable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.components.CapsuleProgressBar
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
-import coil.compose.AsyncImage
-import coil.ImageLoader
-import coil.decode.SvgDecoder
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
     onBootstrap: suspend () -> Unit = {},
-    onSplashFinished: () -> Unit = {}
+    onSplashFinished: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val imageLoader = remember {
-        ImageLoader.Builder(context)
-            .components {
-                add(SvgDecoder.Factory())
-            }
-            .build()
+        ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }.build()
     }
+    LaunchedEffect(Unit) {
+        onBootstrap()
+        delay(2000)
+        onSplashFinished()
+    }
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppColors.SplashBackgroundSolid),
+    ) {
+        AsyncImage(
+            model = AssetPaths.SPLASH_BACKGROUND,
+            contentDescription = stringResource(R.string.splash_background_desc),
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+        SplashContent(imageLoader = imageLoader)
+        SplashProgressBar(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(
+                    start = AppDimens.SplashProgressHorizontalPadding,
+                    end = AppDimens.SplashProgressHorizontalPadding,
+                    bottom = AppDimens.SplashProgressBottomPadding,
+                ),
+        )
+    }
+}
+
+@Composable
+private fun SplashContent(imageLoader: ImageLoader) {
+    val context = LocalContext.current
+    // crossfade(false) + painter cache → icon hiện tức thì, không nhấp nháy.
+    val iconPainter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(context)
+            .data(AssetPaths.SPLASH_ICON)
+            .crossfade(false)
+            .build(),
+        imageLoader = imageLoader,
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = AppDimens.SplashHorizontalPadding),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Image(
+            painter = iconPainter,
+            contentDescription = stringResource(R.string.splash_icon_desc),
+            modifier = Modifier.fillMaxWidth(AppDimens.SplashIconWidthFraction),
+        )
+        Spacer(modifier = Modifier.height(AppDimens.SplashTitleTopSpacing))
+        Text(
+            text = stringResource(R.string.splash_title),
+            color = AppColors.SplashTitle,
+            style = AppTypography.Title2,
+        )
+    }
+}
+
+@Composable
+private fun SplashProgressBar(modifier: Modifier = Modifier) {
+    // Tách riêng để chỉ progress bar recompose mỗi frame, không kéo theo icon.
     val infiniteTransition = rememberInfiniteTransition(label = "splash_progress")
     val progress by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 1600, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
+            repeatMode = RepeatMode.Restart,
         ),
-        label = "splash_progress_value"
+        label = "splash_progress_value",
     )
-    LaunchedEffect(Unit) {
-        onBootstrap()
-        delay(2000)
-        onSplashFinished()
-    }
-
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(AppColors.SplashBackgroundSolid)
-    ) {
-        AsyncImage(
-            model = AssetPaths.SPLASH_BACKGROUND,
-            contentDescription = stringResource(R.string.splash_background_desc),
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = AppDimens.SplashHorizontalPadding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            AsyncImage(
-                model = AssetPaths.SPLASH_ICON,
-                contentDescription = stringResource(R.string.splash_icon_desc),
-                imageLoader = imageLoader,
-                modifier = Modifier
-                    .fillMaxWidth(AppDimens.SplashIconWidthFraction)
-            )
-
-            Spacer(modifier = Modifier.height(AppDimens.SplashTitleTopSpacing))
-
-            Text(
-                text = stringResource(R.string.splash_title),
-                color = AppColors.SplashTitle,
-                style = AppTypography.Title2
-            )
-        }
-
-        CapsuleProgressBar(
-            progressFraction = progress,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(
-                    start = AppDimens.SplashProgressHorizontalPadding,
-                    end = AppDimens.SplashProgressHorizontalPadding,
-                    bottom = AppDimens.SplashProgressBottomPadding
-                ),
-            height = AppDimens.SplashProgressHeight,
-            trackColor = AppColors.SplashProgressTrack,
-            fillColor = AppColors.SplashProgress,
-        )
-    }
+    CapsuleProgressBar(
+        progressFraction = progress,
+        modifier = modifier,
+        height = AppDimens.SplashProgressHeight,
+        trackColor = AppColors.SplashProgressTrack,
+        fillColor = AppColors.SplashProgress,
+    )
 }

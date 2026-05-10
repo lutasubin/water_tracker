@@ -6,7 +6,6 @@ import com.weappsinc.watertracker.app.feature.tall.domain.usecase.ObserveTallUse
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.ArchiveCompletedWeightGoalOutcome
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeightGoalCompletionSnapshot
-import com.weappsinc.watertracker.app.feature.weigh.domain.repository.WeighPreferencesRepository
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ArchiveCompletedWeightGoalUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ClassifyBmiUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.MapBmiToScaleFractionUseCase
@@ -23,7 +22,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class WeighTrackerViewModel(
-    weighPrefs: WeighPreferencesRepository,
     private val observeTall: ObserveTallUseCase,
     private val observeWeight: ObserveWeightUseCase,
     private val observeLatestLog: ObserveWeighLatestLogUseCase,
@@ -39,11 +37,7 @@ class WeighTrackerViewModel(
 ) : ViewModel() {
 
     private val goalMet =
-        WeighTrackerGoalMetCoordinator(weighPrefs, archiveCompletedWeightGoal, viewModelScope)
-
-    init {
-        goalMet.startObservingDialogEpoch()
-    }
+        WeighTrackerGoalMetCoordinator(archiveCompletedWeightGoal, viewModelScope)
 
     val uiState = buildWeighTrackerUiStateFlow(
         viewModelScope,
@@ -69,16 +63,6 @@ class WeighTrackerViewModel(
             saveTargetWeightKg(t)
             saveJourneyStartWeightKg(MassDisplay.snapTargetKg(currentBodyWeightKg))
         }
-    }
-
-    fun shouldShowWeightTargetMetDialog(
-        todayEpoch: Long,
-        isTargetMet: Boolean,
-        targetWeightKg: Float?,
-    ): Boolean = goalMet.shouldShowWeightTargetMetDialog(todayEpoch, isTargetMet, targetWeightKg)
-
-    fun markWeightTargetMetDialogShown(todayEpoch: Long, targetWeightKg: Float?) {
-        goalMet.markWeightTargetMetDialogShown(todayEpoch, targetWeightKg)
     }
 
     fun onWeightGoalMetDialogDismissed(snapshot: WeightGoalCompletionSnapshot) {

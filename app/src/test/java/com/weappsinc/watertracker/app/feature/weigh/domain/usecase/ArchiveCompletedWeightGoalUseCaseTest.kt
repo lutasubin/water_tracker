@@ -25,13 +25,11 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         val uc = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = completed,
             weighLogRepository = FakeLogRepo(),
-            weighPreferencesRepository = prefs,
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(prefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(prefs),
         )
-        val snap = snap()
-        assertTrue(uc(snap).isFailure)
-        assertEquals(0f, prefs.savedTarget) // không gọi save null
+        assertTrue(uc(snap()).isFailure)
+        assertEquals(0f, prefs.savedTarget)
         assertEquals(0f, prefs.savedJourney)
     }
 
@@ -42,7 +40,6 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         val uc = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = completed,
             weighLogRepository = FakeLogRepo(),
-            weighPreferencesRepository = prefs,
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(prefs),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(prefs),
         )
@@ -58,7 +55,6 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         val uc = ArchiveCompletedWeightGoalUseCase(
             completedGoalRepository = completed,
             weighLogRepository = FakeLogRepo(),
-            weighPreferencesRepository = FailingPrefsRepo(),
             saveTargetWeightKg = SaveWeighTargetWeightKgUseCase(FailingPrefsRepo()),
             saveJourneyStartWeightKg = SaveWeighJourneyStartWeightKgUseCase(FailingPrefsRepo()),
         )
@@ -144,12 +140,6 @@ class ArchiveCompletedWeightGoalUseCaseTest {
         override suspend fun saveJourneyStartWeightKg(weightKg: Float?) {
             savedJourney = weightKg
         }
-
-        override fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?> = flowOf(null)
-        override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {}
-        override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> = flowOf(null)
-        override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {}
-        override suspend fun clearWeightGoalMetDialogShownMarker() {}
     }
 
     private class FailingPrefsRepo : WeighPreferencesRepository {
@@ -162,14 +152,6 @@ class ArchiveCompletedWeightGoalUseCaseTest {
 
         override fun observeJourneyStartWeightKg(): Flow<Float?> = flowOf(60f)
         override suspend fun saveJourneyStartWeightKg(weightKg: Float?) {
-            error("prefs error")
-        }
-
-        override fun observeWeightGoalMetDialogShownEpochDay(): Flow<Long?> = flowOf(null)
-        override suspend fun saveWeightGoalMetDialogShownEpochDay(epochDay: Long) {}
-        override fun observeWeightGoalMetDialogShownTargetKg(): Flow<Float?> = flowOf(null)
-        override suspend fun saveWeightGoalMetDialogShownTargetKg(targetKg: Float?) {}
-        override suspend fun clearWeightGoalMetDialogShownMarker() {
             error("prefs error")
         }
     }
