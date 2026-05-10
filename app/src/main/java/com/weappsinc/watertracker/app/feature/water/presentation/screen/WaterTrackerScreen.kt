@@ -156,7 +156,7 @@ fun WaterTrackerScreen(
                 goalDisplayCompact = goalDisplayCompact,
                 onDismiss = {
                     showGoalDoneDialog = false
-                    vm.onGoalCompleteDialogDismissed(state.todayTotalIntakeMl)
+                    vm.onGoalCompleteDialogDismissed()
                 }
             )
         }

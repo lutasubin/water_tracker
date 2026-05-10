@@ -50,10 +50,6 @@ fun ReportScreen(
             ReportPeriodTabs(selected = state.period, onSelect = vm::onPeriodChange)
             Spacer(Modifier.height(AppDimens.ReportSectionSpacing))
             ReportSummaryCards(state)
-            if (state.showDayGoalCompleted) {
-                Spacer(Modifier.height(AppDimens.ReportSectionSpacing))
-                ReportDayGoalCompletedCard()
-            }
             Spacer(Modifier.height(AppDimens.ReportSectionSpacing))
             ReportChartSection(
                 state = state,

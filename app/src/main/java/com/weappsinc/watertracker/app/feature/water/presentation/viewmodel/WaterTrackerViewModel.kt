@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.weappsinc.watertracker.app.core.constants.WaterConstants
 import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterAppVisitRepository
 import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterIntakeRepository
-import com.weappsinc.watertracker.app.feature.water.domain.model.WaterIntakeDisplayBaseline
 import com.weappsinc.watertracker.app.feature.water.domain.repository.WaterPreferencesRepository
 import com.weappsinc.watertracker.app.feature.water.domain.usecase.AddWaterIntakeUseCase
 import com.weappsinc.watertracker.app.feature.water.presentation.mapper.WaterTrackerUiMapper
@@ -55,8 +54,7 @@ class WaterTrackerViewModel(
             combine(
                 intake.observeTotalsBetween(low, sunday),
                 visits.observeOpenEpochDaysBetween(low, sunday),
-                prefs.observeIntakeDisplayBaseline(),
-            ) { map, openDays, baseline ->
+            ) { map, openDays ->
                 WaterTrackerUiMapper.buildState(
                     zone,
                     install,
@@ -65,7 +63,6 @@ class WaterTrackerViewModel(
                     map,
                     openDays,
                     java.util.Locale.getDefault(),
-                    baseline,
                 )
             }
         }
@@ -80,7 +77,6 @@ class WaterTrackerViewModel(
                 emptyMap(),
                 emptySet(),
                 java.util.Locale.getDefault(),
-                null,
             )
         )
 
@@ -109,15 +105,8 @@ class WaterTrackerViewModel(
         }
     }
 
-    /** Sau khi đóng popup đạt mục tiêu: UI tiến độ quay về 0 (session), dữ liệu tổng vẫn giữ cho báo cáo. */
-    fun onGoalCompleteDialogDismissed(totalMlAtReset: Int) {
-        viewModelScope.launch {
-            val today = LocalDate.now(zone).toEpochDay()
-            prefs.saveIntakeDisplayBaseline(
-                WaterIntakeDisplayBaseline(today, totalMlAtReset.coerceAtLeast(0)),
-            )
-        }
-    }
+    /** Giữ nguyên tiến độ trong ngày sau khi đóng popup đạt mục tiêu. */
+    fun onGoalCompleteDialogDismissed() = Unit
 }
 
 class WaterTrackerViewModelFactory(
