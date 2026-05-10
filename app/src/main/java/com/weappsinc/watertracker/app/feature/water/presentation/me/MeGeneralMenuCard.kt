@@ -27,6 +27,7 @@ internal fun MeGeneralMenuCard(
     label: String,
     icon: ImageVector,
     onClick: () -> Unit,
+    valueText: String? = null,
 ) {
     Row(
         modifier = Modifier
@@ -52,6 +53,14 @@ internal fun MeGeneralMenuCard(
                 .weight(1f)
                 .padding(horizontal = 12.dp),
         )
+        if (valueText != null) {
+            Text(
+                text = valueText,
+                style = AppTypography.BodyLarge,
+                color = AppColors.HomePrimary,
+                modifier = Modifier.padding(end = 4.dp),
+            )
+        }
         Icon(
             imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
             contentDescription = null,

@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,6 +21,8 @@ import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
+import com.weappsinc.watertracker.app.core.constants.AppLanguageCatalog
+import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModel
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.MeProfileViewModelFactory
 
@@ -39,6 +43,18 @@ fun MeProfileScreen(
 ) {
     val vm: MeProfileViewModel = viewModel(factory = factory)
     val state by vm.uiState.collectAsState()
+    val context = LocalContext.current
+    val languageValueText by produceState(
+        initialValue = "",
+        key1 = context.applicationContext,
+    ) {
+        AppLocalePreferences.observeTag(context.applicationContext).collect { tag ->
+            val opt = AppLanguageCatalog.options.firstOrNull { it.localeTag == tag }
+            value = opt?.let {
+                context.applicationContext.getString(it.labelRes)
+            } ?: tag
+        }
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -59,6 +75,7 @@ fun MeProfileScreen(
         MeProfileGeneralSection(
             state = state,
             imageLoader = imageLoader,
+            languageValueText = languageValueText,
             onEditTall = onEditTall,
             onEditWeight = onEditWeight,
             onEditAge = onEditAge,

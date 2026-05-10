@@ -11,11 +11,10 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighL
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestTwoLogsUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighMassUnitUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighTargetWeightKgUseCase
-import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeightProfileAndWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighMassUnitUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighTargetWeightKgUseCase
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
-import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUseCase
 
 class WeighGoalDetailViewModelFactory(
     private val observeTall: ObserveTallUseCase,
@@ -27,8 +26,7 @@ class WeighGoalDetailViewModelFactory(
     private val observeJourneyStartWeightKg: ObserveWeighJourneyStartWeightKgUseCase,
     private val observeLatestTwoLogs: ObserveWeighLatestTwoLogsUseCase,
     private val observeLatestLogForToday: ObserveWeighLatestLogForTodayUseCase,
-    private val saveWeighLog: SaveWeighLogUseCase,
-    private val saveWeightProfile: SaveWeightUseCase,
+    private val saveWeightProfileAndWeighLog: SaveWeightProfileAndWeighLogUseCase,
     private val computeDelta: ComputeWeightProgressDeltaUseCase,
     private val classifyBmi: ClassifyBmiUseCase,
     private val mapBmiFraction: MapBmiToScaleFractionUseCase
@@ -45,8 +43,7 @@ class WeighGoalDetailViewModelFactory(
             observeJourneyStartWeightKg = observeJourneyStartWeightKg,
             observeLatestTwoLogs = observeLatestTwoLogs,
             observeLatestLogForToday = observeLatestLogForToday,
-            saveWeighLog = saveWeighLog,
-            saveWeightProfile = saveWeightProfile,
+            saveWeightProfileAndWeighLog = saveWeightProfileAndWeighLog,
             computeDelta = computeDelta,
             classifyBmi = classifyBmi,
             mapBmiFraction = mapBmiFraction

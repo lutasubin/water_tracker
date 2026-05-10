@@ -11,21 +11,19 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighL
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestTwoLogsUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighMassUnitUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighTargetWeightKgUseCase
-import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighMassUnitUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighTargetWeightKgUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeightProfileAndWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 import com.weappsinc.watertracker.app.feature.weigh.domain.model.WeighLogEntry
 import com.weappsinc.watertracker.app.feature.weigh.domain.util.MassDisplay
 import com.weappsinc.watertracker.app.feature.weigh.presentation.mapper.WeighGoalDetailUiStateMapper
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
-import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 class WeighGoalDetailViewModel(
     private val observeTall: ObserveTallUseCase,
@@ -37,8 +35,7 @@ class WeighGoalDetailViewModel(
     private val observeJourneyStartWeightKg: ObserveWeighJourneyStartWeightKgUseCase,
     private val observeLatestTwoLogs: ObserveWeighLatestTwoLogsUseCase,
     private val observeLatestLogForToday: ObserveWeighLatestLogForTodayUseCase,
-    private val saveWeighLog: SaveWeighLogUseCase,
-    private val saveWeightProfile: SaveWeightUseCase,
+    private val saveWeightProfileAndWeighLog: SaveWeightProfileAndWeighLogUseCase,
     private val computeDelta: ComputeWeightProgressDeltaUseCase,
     private val classifyBmi: ClassifyBmiUseCase,
     private val mapBmiFraction: MapBmiToScaleFractionUseCase
@@ -125,8 +122,7 @@ class WeighGoalDetailViewModel(
             isRecording.value = true
             recordError.value = false
             try {
-                saveWeighLog(kg).getOrThrow()
-                saveWeightProfile(MassDisplay.snapTargetKg(kg).roundToInt())
+                saveWeightProfileAndWeighLog(kg).getOrThrow()
                 savedAtMs.value = System.currentTimeMillis()
                 draftOverride.value = null
             } catch (_: Exception) {

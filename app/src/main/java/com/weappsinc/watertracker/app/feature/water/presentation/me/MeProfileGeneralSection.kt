@@ -14,11 +14,12 @@ import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 import com.weappsinc.watertracker.app.feature.water.presentation.state.MeProfileUiState
 
-/** General: hàng hồ sơ; Support: ngôn ngữ / đánh giá / … */
+/** Chung (cao/cân/tuổi/giới) + Hỗ trợ (ngôn ngữ / đánh giá / …) — một màn Personal Data. */
 @Composable
 fun MeProfileGeneralSection(
     state: MeProfileUiState,
     imageLoader: ImageLoader,
+    languageValueText: String,
     onEditTall: () -> Unit,
     onEditWeight: () -> Unit,
     onEditAge: () -> Unit,
@@ -52,11 +53,12 @@ fun MeProfileGeneralSection(
             color = AppColors.HomeTitle,
             modifier = Modifier.padding(top = AppDimens.MeProfileSectionTitleSpacing),
         )
-        MeProfileGeneralMenuRows(
+        MeProfileSupportMenuRows(
             onLanguage = onLanguage,
             onRateUs = onRateUs,
             onShare = onShare,
             onPrivacyPolicy = onPrivacyPolicy,
+            languageValueText = languageValueText,
             modifier = Modifier
                 .padding(top = AppDimens.MeProfileGeneralTopSpacing)
                 .fillMaxWidth(),

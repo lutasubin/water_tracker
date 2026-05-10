@@ -12,9 +12,8 @@ import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.feature.gender.domain.model.GenderType
 import com.weappsinc.watertracker.app.feature.water.presentation.state.MeProfileUiState
-import com.weappsinc.watertracker.app.feature.weigh.domain.model.MassUnit
 
-/** Bốn hàng Chiều cao / Cân nặng / Tuổi / Giới tính (tab Me). */
+/** Khối Chung: chiều cao / cân / tuổi / giới tính — bấm để chỉnh (giống màn Personal Data). */
 @Composable
 fun MeProfilePhysicalRows(
     state: MeProfileUiState,
@@ -25,18 +24,8 @@ fun MeProfilePhysicalRows(
     onEditGender: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val heightRight =
-        if (state.heightValueText == "--") {
-            "--"
-        } else {
-            "${state.heightValueText} ${stringResource(R.string.unit_cm)}"
-        }
-    val massLabel =
-        if (state.displayMassUnit == MassUnit.KG) stringResource(R.string.unit_mass_kg)
-        else stringResource(R.string.unit_mass_lb)
-    val weightRight =
-        if (state.weightValueText == "--") "--"
-        else "${state.weightValueText} $massLabel"
+    val heightRight = meProfileHeightRightText(state)
+    val weightRight = meProfileWeightRightText(state)
     val sexLabel = when (state.sex) {
         GenderType.MALE -> stringResource(R.string.male)
         GenderType.FEMALE -> stringResource(R.string.female)

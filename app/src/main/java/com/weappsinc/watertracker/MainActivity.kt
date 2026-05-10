@@ -75,6 +75,7 @@ import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighL
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLatestTwoLogsUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.ObserveWeighLogsLast7DaysUseCase
 import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeighLogUseCase
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeightProfileAndWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighGoalDetailViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighHistoryViewModelFactory
 import com.weappsinc.watertracker.app.feature.weigh.presentation.viewmodel.WeighTrackerViewModelFactory
@@ -111,6 +112,9 @@ class MainActivity : AppCompatActivity() {
         val weighLogDb = WeighWeightLogDatabase.create(applicationContext)
         val weighLogRepository = WeighLogRepositoryImpl(weighLogDb.weighWeightLogDao())
         val saveWeighLog = SaveWeighLogUseCase(weighLogRepository)
+        val saveWeightProfile = SaveWeightUseCase(weightRepository)
+        val saveWeightProfileAndWeighLog =
+            SaveWeightProfileAndWeighLogUseCase(saveWeighLog, saveWeightProfile)
         val genderFactory = GenderViewModelFactory(
             observeSelectedGenderUseCase = ObserveSelectedGenderUseCase(genderRepository),
             saveSelectedGenderUseCase = SaveSelectedGenderUseCase(genderRepository)
@@ -125,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         )
         val weightFactory = WeightViewModelFactory(
             observeWeight = ObserveWeightUseCase(weightRepository),
-            saveWeight = SaveWeightUseCase(weightRepository)
+            saveWeightProfileAndWeighLog = saveWeightProfileAndWeighLog
         )
         val exerciseFactory = ExerciseSelectionViewModelFactory(
             observeExerciseLevel = ObserveExerciseLevelUseCase(exerciseRepository),
@@ -225,8 +229,7 @@ class MainActivity : AppCompatActivity() {
             observeJourneyStartWeightKg = ObserveWeighJourneyStartWeightKgUseCase(weighPrefs),
             observeLatestTwoLogs = observeWeighLatestTwoLogs,
             observeLatestLogForToday = observeWeighLatestLogForToday,
-            saveWeighLog = saveWeighLog,
-            saveWeightProfile = SaveWeightUseCase(weightRepository),
+            saveWeightProfileAndWeighLog = saveWeightProfileAndWeighLog,
             computeDelta = computeWeightProgressDelta,
             classifyBmi = ClassifyBmiUseCase(),
             mapBmiFraction = MapBmiToScaleFractionUseCase()

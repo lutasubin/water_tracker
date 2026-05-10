@@ -67,7 +67,8 @@ class WeighTrackerViewModel(
         )
     }.stateIn(
         viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
+        // Giữ combine chạy sau lần mở tab Weight: sửa chiều cao/cân ở tab Me vẫn cập nhật BMI khi quay lại.
+        SharingStarted.Lazily,
         WeighTrackerUiStateMapper.map(
             0,
             0,

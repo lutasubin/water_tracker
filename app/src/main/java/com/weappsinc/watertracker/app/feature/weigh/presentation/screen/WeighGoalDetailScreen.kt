@@ -111,7 +111,6 @@ fun WeighGoalDetailScreen(
                 massUnit = state.displayMassUnit,
                 massUnitLabel = massLabel,
                 canEditTodayWeight = state.canEditTodayWeight,
-                showWeighRecordCta = state.showWeighRecordCta,
                 savedBannerTime = state.savedBannerTime,
                 recordError = state.recordError,
                 isRecording = state.isRecording,

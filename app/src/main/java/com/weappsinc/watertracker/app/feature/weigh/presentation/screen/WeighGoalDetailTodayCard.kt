@@ -27,7 +27,6 @@ fun WeighGoalDetailTodayCard(
     massUnit: MassUnit,
     massUnitLabel: String,
     canEditTodayWeight: Boolean,
-    showWeighRecordCta: Boolean,
     savedBannerTime: String?,
     recordError: Boolean,
     isRecording: Boolean,
@@ -52,21 +51,21 @@ fun WeighGoalDetailTodayCard(
             onStepPlus = { onStepKg(STEP_KG) }
         )
         Spacer(Modifier.height(16.dp))
-        if (showWeighRecordCta) {
-            WeighTodayRecordPillButton(
-                onClick = onRecord,
-                enabled = !isRecording,
-            )
-            if (recordError) {
-                Text(
-                    text = stringResource(R.string.weigh_goal_detail_record_error),
-                    modifier = Modifier.padding(top = 8.dp),
-                    style = AppTypography.BodyMedium,
-                    color = AppColors.WeighProgressDeltaUnfavorable
-                )
-            }
-        } else if (savedBannerTime != null) {
+        if (savedBannerTime != null) {
             WeighTodaySavedBanner(timeText = savedBannerTime)
+            Spacer(Modifier.height(12.dp))
+        }
+        WeighTodayRecordPillButton(
+            onClick = onRecord,
+            enabled = !isRecording,
+        )
+        if (recordError) {
+            Text(
+                text = stringResource(R.string.weigh_goal_detail_record_error),
+                modifier = Modifier.padding(top = 8.dp),
+                style = AppTypography.BodyMedium,
+                color = AppColors.WeighProgressDeltaUnfavorable
+            )
         }
     }
 }

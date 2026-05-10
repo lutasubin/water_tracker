@@ -3,8 +3,8 @@ package com.weappsinc.watertracker.app.feature.weight.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.weappsinc.watertracker.app.feature.weigh.domain.usecase.SaveWeightProfileAndWeighLogUseCase
 import com.weappsinc.watertracker.app.feature.weight.domain.usecase.ObserveWeightUseCase
-import com.weappsinc.watertracker.app.feature.weight.domain.usecase.SaveWeightUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import kotlinx.coroutines.sync.Mutex
 
 class WeightViewModel(
     private val observeWeight: ObserveWeightUseCase,
-    private val saveWeight: SaveWeightUseCase
+    private val saveWeightProfileAndWeighLog: SaveWeightProfileAndWeighLogUseCase
 ) : ViewModel() {
     private val saveMutex = Mutex()
 
@@ -36,15 +36,15 @@ class WeightViewModel(
     }
 
     /**
-     * Chỉ lưu cân hồ sơ (SQLite); không ghi log ngày — log chỉ khi user bấm "Ghi nhận cân nặng".
+     * Hướng B: ghi log (timestamp) rồi mirror cân hồ sơ.
      * Lưu xong mới onSaved — tránh double-tap Next/pop trùng.
      */
     fun saveSelection(onSaved: () -> Unit) {
         viewModelScope.launch {
             if (!saveMutex.tryLock()) return@launch
             try {
-                saveWeight(_weightKg.value)
-                onSaved()
+                val r = saveWeightProfileAndWeighLog(_weightKg.value.toFloat())
+                if (r.isSuccess) onSaved()
             } finally {
                 saveMutex.unlock()
             }
@@ -58,9 +58,9 @@ class WeightViewModel(
 
 class WeightViewModelFactory(
     private val observeWeight: ObserveWeightUseCase,
-    private val saveWeight: SaveWeightUseCase
+    private val saveWeightProfileAndWeighLog: SaveWeightProfileAndWeighLogUseCase
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        WeightViewModel(observeWeight, saveWeight) as T
+        WeightViewModel(observeWeight, saveWeightProfileAndWeighLog) as T
 }

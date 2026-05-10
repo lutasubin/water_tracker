@@ -24,9 +24,9 @@ object WeighTrackerUiStateMapper {
         classifyBmi: (Float) -> BmiCategory,
         mapBmiFraction: (Float) -> Float
     ): WeighTrackerUiState {
-        // Cùng nguồn với "Ghi nhận cân nặng" và màn chỉnh sửa: ưu tiên cân hồ sơ; log chỉ fallback khi chưa có hồ sơ.
-        val bodyKg = profileWeightKg.takeIf { it > 0 }?.toFloat()
-            ?: latestLog?.weightKg?.toFloat()
+        // Hướng B: ưu tiên log mới nhất; hồ sơ chỉ khi chưa có log.
+        val bodyKg = latestLog?.weightKg?.toFloat()
+            ?: profileWeightKg.takeIf { it > 0 }?.toFloat()
             ?: 0f
         val hasDims = tallCm > 0 && bodyKg > 0f
         val bmi = if (hasDims) BmiCalculator.computeBmi(tallCm, bodyKg) else 0f

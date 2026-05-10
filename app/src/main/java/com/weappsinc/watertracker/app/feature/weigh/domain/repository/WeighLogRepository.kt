@@ -9,6 +9,4 @@ interface WeighLogRepository {
     fun observeLatestForEpochDay(epochDay: Long): Flow<WeighLogEntry?>
     fun observeLogsBetweenEpochDays(startEpochDay: Long, endEpochDay: Long): Flow<List<WeighLogEntry>>
     suspend fun insertLog(epochDay: Long, weightKg: Double, recordedAtMs: Long): Result<Unit>
-
-    suspend fun countLogsForEpochDay(epochDay: Long): Int
 }

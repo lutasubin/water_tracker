@@ -14,13 +14,14 @@ import androidx.compose.ui.res.stringResource
 import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 
-/** Các dòng menu trong khối Support (ngôn ngữ, đánh giá, …). */
+/** Khối Hỗ trợ: ngôn ngữ, đánh giá, chia sẻ, quyền riêng tư. */
 @Composable
-fun MeProfileGeneralMenuRows(
+fun MeProfileSupportMenuRows(
     onLanguage: () -> Unit,
     onRateUs: () -> Unit,
     onShare: () -> Unit,
     onPrivacyPolicy: () -> Unit,
+    languageValueText: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -31,6 +32,7 @@ fun MeProfileGeneralMenuRows(
             label = stringResource(R.string.me_menu_language),
             icon = Icons.Outlined.Language,
             onClick = onLanguage,
+            valueText = languageValueText,
         )
         MeGeneralMenuCard(
             label = stringResource(R.string.me_menu_rate_us),

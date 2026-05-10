@@ -27,24 +27,31 @@ import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
 
-/** Một hàng settings tab Me: icon SVG, nhãn, giá trị primary, chevron. */
+/** Một hàng tab Me: icon SVG, nhãn, giá trị; [onClick] null = chỉ xem (không chevron). */
 @Composable
 internal fun MeProfileNavRow(
     iconPath: String,
     label: String,
     valueText: String,
     imageLoader: ImageLoader,
-    onClick: () -> Unit,
+    onClick: (() -> Unit)?,
 ) {
+    val rowModifier = Modifier
+        .fillMaxWidth()
+        .semantics { contentDescription = "$label, $valueText" }
+        .clip(RoundedCornerShape(AppDimens.HomeCardCorner))
+        .background(AppColors.HomeCard)
+        .then(
+            if (onClick != null) {
+                Modifier.clickable(role = Role.Button, onClick = onClick)
+            } else {
+                Modifier
+            }
+        )
+        .height(AppDimens.MeProfileMenuRowHeight)
+        .padding(horizontal = AppDimens.HomeCardInnerPadding)
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .semantics { contentDescription = "$label, $valueText" }
-            .clip(RoundedCornerShape(AppDimens.HomeCardCorner))
-            .background(AppColors.HomeCard)
-            .clickable(role = Role.Button, onClick = onClick)
-            .height(AppDimens.MeProfileMenuRowHeight)
-            .padding(horizontal = AppDimens.HomeCardInnerPadding),
+        modifier = rowModifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
@@ -68,11 +75,13 @@ internal fun MeProfileNavRow(
             color = AppColors.HomePrimary,
             modifier = Modifier.padding(end = 4.dp),
         )
-        Icon(
-            imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
-            contentDescription = null,
-            tint = AppColors.HomeMuted,
-            modifier = Modifier.size(22.dp),
-        )
+        if (onClick != null) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                contentDescription = null,
+                tint = AppColors.HomeMuted,
+                modifier = Modifier.size(22.dp),
+            )
+        }
     }
 }
