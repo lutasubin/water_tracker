@@ -3,7 +3,6 @@ package com.weappsinc.watertracker
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.lifecycle.lifecycleScope
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +10,10 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
+import com.weappsinc.watertracker.app.core.ads.LocalAdsManager
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.local.GenderSQLiteHelper
 import com.weappsinc.watertracker.app.core.navigation.AppNavHost
@@ -107,6 +109,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val adsManager = (application as DrinkWaterApplication).adsManager
         val reportDayBucketLabels =
             resources.getStringArray(R.array.report_day_bucket_labels).toList()
         val helper = GenderSQLiteHelper(applicationContext)
@@ -273,35 +276,38 @@ class MainActivity : AppCompatActivity() {
         )
 
         setContent {
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .background(AppColors.HomeBackground)
-                    .windowInsetsPadding(WindowInsets.safeDrawing)
-            ) {
-                AppNavHost(
-                    genderFactory = genderFactory,
-                    ageFactory = ageFactory,
-                    tallFactory = tallFactory,
-                    weightFactory = weightFactory,
-                    exerciseFactory = exerciseFactory,
-                    waterGoalFactoryOnboarding = waterGoalFactoryOnboarding,
-                    waterGoalFactoryEdit = waterGoalFactoryEdit,
-                    waterTrackerFactory = waterTrackerFactory,
-                    weighTrackerFactory = weighTrackerFactory,
-                    meProfileFactory = meProfileFactory,
-                    rateUsFactory = rateUsFactory,
-                    weighGoalDetailFactory = weighGoalDetailFactory,
-                    weighHistoryFactory = weighHistoryFactory,
-                    weighGoalHistoryFactory = weighGoalHistoryFactory,
-                    weighGoalHistoryDetailFactory = weighGoalHistoryDetailFactory,
-                    reportViewModelFactory = reportViewModelFactory,
-                    ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
-                    recordWaterAppOpenDayUseCase = recordWaterAppOpenDayUseCase,
-                    observeSavedGoalMlUseCase = observeSavedGoalMl,
-                    observeLocaleOnboardingCompletedUseCase = observeLocaleOnboardingCompletedUseCase,
-                    markLocaleOnboardingCompletedUseCase = markLocaleOnboardingCompletedUseCase,
-                )
+            CompositionLocalProvider(LocalAdsManager provides adsManager) {
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .background(AppColors.HomeBackground)
+                        .windowInsetsPadding(WindowInsets.safeDrawing)
+                ) {
+                    AppNavHost(
+                        genderFactory = genderFactory,
+                        ageFactory = ageFactory,
+                        tallFactory = tallFactory,
+                        weightFactory = weightFactory,
+                        exerciseFactory = exerciseFactory,
+                        waterGoalFactoryOnboarding = waterGoalFactoryOnboarding,
+                        waterGoalFactoryEdit = waterGoalFactoryEdit,
+                        waterTrackerFactory = waterTrackerFactory,
+                        weighTrackerFactory = weighTrackerFactory,
+                        meProfileFactory = meProfileFactory,
+                        rateUsFactory = rateUsFactory,
+                        weighGoalDetailFactory = weighGoalDetailFactory,
+                        weighHistoryFactory = weighHistoryFactory,
+                        weighGoalHistoryFactory = weighGoalHistoryFactory,
+                        weighGoalHistoryDetailFactory = weighGoalHistoryDetailFactory,
+                        reportViewModelFactory = reportViewModelFactory,
+                        ensureFirstInstallDayUseCase = ensureFirstInstallDayUseCase,
+                        recordWaterAppOpenDayUseCase = recordWaterAppOpenDayUseCase,
+                        observeSavedGoalMlUseCase = observeSavedGoalMl,
+                        observeLocaleOnboardingCompletedUseCase = observeLocaleOnboardingCompletedUseCase,
+                        markLocaleOnboardingCompletedUseCase = markLocaleOnboardingCompletedUseCase,
+                        adsManager = adsManager,
+                    )
+                }
             }
         }
     }

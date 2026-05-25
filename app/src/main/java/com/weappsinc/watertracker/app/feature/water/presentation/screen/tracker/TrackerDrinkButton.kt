@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.weappsinc.watertracker.R
@@ -27,14 +28,18 @@ import com.weappsinc.watertracker.app.core.theme.AppTypography
 @Composable
 fun TrackerDrinkButton(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    width: Dp = AppDimens.HomeDrinkButtonWidth,
+    height: Dp = AppDimens.HomeDrinkButtonHeight,
+    iconSize: Dp = AppDimens.HomeDrinkIconSize,
+    contentGap: Dp = AppDimens.HomeDrinkContentGap,
 ) {
-    val pill = RoundedCornerShape(AppDimens.HomeDrinkButtonHeight / 2)
+    val pill = RoundedCornerShape(height / 2)
     Button(
         onClick = onClick,
         modifier = modifier
-            .width(AppDimens.HomeDrinkButtonWidth)
-            .height(AppDimens.HomeDrinkButtonHeight),
+            .width(width)
+            .height(height),
         shape = pill,
         colors = ButtonDefaults.buttonColors(
             containerColor = AppColors.HomePrimary,
@@ -56,9 +61,9 @@ fun TrackerDrinkButton(
                 imageVector = Icons.Default.Add,
                 contentDescription = null,
                 tint = AppColors.HomeCard,
-                modifier = Modifier.size(AppDimens.HomeDrinkIconSize)
+                modifier = Modifier.size(iconSize)
             )
-            Spacer(Modifier.width(AppDimens.HomeDrinkContentGap))
+            Spacer(Modifier.width(contentGap))
             Text(
                 text = stringResource(R.string.drink),
                 color = AppColors.HomeCard,

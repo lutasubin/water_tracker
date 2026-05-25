@@ -31,6 +31,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.ads.AppNativeAd
+import com.weappsinc.watertracker.app.core.ads.NativePlacement
 import com.weappsinc.watertracker.app.core.components.AppUnitToggle
 import com.weappsinc.watertracker.app.core.components.massUnitShortLabel
 import com.weappsinc.watertracker.app.core.theme.AppColors
@@ -127,8 +129,18 @@ fun WeighGoalDetailScreen(
                 normalEndFraction = state.scaleNormalEndFraction,
                 indicatorFraction = state.bmiIndicatorFraction
             )
-            Spacer(Modifier.padding(bottom = AppDimens.HomeBottomNavHeight))
+            Spacer(Modifier.padding(bottom = AppDimens.ReportSectionSpacing))
         }
+        AppNativeAd(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = WeighDimens.ScreenHorizontalPadding,
+                    end = WeighDimens.ScreenHorizontalPadding,
+                    bottom = AppDimens.ReportSectionSpacing,
+                ),
+            placement = NativePlacement.Home,
+        )
     }
     if (showTargetSheet) {
         WeighTargetWeightSheet(

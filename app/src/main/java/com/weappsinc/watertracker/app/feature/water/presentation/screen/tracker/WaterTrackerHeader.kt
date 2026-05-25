@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,7 +28,10 @@ import com.weappsinc.watertracker.app.core.theme.AppTypography
 @Composable
 fun WaterTrackerHeader(
     streakDays: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    titleColor: Color = AppColors.HomeTitle,
+    streakContainerColor: Color = AppColors.HomeStreakPillBg,
+    streakTextColor: Color = AppColors.HomeStreakPillText,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -37,7 +41,7 @@ fun WaterTrackerHeader(
         Text(
             text = stringResource(R.string.water_tracker_title),
             modifier = Modifier.weight(1f),
-            color = AppColors.HomeTitle,
+            color = titleColor,
             style = AppTypography.Title2,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
@@ -45,7 +49,7 @@ fun WaterTrackerHeader(
         Spacer(Modifier.width(AppDimens.HomeHeaderTitleStreakGap))
         Surface(
             shape = RoundedCornerShape(24.dp),
-            color = AppColors.HomeStreakPillBg,
+            color = streakContainerColor,
             shadowElevation = AppDimens.HomeStreakPillShadowElevation
         ) {
             Row(
@@ -57,7 +61,7 @@ fun WaterTrackerHeader(
                 Text(
                     text = pluralStringResource(R.plurals.water_streak_pill, streakDays, streakDays),
                     modifier = Modifier.widthIn(max = AppDimens.HomeStreakPillTextMaxWidth),
-                    color = AppColors.HomeStreakPillText,
+                    color = streakTextColor,
                     style = AppTypography.BodyMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

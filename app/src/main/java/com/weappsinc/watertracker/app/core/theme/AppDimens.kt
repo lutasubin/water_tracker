@@ -64,6 +64,13 @@ object AppDimens {
     val HomeHorizontalPadding = 20.dp
     val HomeBottomNavHeight = 64.dp
     val HomeSectionSpacing = 16.dp
+    val HomeHeroCardCorner = 28.dp
+    val HomeHeroCardHorizontalPadding = 24.dp
+    val HomeHeroCardVerticalPadding = 18.dp
+    val HomeHeroValueUnitGap = 8.dp
+    val HomeHeroValueBottomSpacing = 20.dp
+    val HomeHeroBottomRowTopSpacing = 14.dp
+    val HomeHeroProgressHeight = 16.dp
     /** Khoảng dọc giữa các khối màn Water Tracker — thoáng hơn [HomeSectionSpacing]. */
     val WaterTrackerBlockSpacing = 24.dp
     /** Dưới thanh tiến độ tới nhãn “Tiến độ hôm nay” / %. */

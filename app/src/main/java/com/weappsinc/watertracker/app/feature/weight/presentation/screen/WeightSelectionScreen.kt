@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.ads.OnboardingNativeAdFooter
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
 import com.weappsinc.watertracker.app.core.components.ScrollPickerWheel
@@ -32,7 +33,8 @@ fun WeightSelectionScreen(
     modifier: Modifier = Modifier,
     factory: WeightViewModelFactory,
     onBack: () -> Unit,
-    onNext: () -> Unit
+    onNext: () -> Unit,
+    showFooterAd: Boolean = true,
 ) {
     val vm: WeightViewModel = viewModel(factory = factory)
     val selectedWeightKg by vm.weightKg.collectAsState()
@@ -60,10 +62,18 @@ fun WeightSelectionScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
         }
-        AppPrimaryButton(
-            text = stringResource(R.string.next),
-            onClick = { vm.saveSelection(onNext) },
-            modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
-        )
+        if (showFooterAd) {
+            OnboardingNativeAdFooter(
+                buttonText = stringResource(R.string.next),
+                onButtonClick = { vm.saveSelection(onNext) },
+                bottomPadding = AppDimens.AgeButtonBottomPadding,
+            )
+        } else {
+            AppPrimaryButton(
+                text = stringResource(R.string.next),
+                onClick = { vm.saveSelection(onNext) },
+                modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding),
+            )
+        }
     }
 }

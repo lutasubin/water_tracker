@@ -22,29 +22,26 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.components.AppBlueWaveBackground
 import com.weappsinc.watertracker.app.core.components.CapsuleProgressBar
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
-import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
     onBootstrap: suspend () -> Unit = {},
-    onSplashFinished: () -> Unit = {},
+    onSplashFinished: suspend () -> Unit = {},
 ) {
     LaunchedEffect(Unit) {
         onBootstrap()
-        delay(2000)
         onSplashFinished()
     }
     Box(
@@ -52,12 +49,7 @@ fun SplashScreen(
             .fillMaxSize()
             .background(AppColors.SplashBackgroundSolid),
     ) {
-        AsyncImage(
-            model = AssetPaths.SPLASH_BACKGROUND,
-            contentDescription = stringResource(R.string.splash_background_desc),
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-        )
+        AppBlueWaveBackground(Modifier.fillMaxSize())
         SplashContent()
         SplashProgressBar(
             modifier = Modifier

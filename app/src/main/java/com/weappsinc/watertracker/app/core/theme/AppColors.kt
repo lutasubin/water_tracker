@@ -25,6 +25,18 @@ object AppColors {
 
     val HomeBackground = Color(0xFFF5F8FF)
     val HomePrimary = Color(0xFF1D5DDA)
+    val HomeHeroGradientTop = Color(0xFF2FAFFF)
+    val HomeHeroGradientMid = Color(0xFF268AF9)
+    val HomeHeroGradientBottom = Color(0xFF1C65F3)
+    val HomeHeroWaveTint1 = Color(0xFFF9FDFF)
+    val HomeHeroWaveTint2 = Color(0xFFEAF6FF)
+    val HomeHeroWaveTint3 = Color(0xFFD6EBFF)
+    val HomeHeroWaveTint4 = Color(0xFFB9DBFF)
+    val HomeHeroWaveTint5 = Color(0xFF8DC3FF)
+    val HomeHeroWaveTint6 = Color(0xFF5D9EFF)
+    val HomeHeroDepthOverlay = Color(0xFF2D67DA)
+    val HomeHeroProgressTrack = Color(0x80FFFFFF)
+    val HomeHeroProgressFill = Color.White
     val HomeTitle = Color(0xFF1A2B4A)
     val HomeSecondaryText = Color(0xFF5B7CCE)
     val HomeMuted = Color(0xFF8D9BB5)

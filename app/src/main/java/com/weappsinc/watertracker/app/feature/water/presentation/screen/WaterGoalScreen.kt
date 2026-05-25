@@ -32,16 +32,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.weappsinc.watertracker.R
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
+import com.weappsinc.watertracker.app.core.components.AppBlueWaveBackground
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
-import com.weappsinc.watertracker.app.core.constants.AssetPaths
+import com.weappsinc.watertracker.app.core.ads.OnboardingNativeAdFooter
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
 import com.weappsinc.watertracker.app.core.theme.AppTypography
@@ -59,7 +58,8 @@ fun WaterGoalScreen(
     factory: WaterGoalViewModelFactory,
     viewModelKey: String,
     onBack: () -> Unit,
-    onStartComplete: () -> Unit
+    onStartComplete: () -> Unit,
+    showFooterAd: Boolean = true,
 ) {
     val vm: WaterGoalViewModel = viewModel(key = viewModelKey, factory = factory)
     val baseGoalMl by vm.baseGoalMl.collectAsState()
@@ -80,12 +80,7 @@ fun WaterGoalScreen(
             .fillMaxSize()
             .background(AppColors.SplashBackgroundSolid)
     ) {
-        AsyncImage(
-            model = AssetPaths.SPLASH_BACKGROUND,
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
+        AppBlueWaveBackground(Modifier.fillMaxSize())
 
         Column(
             modifier = Modifier
@@ -157,13 +152,23 @@ fun WaterGoalScreen(
 
             Spacer(Modifier.weight(1f))
 
-            AppPrimaryButton(
-                text = stringResource(R.string.start),
-                onClick = { vm.onStart(onStartComplete) },
-                modifier = Modifier.padding(bottom = AppDimens.WaterGoalStartButtonBottomPadding),
-                containerColor = AppColors.GenderSelectedContent,
-                textColor = AppColors.GenderPrimary
-            )
+            if (showFooterAd) {
+                OnboardingNativeAdFooter(
+                    buttonText = stringResource(R.string.start),
+                    onButtonClick = { vm.onStart(onStartComplete) },
+                    buttonContainerColor = AppColors.GenderSelectedContent,
+                    buttonTextColor = AppColors.GenderPrimary,
+                    bottomPadding = AppDimens.WaterGoalStartButtonBottomPadding,
+                )
+            } else {
+                AppPrimaryButton(
+                    text = stringResource(R.string.start),
+                    onClick = { vm.onStart(onStartComplete) },
+                    modifier = Modifier.padding(bottom = AppDimens.WaterGoalStartButtonBottomPadding),
+                    containerColor = AppColors.GenderSelectedContent,
+                    textColor = AppColors.GenderPrimary,
+                )
+            }
         }
 
         if (showAdjustSheet) {

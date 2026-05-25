@@ -1,11 +1,13 @@
 package com.weappsinc.watertracker.app.feature.water.presentation.report
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -15,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.weappsinc.watertracker.R
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.weappsinc.watertracker.app.core.ads.AppNativeAd
+import com.weappsinc.watertracker.app.core.ads.NativePlacement
 import com.weappsinc.watertracker.app.core.components.AppTopBar
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.core.theme.AppDimens
@@ -29,6 +33,7 @@ fun ReportScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    BackHandler(enabled = true) {}
     val vm: ReportViewModel = viewModel(factory = factory)
     val state by vm.uiState.collectAsState()
     Column(modifier.fillMaxSize().background(AppColors.HomeBackground)) {
@@ -66,5 +71,12 @@ fun ReportScreen(
             }
             Spacer(Modifier.height(AppDimens.ReportSectionSpacing))
         }
+        AppNativeAd(
+            modifier = Modifier.padding(
+                horizontal = AppDimens.ReportHorizontalPadding,
+                vertical = AppDimens.ReportSectionSpacing,
+            ),
+            placement = NativePlacement.Home,
+        )
     }
 }

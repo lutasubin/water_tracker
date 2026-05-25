@@ -31,7 +31,7 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import com.weappsinc.watertracker.R
-import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
+import com.weappsinc.watertracker.app.core.ads.OnboardingNativeAdFooter
 import com.weappsinc.watertracker.app.core.components.AppTopBar
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.theme.AppColors
@@ -68,10 +68,10 @@ fun ExerciseSelectionScreen(
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
             ExerciseCard(stringResource(R.string.exercise_high), AssetPaths.EXERCISE_HIGH_ICON, selected == ExerciseLevel.HIGH, imageLoader) { vm.onSelectLevel(ExerciseLevel.HIGH) }
         }
-        AppPrimaryButton(
-            text = stringResource(R.string.next),
-            onClick = { vm.saveSelection(onNext) },
-            modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
+        OnboardingNativeAdFooter(
+            buttonText = stringResource(R.string.next),
+            onButtonClick = { vm.saveSelection(onNext) },
+            bottomPadding = AppDimens.AgeButtonBottomPadding,
         )
     }
 }

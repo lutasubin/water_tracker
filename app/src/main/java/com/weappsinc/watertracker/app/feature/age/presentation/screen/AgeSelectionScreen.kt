@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.ads.OnboardingNativeAdFooter
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
 import com.weappsinc.watertracker.app.core.components.ScrollPickerWheel
@@ -32,7 +33,8 @@ fun AgeSelectionScreen(
     modifier: Modifier = Modifier,
     factory: AgeViewModelFactory,
     onBack: () -> Unit,
-    onNext: () -> Unit
+    onNext: () -> Unit,
+    showFooterAd: Boolean = true,
 ) {
     val vm: AgeViewModel = viewModel(factory = factory)
     val selectedAge by vm.age.collectAsState()
@@ -64,10 +66,18 @@ fun AgeSelectionScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
         }
-        AppPrimaryButton(
-            text = stringResource(R.string.next),
-            onClick = { vm.saveSelection(onNext) },
-            modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding)
-        )
+        if (showFooterAd) {
+            OnboardingNativeAdFooter(
+                buttonText = stringResource(R.string.next),
+                onButtonClick = { vm.saveSelection(onNext) },
+                bottomPadding = AppDimens.AgeButtonBottomPadding,
+            )
+        } else {
+            AppPrimaryButton(
+                text = stringResource(R.string.next),
+                onClick = { vm.saveSelection(onNext) },
+                modifier = Modifier.padding(bottom = AppDimens.AgeButtonBottomPadding),
+            )
+        }
     }
 }

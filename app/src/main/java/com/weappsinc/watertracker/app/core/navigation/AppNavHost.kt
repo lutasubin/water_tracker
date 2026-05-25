@@ -1,5 +1,6 @@
 package com.weappsinc.watertracker.app.core.navigation
 
+import android.app.Activity
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
@@ -10,11 +11,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.weappsinc.watertracker.app.core.ads.AdsManager
 import com.weappsinc.watertracker.app.feature.age.presentation.screen.AgeSelectionScreen
 import com.weappsinc.watertracker.app.feature.age.presentation.viewmodel.AgeViewModelFactory
 import com.weappsinc.watertracker.app.feature.exercise.presentation.screen.ExerciseSelectionScreen
@@ -52,7 +55,10 @@ import com.weappsinc.watertracker.app.feature.settings.domain.usecase.MarkLocale
 import com.weappsinc.watertracker.app.feature.settings.domain.usecase.ObserveLocaleOnboardingCompletedUseCase
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+
+private const val SPLASH_APP_OPEN_TIMEOUT_MS = 8_000L
 
 // Mọi điều hướng từ UI đều qua navGate để tránh nhấp đôi gây stack/pop lệch (màn trắng).
 
@@ -80,7 +86,9 @@ fun AppNavHost(
     observeSavedGoalMlUseCase: ObserveSavedGoalMlUseCase,
     observeLocaleOnboardingCompletedUseCase: ObserveLocaleOnboardingCompletedUseCase,
     markLocaleOnboardingCompletedUseCase: MarkLocaleOnboardingCompletedUseCase,
+    adsManager: AdsManager,
 ) {
+    val context = LocalContext.current
     val navController = rememberNavController()
     val navGate = rememberNavActionGate()
     val savedGoalMl by observeSavedGoalMlUseCase().collectAsState(initial = null)
@@ -101,6 +109,8 @@ fun AppNavHost(
                 onBootstrap = {
                     ensureFirstInstallDayUseCase()
                     recordWaterAppOpenDayUseCase()
+                    adsManager.refreshConfig()
+                    adsManager.warmUp(context.applicationContext)
                 },
                 onSplashFinished = {
                     val targetRoute = when {
@@ -108,11 +118,24 @@ fun AppNavHost(
                         !localeOnboardingDone -> AppRoute.LanguageOnboarding.route
                         else -> AppRoute.Gender.route
                     }
-                    navGate.run {
-                        navController.navigate(targetRoute) {
-                            popUpTo(AppRoute.Splash.route) { inclusive = true }
-                            launchSingleTop = true
+                    val openTargetRoute = {
+                        navGate.run {
+                            navController.navigate(targetRoute) {
+                                popUpTo(AppRoute.Splash.route) { inclusive = true }
+                                launchSingleTop = true
+                            }
                         }
+                    }
+                    val splashWaitStartMs = System.currentTimeMillis()
+                    val adReady = adsManager.awaitAppOpenReady(SPLASH_APP_OPEN_TIMEOUT_MS)
+                    val elapsedMs = System.currentTimeMillis() - splashWaitStartMs
+                    val remainingMs = (SPLASH_APP_OPEN_TIMEOUT_MS - elapsedMs).coerceAtLeast(0L)
+                    val activity = context as? Activity
+                    if (activity != null && adReady) {
+                        adsManager.showAppOpen(activity) { openTargetRoute() }
+                    } else {
+                        if (remainingMs > 0L) delay(remainingMs)
+                        openTargetRoute()
                     }
                 }
             )
@@ -184,12 +207,20 @@ fun AppNavHost(
                 viewModelKey = "water_goal_onboarding",
                 onBack = { navGate.run { navController.popBackStack() } },
                 onStartComplete = {
-                    navGate.run {
-                        // Xóa cả onboarding (Gender…WaterGoal); chỉ giữ Home — tránh Language pop chồng gọi rơi vào Tall/Weight/…
-                        navController.navigate(AppRoute.Home.route) {
-                            popUpTo(AppRoute.Gender.route) { inclusive = true }
-                            launchSingleTop = true
+                    val openHomeAfterGoal = {
+                        navGate.run {
+                            // Xóa cả onboarding (Gender…WaterGoal); chỉ giữ Home — tránh Language pop chồng gọi rơi vào Tall/Weight/…
+                            navController.navigate(AppRoute.Home.route) {
+                                popUpTo(AppRoute.Gender.route) { inclusive = true }
+                                launchSingleTop = true
+                            }
                         }
+                    }
+                    val activity = context as? Activity
+                    if (activity == null) {
+                        openHomeAfterGoal()
+                    } else {
+                        adsManager.showInterstitial(activity) { openHomeAfterGoal() }
                     }
                 }
             )
@@ -330,6 +361,7 @@ fun AppNavHost(
         composable(AppRoute.TallEdit.route) {
             TallSelectionScreen(
                 factory = tallFactory,
+                showFooterAd = false,
                 // pop theo route: nhấp back hai lần không pop nhầm Home.
                 onBack = {
                     navGate.run {
@@ -346,6 +378,7 @@ fun AppNavHost(
         composable(AppRoute.WeightEdit.route) {
             WeightSelectionScreen(
                 factory = weightFactory,
+                showFooterAd = false,
                 onBack = {
                     navGate.run {
                         navController.popBackStack(AppRoute.WeightEdit.route, inclusive = true)
@@ -361,6 +394,7 @@ fun AppNavHost(
         composable(AppRoute.AgeEdit.route) {
             AgeSelectionScreen(
                 factory = ageFactory,
+                showFooterAd = false,
                 onBack = {
                     navGate.run {
                         navController.popBackStack(AppRoute.AgeEdit.route, inclusive = true)
@@ -376,6 +410,7 @@ fun AppNavHost(
         composable(AppRoute.GenderEdit.route) {
             GenderSelectionScreen(
                 factory = genderFactory,
+                showFooterAd = false,
                 onBack = {
                     navGate.run {
                         navController.popBackStack(AppRoute.GenderEdit.route, inclusive = true)
@@ -391,7 +426,15 @@ fun AppNavHost(
         composable(AppRoute.Report.route) {
             ReportScreen(
                 factory = reportViewModelFactory,
-                onBack = { navGate.run { navController.popBackStack() } }
+                onBack = {
+                    val popReport = { navGate.run { navController.popBackStack() } }
+                    val activity = context as? Activity
+                    if (activity == null) {
+                        popReport()
+                    } else {
+                        adsManager.showInterstitial(activity) { popReport() }
+                    }
+                }
             )
         }
         composable(AppRoute.PrivacyPolicy.route) {
@@ -401,6 +444,7 @@ fun AppNavHost(
             WaterGoalScreen(
                 factory = waterGoalFactoryEdit,
                 viewModelKey = "water_goal_edit",
+                showFooterAd = false,
                 onBack = { navGate.run { navController.popBackStack() } },
                 onStartComplete = {
                     navGate.run {

@@ -20,6 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import com.weappsinc.watertracker.app.core.ads.AppNativeAd
+import com.weappsinc.watertracker.app.core.ads.NativePlacement
 import com.weappsinc.watertracker.app.core.constants.AppLanguageCatalog
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
@@ -63,6 +65,12 @@ fun LanguageScreen(
                 applyMutex = applyMutex,
                 onApplied = onApplied,
                 onBack = onBack,
+            )
+        },
+        bottomBar = {
+            AppNativeAd(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                placement = NativePlacement.Language,
             )
         },
     ) { inner ->

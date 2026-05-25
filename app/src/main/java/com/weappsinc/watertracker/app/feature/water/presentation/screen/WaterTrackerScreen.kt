@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -34,8 +35,7 @@ import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.GoalCompletedDialog
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.TrackerDrinkButton
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterGoalReminderCards
-import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterProgressSection
-import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterTrackerHeader
+import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WaterTrackerHeroSection
 import com.weappsinc.watertracker.app.feature.water.presentation.screen.tracker.WeeklyReportSection
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModel
 import com.weappsinc.watertracker.app.feature.water.presentation.viewmodel.WaterTrackerViewModelFactory
@@ -99,36 +99,46 @@ fun WaterTrackerScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppColors.HomeBackground)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = AppDimens.HomeHorizontalPadding)
         ) {
-            WaterTrackerHeader(streakDays = state.streakDays)
-            Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-            WaterProgressSection(
-                intakeMlToday = displayedIntakeMl,
-                displayUnit = state.unit,
-                progressFraction = displayFraction,
-                progressPercent = displayPercent,
-                isGoalCompleted = isGoalCompletedForProgress
-            )
-            Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-            WaterGoalReminderCards(
-                goalDisplayCompact = goalDisplayCompact,
-                imageLoader = imageLoader,
-                onEditGoal = onEditGoal
-            )
-            Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-            WeeklyReportSection(
-                weekRings = state.weekRings,
-                imageLoader = imageLoader,
-                onOpenReport = onOpenReport
-            )
-            Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
-            TrackerDrinkButton(
-                onClick = { showDrinkSheet = true },
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
-            Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                WaterTrackerHeroSection(
+                    streakDays = state.streakDays,
+                    intakeMlToday = displayedIntakeMl,
+                    displayUnit = state.unit,
+                    progressFraction = displayFraction,
+                    progressPercent = displayPercent,
+                    isGoalCompleted = isGoalCompletedForProgress,
+                )
+                Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = AppDimens.HomeHorizontalPadding)
+                ) {
+                    WaterGoalReminderCards(
+                        goalDisplayCompact = goalDisplayCompact,
+                        imageLoader = imageLoader,
+                        onEditGoal = onEditGoal
+                    )
+                    Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
+                    WeeklyReportSection(
+                        weekRings = state.weekRings,
+                        imageLoader = imageLoader,
+                        onOpenReport = onOpenReport
+                    )
+                    Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
+                    TrackerDrinkButton(
+                        onClick = { showDrinkSheet = true },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                    Spacer(Modifier.height(AppDimens.WaterTrackerBlockSpacing))
+                }
+            }
         }
         if (showDrinkSheet) {
             DrinkAmountBottomSheet(

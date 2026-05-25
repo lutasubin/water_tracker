@@ -32,6 +32,7 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.ads.OnboardingNativeAdFooter
 import com.weappsinc.watertracker.app.core.constants.AssetPaths
 import com.weappsinc.watertracker.app.core.components.AppPrimaryButton
 import com.weappsinc.watertracker.app.core.components.AppTopBar
@@ -48,6 +49,7 @@ fun GenderSelectionScreen(
     factory: GenderViewModelFactory,
     onBack: () -> Unit = {},
     onNext: () -> Unit,
+    showFooterAd: Boolean = true,
 ) {
     val vm: GenderViewModel = viewModel(factory = factory)
     val selectedGender by vm.selectedGender.collectAsState()
@@ -74,11 +76,19 @@ fun GenderSelectionScreen(
             Spacer(Modifier.height(AppDimens.GenderOptionSpacing))
             GenderOptionRow(stringResource(R.string.other_gender), null, selectedGender == GenderType.OTHER, imageLoader) { vm.onSelectGender(GenderType.OTHER) }
         }
-        AppPrimaryButton(
-            text = stringResource(R.string.next),
-            onClick = { vm.saveSelection(onNext) },
-            modifier = Modifier.padding(bottom = AppDimens.GenderBottomPadding)
-        )
+        if (showFooterAd) {
+            OnboardingNativeAdFooter(
+                buttonText = stringResource(R.string.next),
+                onButtonClick = { vm.saveSelection(onNext) },
+                bottomPadding = AppDimens.GenderBottomPadding,
+            )
+        } else {
+            AppPrimaryButton(
+                text = stringResource(R.string.next),
+                onClick = { vm.saveSelection(onNext) },
+                modifier = Modifier.padding(bottom = AppDimens.GenderBottomPadding),
+            )
+        }
     }
 }
 

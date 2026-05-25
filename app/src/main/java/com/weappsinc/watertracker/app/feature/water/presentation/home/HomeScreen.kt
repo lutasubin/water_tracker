@@ -16,6 +16,8 @@ import android.content.Intent
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import com.weappsinc.watertracker.R
+import com.weappsinc.watertracker.app.core.ads.AppBannerSection
+import com.weappsinc.watertracker.app.core.ads.BannerPlacement
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.me.MeProfileScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsBottomSheet
@@ -98,6 +100,7 @@ fun HomeScreen(
                 onSelect = { tab = it },
                 imageLoader = imageLoader,
             )
+            AppBannerSection(placement = BannerPlacement.Home)
         }
         if (showRateSheet) {
             RateUsBottomSheet(
