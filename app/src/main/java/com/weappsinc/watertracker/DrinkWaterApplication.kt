@@ -11,15 +11,18 @@ import com.weappsinc.watertracker.app.core.config.RemoteConfigRepository
 import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 /**
- * Cold start: áp locale từ DataStore; fetch Remote Config song song Mobile Ads init.
+ * Cold start: chỉ block ngắn cho locale; ads + Remote Config chạy nền tránh ANR.
  */
 class DrinkWaterApplication : Application() {
+    private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     val remoteConfigRepository: RemoteConfigRepository by lazy {
         FirebaseRemoteConfigRepository()
     }
@@ -30,22 +33,21 @@ class DrinkWaterApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val tag = runBlocking(Dispatchers.IO) {
+        val localeTag = runBlocking(Dispatchers.IO) {
             AppLocalePreferences.seedDefaultLocaleIfAbsent(applicationContext)
-            val localeTag = AppLocalePreferences.readTag(applicationContext)
-            coroutineScope {
-                val configJob = async { remoteConfigRepository.refresh() }
-                val sdkJob = async {
-                    suspendCoroutine { cont ->
-                        MobileAds.initialize(applicationContext) { cont.resume(Unit) }
-                    }
-                }
-                configJob.await()
-                sdkJob.await()
+            AppLocalePreferences.readTag(applicationContext)
+        }
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(localeTag))
+        startAdsBootstrapAsync()
+    }
+
+    private fun startAdsBootstrapAsync() {
+        appScope.launch(Dispatchers.IO) {
+            runCatching { remoteConfigRepository.refresh() }
+            suspendCoroutine { cont ->
+                MobileAds.initialize(applicationContext) { cont.resume(Unit) }
             }
             adsManager.warmUp(applicationContext)
-            localeTag
         }
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
     }
 }

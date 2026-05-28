@@ -112,6 +112,7 @@ fun AppNavHost(
                 onBootstrap = {
                     ensureFirstInstallDayUseCase()
                     recordWaterAppOpenDayUseCase()
+                    adsManager.refreshConfig()
                     val dm = context.resources.displayMetrics
                     val widthDp = (dm.widthPixels / dm.density).toInt().coerceAtLeast(320)
                     adsManager.warmUp(context.applicationContext)
