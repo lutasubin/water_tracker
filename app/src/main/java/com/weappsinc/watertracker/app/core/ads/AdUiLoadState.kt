@@ -5,5 +5,3 @@ enum class AdUiLoadState {
     Loaded,
     Failed,
 }
-
-const val ADS_RETRY_DELAY_MS = 3_000L

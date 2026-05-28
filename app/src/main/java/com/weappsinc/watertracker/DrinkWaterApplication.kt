@@ -3,18 +3,21 @@ package com.weappsinc.watertracker
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.google.android.gms.ads.MobileAds
 import com.weappsinc.watertracker.app.core.ads.AdsManager
 import com.weappsinc.watertracker.app.core.ads.DefaultAdsManager
 import com.weappsinc.watertracker.app.core.config.FirebaseRemoteConfigRepository
 import com.weappsinc.watertracker.app.core.config.RemoteConfigRepository
 import com.weappsinc.watertracker.app.core.local.AppLocalePreferences
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 
 /**
- * Cold start: áp locale từ DataStore; lần cài mới [AppLocalePreferences.seedDefaultLocaleIfAbsent] seed tag khớp ngôn ngữ máy.
- * Chỉ dùng runBlocking một lần ở Application; đọc DataStore trên [Dispatchers.IO]
- * để không chạy chuỗi suspend trên event loop của main (tránh rủi ro so với runBlocking mặc định trong Activity).
+ * Cold start: áp locale từ DataStore; fetch Remote Config song song Mobile Ads init.
  */
 class DrinkWaterApplication : Application() {
     val remoteConfigRepository: RemoteConfigRepository by lazy {
@@ -29,10 +32,20 @@ class DrinkWaterApplication : Application() {
         super.onCreate()
         val tag = runBlocking(Dispatchers.IO) {
             AppLocalePreferences.seedDefaultLocaleIfAbsent(applicationContext)
-            AppLocalePreferences.readTag(applicationContext)
+            val localeTag = AppLocalePreferences.readTag(applicationContext)
+            coroutineScope {
+                val configJob = async { remoteConfigRepository.refresh() }
+                val sdkJob = async {
+                    suspendCoroutine { cont ->
+                        MobileAds.initialize(applicationContext) { cont.resume(Unit) }
+                    }
+                }
+                configJob.await()
+                sdkJob.await()
+            }
+            adsManager.warmUp(applicationContext)
+            localeTag
         }
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
-        remoteConfigRepository.currentConfig()
-        adsManager.initialize(this)
     }
 }

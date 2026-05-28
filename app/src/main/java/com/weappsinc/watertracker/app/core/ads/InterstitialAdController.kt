@@ -13,6 +13,8 @@ class InterstitialAdController {
     private var cachedUnitId: String? = null
     private var isLoading = false
 
+    fun isAdAvailable(): Boolean = cachedAd != null
+
     fun preload(context: Context, adUnitId: String) {
         if (cachedUnitId != adUnitId) {
             cachedAd = null

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +19,7 @@ import coil.decode.SvgDecoder
 import com.weappsinc.watertracker.R
 import com.weappsinc.watertracker.app.core.ads.AppBannerSection
 import com.weappsinc.watertracker.app.core.ads.BannerPlacement
+import com.weappsinc.watertracker.app.core.ads.LocalAdsManager
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import com.weappsinc.watertracker.app.feature.water.presentation.me.MeProfileScreen
 import com.weappsinc.watertracker.app.feature.water.presentation.me.rate.RateUsBottomSheet
@@ -48,7 +50,14 @@ fun HomeScreen(
 ) {
     var tab by rememberSaveable { mutableStateOf(HomeTab.Water) }
     val context = LocalContext.current
+    val adsManager = LocalAdsManager.current
     var showRateSheet by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        val dm = context.resources.displayMetrics
+        val widthDp = (dm.widthPixels / dm.density).toInt().coerceAtLeast(320)
+        adsManager.preloadBanner(context, BannerPlacement.Home, widthDp)
+        adsManager.preloadInterstitial(context)
+    }
     val imageLoader = remember {
         ImageLoader.Builder(context)
             .components { add(SvgDecoder.Factory()) }

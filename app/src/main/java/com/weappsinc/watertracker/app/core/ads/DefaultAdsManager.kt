@@ -2,6 +2,7 @@ package com.weappsinc.watertracker.app.core.ads
 
 import android.app.Activity
 import android.content.Context
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.weappsinc.watertracker.app.core.config.AdsConfig
 import com.weappsinc.watertracker.app.core.config.RemoteConfigRepository
@@ -17,39 +18,73 @@ class DefaultAdsManager(
     private val interstitialController = InterstitialAdController()
     private val rewardedController = RewardedAdController()
     private val appOpenController = AppOpenAdController()
+    private val bannerCache = BannerAdCache()
+    private val nativeCache = NativeAdCache()
     private val mutableState = MutableStateFlow(AdsRuntimeState(config = remoteConfigRepository.currentConfig()))
     private var appContext: Context? = null
     private var initializeRequested = false
+    private var sdkReady = false
 
     override val state: StateFlow<AdsRuntimeState> = mutableState.asStateFlow()
 
     override fun initialize(context: Context) {
         appContext = context.applicationContext
         syncState()
-        if (!state.value.canRequestAds() || initializeRequested) return
+        if (initializeRequested) return
         initializeRequested = true
         MobileAds.initialize(appContext!!) {
+            sdkReady = true
             mutableState.value = mutableState.value.copy(isInitialized = true)
-            appContext?.let { readyContext ->
-                preloadAppOpen(readyContext)
-                preloadInterstitial(readyContext)
-                preloadRewarded(readyContext)
-            }
+            onSdkAndConfigReady()
         }
     }
 
     override suspend fun refreshConfig(): Result<AdsConfig> {
         val result = remoteConfigRepository.refresh()
         syncState(result.getOrElse { remoteConfigRepository.currentConfig() })
-        appContext?.let { initialize(it) }
+        appContext?.let { ctx ->
+            if (!initializeRequested) initialize(ctx)
+            else if (sdkReady) onSdkAndConfigReady()
+        }
         return result
     }
 
     override fun warmUp(context: Context) {
         initialize(context)
-        preloadAppOpen(context)
+        appContext?.let { onSdkAndConfigReady() }
+    }
+
+    override fun preloadAllKnownPlacements(context: Context, bannerWidthDp: Int) {
+        if (!canRequestAds()) return
+        preloadBanner(context, BannerPlacement.Home, bannerWidthDp)
+        preloadBanner(context, BannerPlacement.Default, bannerWidthDp)
+        preloadNative(context, NativePlacement.Onboarding)
+        preloadNative(context, NativePlacement.Language)
+        preloadNative(context, NativePlacement.Home)
+        preloadNative(context, NativePlacement.Default)
         preloadInterstitial(context)
+        preloadAppOpen(context)
         preloadRewarded(context)
+    }
+
+    override fun preloadBanner(context: Context, placement: BannerPlacement, widthDp: Int) {
+        val unitId = state.value.config.bannerUnitId(placement).takeIf { canRequestAds() } ?: return
+        bannerCache.preload(context, placement, unitId, widthDp)
+    }
+
+    override fun preloadNative(context: Context, placement: NativePlacement) {
+        val unitId = state.value.config.nativeUnitId(placement).takeIf { canRequestAds() } ?: return
+        nativeCache.preload(context, placement, unitId)
+    }
+
+    override fun readyBanner(placement: BannerPlacement, unitId: String, widthDp: Int): AdView? =
+        bannerCache.readyAdView(placement, unitId, widthDp)
+
+    override fun takeNative(placement: NativePlacement, unitId: String) =
+        nativeCache.takeReady(placement, unitId)
+
+    override fun onNativeDisplayed(context: Context, placement: NativePlacement, unitId: String) {
+        preloadNative(context, placement)
     }
 
     override fun preloadAppOpen(context: Context) {
@@ -59,13 +94,13 @@ class DefaultAdsManager(
 
     override suspend fun awaitAppOpenReady(timeoutMs: Long): Boolean {
         val context = appContext ?: return false
-        if (!state.value.canRequestAds()) return false
+        if (!canRequestAds()) return false
         val startMs = System.currentTimeMillis()
         while (System.currentTimeMillis() - startMs < timeoutMs) {
             initialize(context)
             preloadAppOpen(context)
             if (appOpenController.isAdAvailable()) return true
-            delay(250)
+            delay(150)
         }
         return appOpenController.isAdAvailable()
     }
@@ -73,6 +108,18 @@ class DefaultAdsManager(
     override fun preloadInterstitial(context: Context) {
         val unitId = state.value.config.interstitialUnitId().takeIf { canUseFullScreenAds() } ?: return
         interstitialController.preload(context.applicationContext, unitId)
+    }
+
+    override suspend fun awaitInterstitialReady(timeoutMs: Long): Boolean {
+        val context = appContext ?: return false
+        if (!canUseFullScreenAds()) return false
+        val startMs = System.currentTimeMillis()
+        while (System.currentTimeMillis() - startMs < timeoutMs) {
+            preloadInterstitial(context)
+            if (interstitialController.isAdAvailable()) return true
+            delay(120)
+        }
+        return interstitialController.isAdAvailable()
     }
 
     override fun preloadRewarded(context: Context) {
@@ -88,11 +135,17 @@ class DefaultAdsManager(
         appOpenController.show(activity, unitId, onDismiss)
     }
 
-    override fun showInterstitial(activity: Activity, onDismiss: () -> Unit) {
-        val unitId = state.value.config.interstitialUnitId().takeIf { canUseFullScreenAds() } ?: run {
+    override suspend fun showInterstitialWhenReady(
+        activity: Activity,
+        timeoutMs: Long,
+        onDismiss: () -> Unit,
+    ) {
+        if (!canUseFullScreenAds()) {
             onDismiss()
             return
         }
+        awaitInterstitialReady(timeoutMs)
+        val unitId = state.value.config.interstitialUnitId()
         interstitialController.show(activity, unitId, onDismiss)
     }
 
@@ -108,9 +161,15 @@ class DefaultAdsManager(
         rewardedController.show(activity, unitId, onRewardEarned, onDismiss)
     }
 
-    private fun canUseFullScreenAds(): Boolean {
-        return state.value.canRequestAds() && state.value.isInitialized
+    private fun onSdkAndConfigReady() {
+        val ctx = appContext ?: return
+        if (!sdkReady || !canRequestAds()) return
+        preloadAllKnownPlacements(ctx)
     }
+
+    private fun canRequestAds(): Boolean = state.value.canRequestAds()
+
+    private fun canUseFullScreenAds(): Boolean = canRequestAds() && sdkReady
 
     private fun syncState(config: AdsConfig = remoteConfigRepository.currentConfig()) {
         mutableState.value = mutableState.value.copy(

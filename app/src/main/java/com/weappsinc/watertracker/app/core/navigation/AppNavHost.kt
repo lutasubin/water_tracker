@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
@@ -56,6 +57,7 @@ import com.weappsinc.watertracker.app.feature.settings.domain.usecase.ObserveLoc
 import com.weappsinc.watertracker.app.core.theme.AppColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 private const val SPLASH_APP_OPEN_TIMEOUT_MS = 8_000L
@@ -91,6 +93,7 @@ fun AppNavHost(
     val context = LocalContext.current
     val navController = rememberNavController()
     val navGate = rememberNavActionGate()
+    val adScope = rememberCoroutineScope()
     val savedGoalMl by observeSavedGoalMlUseCase().collectAsState(initial = null)
     val localeOnboardingDone by observeLocaleOnboardingCompletedUseCase()
         .collectAsState(initial = false)
@@ -109,8 +112,10 @@ fun AppNavHost(
                 onBootstrap = {
                     ensureFirstInstallDayUseCase()
                     recordWaterAppOpenDayUseCase()
-                    adsManager.refreshConfig()
+                    val dm = context.resources.displayMetrics
+                    val widthDp = (dm.widthPixels / dm.density).toInt().coerceAtLeast(320)
                     adsManager.warmUp(context.applicationContext)
+                    adsManager.preloadAllKnownPlacements(context.applicationContext, widthDp)
                 },
                 onSplashFinished = {
                     val targetRoute = when {
@@ -220,7 +225,9 @@ fun AppNavHost(
                     if (activity == null) {
                         openHomeAfterGoal()
                     } else {
-                        adsManager.showInterstitial(activity) { openHomeAfterGoal() }
+                        adScope.launch {
+                            adsManager.showInterstitialWhenReady(activity) { openHomeAfterGoal() }
+                        }
                     }
                 }
             )
@@ -432,7 +439,9 @@ fun AppNavHost(
                     if (activity == null) {
                         popReport()
                     } else {
-                        adsManager.showInterstitial(activity) { popReport() }
+                        adScope.launch {
+                            adsManager.showInterstitialWhenReady(activity) { popReport() }
+                        }
                     }
                 }
             )

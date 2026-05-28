@@ -14,8 +14,7 @@ class FirebaseRemoteConfigRepository(
     private val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig,
 ) : RemoteConfigRepository {
 
-    private val defaults = AdsConfig.defaults()
-    private val mutableAdsConfig = MutableStateFlow(defaults)
+    private val mutableAdsConfig = MutableStateFlow(AdsRemoteConfigDefaults.offlineConfig())
 
     override val adsConfig: StateFlow<AdsConfig> = mutableAdsConfig
 
@@ -25,21 +24,7 @@ class FirebaseRemoteConfigRepository(
                 .setMinimumFetchIntervalInSeconds(0)
                 .build()
         )
-        remoteConfig.setDefaultsAsync(
-            mapOf(
-                RemoteConfigKeys.SHOW_ADS to defaults.showAds,
-                RemoteConfigKeys.USE_TEST_ADS to defaults.useTestAds,
-                RemoteConfigKeys.BANNER_AD to defaults.bannerDefaultId,
-                RemoteConfigKeys.BANNER_HOME to defaults.bannerHomeId,
-                RemoteConfigKeys.INTERSTITIAL_AD to defaults.interstitialId,
-                RemoteConfigKeys.NATIVE_AD to defaults.nativeDefaultId,
-                RemoteConfigKeys.NATIVE_HOME to defaults.nativeHomeId,
-                RemoteConfigKeys.NATIVE_LANGUAGE to defaults.nativeLanguageId,
-                RemoteConfigKeys.NATIVE_ONBOARDING to defaults.nativeOnboardingId,
-                RemoteConfigKeys.APP_OPEN_AD to defaults.appOpenId,
-                RemoteConfigKeys.REWARDED_AD to defaults.rewardedId,
-            )
-        )
+        remoteConfig.setDefaultsAsync(AdsRemoteConfigDefaults.inAppDefaultMap())
     }
 
     override suspend fun refresh(): Result<AdsConfig> = runCatching {
@@ -50,20 +35,18 @@ class FirebaseRemoteConfigRepository(
     private fun readConfig(): AdsConfig = AdsConfig(
         showAds = remoteConfig.getBoolean(RemoteConfigKeys.SHOW_ADS),
         useTestAds = remoteConfig.getBoolean(RemoteConfigKeys.USE_TEST_ADS),
-        bannerDefaultId = remoteString(RemoteConfigKeys.BANNER_AD, defaults.bannerDefaultId),
-        bannerHomeId = remoteString(RemoteConfigKeys.BANNER_HOME, defaults.bannerHomeId),
-        interstitialId = remoteString(RemoteConfigKeys.INTERSTITIAL_AD, defaults.interstitialId),
-        nativeDefaultId = remoteString(RemoteConfigKeys.NATIVE_AD, defaults.nativeDefaultId),
-        nativeHomeId = remoteString(RemoteConfigKeys.NATIVE_HOME, defaults.nativeHomeId),
-        nativeLanguageId = remoteString(RemoteConfigKeys.NATIVE_LANGUAGE, defaults.nativeLanguageId),
-        nativeOnboardingId = remoteString(RemoteConfigKeys.NATIVE_ONBOARDING, defaults.nativeOnboardingId),
-        appOpenId = remoteString(RemoteConfigKeys.APP_OPEN_AD, defaults.appOpenId),
-        rewardedId = remoteString(RemoteConfigKeys.REWARDED_AD, defaults.rewardedId),
+        bannerDefaultId = remoteString(RemoteConfigKeys.BANNER_AD),
+        bannerHomeId = remoteString(RemoteConfigKeys.BANNER_HOME),
+        interstitialId = remoteString(RemoteConfigKeys.INTERSTITIAL_AD),
+        nativeDefaultId = remoteString(RemoteConfigKeys.NATIVE_AD),
+        nativeHomeId = remoteString(RemoteConfigKeys.NATIVE_HOME),
+        nativeLanguageId = remoteString(RemoteConfigKeys.NATIVE_LANGUAGE),
+        nativeOnboardingId = remoteString(RemoteConfigKeys.NATIVE_ONBOARDING),
+        appOpenId = remoteString(RemoteConfigKeys.APP_OPEN_AD),
+        rewardedId = remoteString(RemoteConfigKeys.REWARDED_AD),
     )
 
-    private fun remoteString(key: String, fallback: String): String {
-        return remoteConfig.getString(key).ifBlank { fallback }
-    }
+    private fun remoteString(key: String): String = remoteConfig.getString(key).trim()
 
     private suspend fun fetchAndActivate() {
         suspendCoroutine { continuation ->

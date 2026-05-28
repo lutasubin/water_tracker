@@ -38,8 +38,9 @@ data class AdsConfig(
     fun rewardedUnitId(): String = if (useTestAds) AdsTestIds.REWARDED else rewardedId
 
     companion object {
-        fun defaults(): AdsConfig = AdsConfig(
-            showAds = false,
+        /** Chỉ dùng khi chưa fetch Remote Config (preview/test). */
+        fun legacyDefaults(): AdsConfig = AdsConfig(
+            showAds = true,
             useTestAds = true,
             bannerDefaultId = AdsTestIds.BANNER,
             bannerHomeId = AdsTestIds.BANNER,

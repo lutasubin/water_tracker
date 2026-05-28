@@ -14,10 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import kotlinx.coroutines.delay
 
@@ -33,40 +29,37 @@ fun AppNativeAd(
     val context = LocalContext.current
     var nativeAd by remember(unitId) { mutableStateOf<NativeAd?>(null) }
     var loadState by remember(unitId) { mutableStateOf(AdUiLoadState.Loading) }
-    var retryToken by remember(unitId) { mutableIntStateOf(0) }
-    DisposableEffect(context, unitId, retryToken) {
-        var disposed = false
+    var retryAttempt by remember(unitId) { mutableIntStateOf(0) }
+    LaunchedEffect(unitId, retryAttempt) {
+        val cached = adsManager.takeNative(placement, unitId)
+        if (cached != null) {
+            nativeAd = cached
+            loadState = AdUiLoadState.Loaded
+            return@LaunchedEffect
+        }
         loadState = AdUiLoadState.Loading
-        val adLoader = AdLoader.Builder(context, unitId)
-            .forNativeAd { loadedAd ->
-                if (disposed) {
-                    loadedAd.destroy()
-                    return@forNativeAd
-                }
-                nativeAd?.destroy()
-                nativeAd = loadedAd
+        adsManager.preloadNative(context, placement)
+        repeat(24) {
+            delay(150)
+            val ready = adsManager.takeNative(placement, unitId)
+            if (ready != null) {
+                nativeAd = ready
                 loadState = AdUiLoadState.Loaded
+                return@LaunchedEffect
             }
-            .withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    nativeAd?.destroy()
-                    nativeAd = null
-                    loadState = AdUiLoadState.Failed
-                }
-            })
-            .build()
-        adLoader.loadAd(AdRequest.Builder().build())
+        }
+        loadState = AdUiLoadState.Failed
+    }
+    LaunchedEffect(loadState, retryAttempt) {
+        if (loadState != AdUiLoadState.Failed) return@LaunchedEffect
+        delay(AdsRetryPolicy.delayForAttempt(retryAttempt))
+        retryAttempt++
+    }
+    DisposableEffect(placement, unitId) {
         onDispose {
-            disposed = true
             nativeAd?.destroy()
             nativeAd = null
-        }
-    }
-    LaunchedEffect(loadState, unitId) {
-        if (loadState != AdUiLoadState.Failed) return@LaunchedEffect
-        delay(ADS_RETRY_DELAY_MS)
-        if (loadState == AdUiLoadState.Failed) {
-            retryToken++
+            adsManager.onNativeDisplayed(context, placement, unitId)
         }
     }
     val loadedAd = nativeAd

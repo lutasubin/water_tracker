@@ -4,21 +4,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.LoadAdError
 import kotlinx.coroutines.delay
 
 @Composable
@@ -33,45 +29,40 @@ fun AppBannerAd(
     val context = LocalContext.current
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val adWidth = maxWidth.value.toInt().coerceAtLeast(1)
+        var adView by remember(unitId, adWidth) { mutableStateOf<AdView?>(null) }
         var loadState by remember(unitId, adWidth) { mutableStateOf(AdUiLoadState.Loading) }
-        val adView = remember(unitId, adWidth) {
-            AdView(context).apply {
-                this.adUnitId = unitId
-                setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWidth))
-                adListener = object : AdListener() {
-                    override fun onAdLoaded() {
-                        loadState = AdUiLoadState.Loaded
-                    }
-
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        loadState = AdUiLoadState.Failed
-                    }
+        var retryAttempt by remember(unitId, adWidth) { mutableIntStateOf(0) }
+        LaunchedEffect(unitId, adWidth, retryAttempt) {
+            loadState = AdUiLoadState.Loading
+            adView = adsManager.readyBanner(placement, unitId, adWidth)
+            if (adView != null) {
+                loadState = AdUiLoadState.Loaded
+                return@LaunchedEffect
+            }
+            adsManager.preloadBanner(context, placement, adWidth)
+            repeat(24) {
+                delay(150)
+                val ready = adsManager.readyBanner(placement, unitId, adWidth)
+                if (ready != null) {
+                    adView = ready
+                    loadState = AdUiLoadState.Loaded
+                    return@LaunchedEffect
                 }
             }
-        }
-        LaunchedEffect(adView) {
-            loadState = AdUiLoadState.Loading
-            adView.loadAd(AdRequest.Builder().build())
-        }
-        LaunchedEffect(loadState, adView) {
-            if (loadState != AdUiLoadState.Failed) return@LaunchedEffect
-            delay(ADS_RETRY_DELAY_MS)
-            if (loadState == AdUiLoadState.Failed) {
-                loadState = AdUiLoadState.Loading
-                adView.loadAd(AdRequest.Builder().build())
-            }
-        }
-        DisposableEffect(adView) {
-            onDispose { adView.destroy() }
+            loadState = AdUiLoadState.Failed
+            delay(AdsRetryPolicy.delayForAttempt(retryAttempt))
+            retryAttempt++
         }
         Box(modifier = Modifier.fillMaxWidth()) {
-            if (loadState != AdUiLoadState.Loaded) {
+            if (loadState != AdUiLoadState.Loaded || adView == null) {
                 BannerAdLoadingPlaceholder()
             }
-            AndroidView(
-                modifier = Modifier.fillMaxWidth(),
-                factory = { adView },
-            )
+            adView?.let { view ->
+                AndroidView(
+                    modifier = Modifier.fillMaxWidth(),
+                    factory = { view },
+                )
+            }
         }
     }
 }
