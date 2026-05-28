@@ -119,7 +119,7 @@ fun AppNavHost(
                         else -> AppRoute.Gender.route
                     }
                     val openTargetRoute = {
-                        navGate.run {
+                        navGate.runAfterFullscreenAd {
                             navController.navigate(targetRoute) {
                                 popUpTo(AppRoute.Splash.route) { inclusive = true }
                                 launchSingleTop = true
@@ -208,7 +208,7 @@ fun AppNavHost(
                 onBack = { navGate.run { navController.popBackStack() } },
                 onStartComplete = {
                     val openHomeAfterGoal = {
-                        navGate.run {
+                        navGate.runAfterFullscreenAd {
                             // Xóa cả onboarding (Gender…WaterGoal); chỉ giữ Home — tránh Language pop chồng gọi rơi vào Tall/Weight/…
                             navController.navigate(AppRoute.Home.route) {
                                 popUpTo(AppRoute.Gender.route) { inclusive = true }
@@ -427,7 +427,7 @@ fun AppNavHost(
             ReportScreen(
                 factory = reportViewModelFactory,
                 onBack = {
-                    val popReport = { navGate.run { navController.popBackStack() } }
+                    val popReport = { navGate.runAfterFullscreenAd { navController.popBackStack() } }
                     val activity = context as? Activity
                     if (activity == null) {
                         popReport()

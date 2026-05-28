@@ -28,6 +28,16 @@ class NavActionGate(
             }
         }
     }
+
+    /** Sau inter/app-open: điều hướng đồng bộ trên Main, không chờ settleMs. */
+    fun runAfterFullscreenAd(block: () -> Unit) {
+        if (!mutex.tryLock()) return
+        try {
+            block()
+        } finally {
+            mutex.unlock()
+        }
+    }
 }
 
 @Composable

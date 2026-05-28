@@ -47,13 +47,13 @@ class InterstitialAdController {
         cachedAd = null
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
-                preload(activity.applicationContext, adUnitId)
                 onDismiss()
+                preload(activity.applicationContext, adUnitId)
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: com.google.android.gms.ads.AdError) {
-                preload(activity.applicationContext, adUnitId)
                 onDismiss()
+                preload(activity.applicationContext, adUnitId)
             }
         }
         ad.show(activity)

@@ -67,7 +67,7 @@ class AppOpenAdController {
 
     private fun finishShow(activity: Activity, adUnitId: String, onDismiss: () -> Unit) {
         isShowing = false
-        preload(activity.applicationContext, adUnitId)
         onDismiss()
+        preload(activity.applicationContext, adUnitId)
     }
 }
