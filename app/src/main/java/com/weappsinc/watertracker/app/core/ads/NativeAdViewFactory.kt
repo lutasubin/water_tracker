@@ -1,6 +1,7 @@
 package com.weappsinc.watertracker.app.core.ads
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.Button
@@ -18,12 +19,14 @@ private fun Context.dp(value: Int): Int =
 fun createNativeAdView(context: Context): NativeAdView {
     val badge = TextView(context).apply {
         text = "Ad"
-        setPadding(context.dp(8), context.dp(4), context.dp(8), context.dp(4))
+        textSize = 11f
+        typeface = Typeface.DEFAULT_BOLD
+        setPadding(context.dp(6), context.dp(2), context.dp(6), context.dp(2))
         background = GradientDrawable().apply {
-            cornerRadius = context.dp(8).toFloat()
-            setColor(AppColors.HomeProgressTrack.toArgb())
+            cornerRadius = context.dp(2).toFloat()
+            setColor(AppColors.AdBadgeBackground.toArgb())
         }
-        setTextColor(AppColors.HomePrimary.toArgb())
+        setTextColor(AppColors.AdBadgeText.toArgb())
     }
     val icon = ImageView(context).apply {
         layoutParams = LinearLayout.LayoutParams(

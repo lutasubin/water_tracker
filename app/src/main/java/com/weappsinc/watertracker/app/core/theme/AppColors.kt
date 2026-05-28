@@ -40,6 +40,9 @@ object AppColors {
     val HomeTitle = Color(0xFF1A2B4A)
     val HomeSecondaryText = Color(0xFF5B7CCE)
     val HomeMuted = Color(0xFF8D9BB5)
+    /** Nhãn Ad native — nền/chữ xanh lá đặc theo chuẩn Google, không alpha. */
+    val AdBadgeBackground = Color(0xFFE6F4EA)
+    val AdBadgeText = Color(0xFF188038)
     val HomeCard = Color(0xFFFFFFFF)
     val HomeProgressTrack = Color(0xFFE0E7F5)
     /** Nền trong thanh capsule tiến độ nước (một khối track trắng + fill xanh như mock). */

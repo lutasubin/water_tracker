@@ -1,30 +1,39 @@
-WE App INC ("we", "us", or "our") operates the Water Tracker and Weight Log mobile application. This Privacy Policy explains our policies regarding the collection, use, and disclosure of personal data when you use our Service.
+WE App INC ("we," "us," or "our") operates the Water Tracker & Weight Log mobile application. This Privacy Policy informs you of our policies regarding the collection, use, and disclosure of data when you use our Service.
 
 1. Information Collection and Use
-We do not collect, store, or share any personally identifiable information (PII). Any data you enter into the app, such as weight, height, and water intake, is used solely for providing the app's functionality (BMI calculation and progress tracking).
 
-2. 100% Offline Storage (Local Data)
-No Servers: We do not use external servers or cloud storage (No Firebase, No AWS).
+We collect information to provide and improve our Service:
 
-Local Storage: All your health data is stored locally on your device's internal memory.
+User-Provided Data: Data you manually enter into the app—such as weight, height, and water intake—is stored locally on your device to provide core functionalities like BMI calculation and progress tracking.
 
-Data Control: You have full control over your data. You can edit or delete it anytime by clearing the app data or uninstalling the app.
+Automatically Collected Data: To provide a free service and improve app performance, we integrate third-party services that may automatically collect certain technical information.
 
-3. No Third-Party Services
-No Ads: This version does not contain advertisements (No AdMob).
+2. Third-Party Service Providers
 
-No Analytics: We do not use tracking tools like Google Analytics or Firebase Analytics.
+We work with the following partners to enhance the application:
 
-No Data Sharing: We do not sell or share any user information with third parties.
+Google AdMob: We use AdMob to display advertisements. AdMob may collect device identifiers (such as Advertising ID) to serve personalized ads based on your interests. You can manage your ad preferences in your device settings.
 
-4. GDPR Compliance (Europe)
-For users in the European Economic Area (EEA), we comply with the General Data Protection Regulation (GDPR). Since we do not collect data on servers, your "Right to be Forgotten" and "Right to Access" are managed by you directly on your device.
+Firebase Analytics: We use Firebase Analytics to understand how users interact with our app. This allows us to analyze usage trends, identify technical issues, and improve the overall user experience. Firebase may collect anonymized device and usage information.
 
-5. CCPA/CPRA Compliance (California, USA)
-We do not "sell" or "share" personal information as defined by the California Consumer Privacy Act. We do not collect any identifiers for commercial purposes.
+3. Data Storage and Security
 
-6. COPPA Compliance (Children's Privacy)
-Our Service does not address anyone under the age of 13. We do not knowingly collect personal information from children. All data is processed locally on the user's device without our intervention.
+Local Data: All health-related metrics (weight, height, water intake) are stored locally on your device's internal memory. We do not transmit or store this health data on our own external servers.
 
-7. Contact Us
-If you have any questions, please contact us at: tandungnguyenfb@gmail.com.
+Data Control: You maintain full control over your data. You may edit or delete your information at any time by clearing the app data or uninstalling the application.
+
+4. Compliance and Legal Disclosures
+
+GDPR (European Economic Area): We comply with the General Data Protection Regulation. Where third-party services (AdMob/Firebase) process data, they do so as independent data controllers or processors. You may exercise your rights (Right to Access, Right to be Forgotten) by managing your data locally on your device.
+
+CCPA/CPRA (California, USA): We do not "sell" your personal information. We may share limited device identifiers with our advertising partners for the purpose of delivering relevant ads as permitted under the CCPA.
+
+COPPA (Children's Privacy): Our Service is not directed at children under the age of 13. We do not knowingly collect personal information from children.
+
+5. Changes to This Policy
+
+We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
+
+6. Contact Us
+
+If you have any questions or concerns about this Privacy Policy, please contact us at: tandungnguyenfb@gmail.com.
